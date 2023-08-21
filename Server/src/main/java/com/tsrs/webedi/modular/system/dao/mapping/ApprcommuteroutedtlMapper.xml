@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.ApprcommuteroutedtlMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Apprcommuteroutedtl">
+		<id column="appr_commute_route_id" property="apprCommuteRouteId" />
+		<result column="appr_doc_id" property="apprDocId" />
+		<result column="from_home_line_nm" property="fromHomeLineNm" />
+		<result column="from_home_station_nm" property="fromHomeStationNm" />
+		<result column="to_comp_line_nm" property="toCompLineNm" />
+		<result column="to_comp_station_nm" property="toCompStationNm" />
+		<result column="travel_cost" property="travelCost" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+	<select id="selectApprcommuteroutedtlList" parameterType="java.lang.String"  resultType="map">
+			select
+				 t2.from_home_line_nm
+				 ,t2.from_home_station_nm
+				 ,t2.to_comp_line_nm
+				 ,t2.to_comp_station_nm
+				 ,t2.travel_cost
+			from
+				  apprdoc t1 
+				  inner join apprcommuteroutedtl t2 on t1.appr_doc_id = t2.appr_doc_id
+			where t1.appr_doc_no = #{apprDocNo,jdbcType=VARCHAR}
+	</select>
+</mapper>

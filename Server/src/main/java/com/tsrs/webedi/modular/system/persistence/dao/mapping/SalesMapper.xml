@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.persistence.dao.SalesMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Sales">
+		<id column="sales_id" property="salesId" />
+		<result column="order_hid" property="orderHid" />
+		<result column="order_did" property="orderDid" />
+		<result column="appr_doc_id" property="apprDocId" />
+		<result column="add_up_ym" property="addUpYm" />
+		<result column="add_up_dt" property="addUpDt" />
+		<result column="emp_k" property="empK" />
+		<result column="emp_no" property="empNo" />
+		<result column="emp_nm" property="empNm" />
+		<result column="emp_nm_fuli" property="empNmFuli" />
+		<result column="bussiness_main_user_id" property="bussinessMainUserId" />
+		<result column="sales_remark" property="salesRemark" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+
+</mapper>

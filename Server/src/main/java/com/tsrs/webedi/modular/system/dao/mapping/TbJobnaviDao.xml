@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.TbJobnaviDao">
+
+	
+	<select id="selectJobnaviJobList" resultType="map">
+			select
+			  CONVERT(t.JOB_ID , char) as pj_cd
+			  , t.TITLE as pj_nm
+			  , t.PLACE as work_place
+			  , t.JOB_CATEGORY as pj_class_nm
+			  , t.JOB_CODE as work_content 
+			from
+			  tb_job t 
+			where
+			  t.DELETE_FLAG = '0'
+			  AND t.TITLE IS NOT NULL
+			  AND t.TITLE != ''
+			  AND t.JOB_CATEGORY IS NOT NULL
+			  AND t.JOB_CATEGORY != ''
+			  <if test="pjNm != null and pjNm != ''">
+			  AND t.TITLE like CONCAT('%',#{pjNm},'%')
+			  </if>
+		   order by t.JOB_ID ASC;
+			  
+	</select>
+	
+	<select id="selectJobnaviJob" parameterType="java.lang.String" resultType="hashmap">
+			select
+			  CONVERT(t.JOB_ID , char) as pj_cd
+			  , t.TITLE as pj_nm
+			  , t.PLACE as work_place
+			  , t.JOB_CATEGORY as pj_class_nm
+			  , t.JOB_CODE as work_content 
+			from
+			  tb_job t 
+			where
+			  t.DELETE_FLAG = '0'
+			  AND t.TITLE IS NOT NULL
+			  AND t.TITLE != ''
+			  AND t.JOB_CATEGORY IS NOT NULL
+			  AND t.JOB_CATEGORY != ''
+			  AND t.JOB_ID = #{pjCd};
+			  			  
+	</select>
+	
+	<select id="selectJobnaviCandidateList" parameterType="java.lang.String" resultType="hashmap">
+			select
+			  t.CANDIDATE_NAME as emp_nm
+			  , CONVERT(t.CANDIDATE_ID , char) as emp_no
+			from tb_candidate t
+			<where>
+				<if test="empName != null and empName != ''">
+					t.CANDIDATE_NAME like CONCAT('%',#{empName},'%')
+					OR t.KANA like CONCAT('%',#{empName},'%')
+				</if>
+			</where>
+			ORDER BY t.CANDIDATE_ID ASC
+	</select>
+	
+	<select id="selectJobnaviCandidate" parameterType="java.lang.String" resultType="hashmap">
+		SELECT
+			t.CANDIDATE_NAME AS emp_nm,
+			CONVERT(
+				t.CANDIDATE_ID,
+				CHAR
+			) AS emp_no,
+			t.BIRTHDAY AS emp_birthday,
+			FLOOR( datediff( NOW(), t.BIRTHDAY )/ 365 ) AS emp_age,
+			CASE
+				WHEN t.SEX = '男性' THEN '1'
+				ELSE '2'
+			END AS emp_sex,
+			t.KANA AS emp_nm_fuli,
+			t.STATION AS from_home_station_nm,
+			t.zip AS staff_post_no,
+			CONCAT( t.PREFECTURE, t.ADDRESS ) AS staff_addr,
+			t.EMAIL AS staff_mail_addr,
+			t.TEL AS staff_tel_no,
+			t.PORTABLE AS staff_mobile_no
+		FROM
+			tb_candidate t
+		WHERE
+			t.CANDIDATE_ID = #{empno}
+	</select>
+	
+	<select id="selectJobnaviCompanyList" resultType="map">
+			select
+			   CONVERT(t1.COMPANY_ID , char) as client_no
+			  , t1.COMPANY_FORMAL_NAME as client_nm
+			FROM
+			  tb_company t1 
+			<where>
+			    t1.DELETE_FLAG = 0
+				<if test="categoryId != null and categoryId != ''">
+				  AND t1.CATEGORY_ID = #{categoryId,jdbcType=INTEGER}
+				</if>
+				<if test="clientNm != null and clientNm != ''">
+				  AND( t1.COMPANY_FORMAL_NAME LIKE CONCAT('%',#{clientNm},'%')
+				       OR t1.COMPANY_NAME LIKE CONCAT('%',#{clientNm},'%')
+				      )
+			    </if>
+			</where>
+			ORDER BY t1.COMPANY_ID
+	</select>
+	
+	<select id="selectJobnaviClientInfo" resultType="hashmap">
+		SELECT
+			CONVERT(
+				t1.COMPANY_ID,
+				CHAR
+			) AS client_no,
+			t1.COMPANY_FORMAL_NAME AS client_nm,
+			t1.URL AS client_url,
+			t1.ZIP AS client_post_no,
+			t1.ADDRESS AS client_addr,
+			t1.MAIN_TEL AS client_tel_no,
+			'' AS client_staff_nm,
+			'' AS client_staff_nm_fuli,
+			'' AS client_staff_dept_nm,
+			'' AS client_staff_position,
+			'' AS client_staff_tel_no,
+			'' AS client_staff_fax_no,
+			'' AS client_staff_mobile_no,
+			'' AS client_mail_addr,
+			'' AS client_req_staff_nm,
+			'' AS client_req_staff_nm_fuli,
+			'' AS client_req_staff_dept_nm,
+			'' AS client_req_staff_position,
+			'' AS client_req_tel_no,
+			'' AS client_req_fax_no,
+			'' AS client_req_staff_mobile_no,
+			'' AS client_req_mail_addr,
+			'' AS client_req_post_no,
+			'' AS client_req_addr
+		FROM
+			tb_company t1
+		WHERE
+			t1.COMPANY_ID = #{compayId,jdbcType=VARCHAR}
+			<if test="categoryId != null and categoryId != ''">
+				and t1.CATEGORY_ID = #{categoryId,jdbcType=INTEGER}
+			</if>
+			AND t1.DELETE_FLAG = 0
+		ORDER BY
+			t1.COMPANY_ID
+	</select>
+	
+	<select id="selectJobnaviStaffList" resultType="map">
+				SELECT
+					s1.STAFF_ID AS client_staff_id,
+					s1.STAFF_NAME AS client_staff_nm,
+					s1.STAFF_KANA AS client_staff_nm_fuli,
+					s1.DEPARTMENT AS client_staff_dept_nm,
+					s1.POST AS client_staff_position,
+					s1.TEL AS client_staff_tel_no,
+					s1.FAX AS client_staff_fax_no,
+					s1.PORTABLE AS client_staff_mobile_no,
+					s1.EMAIL AS client_mail_addr,
+					s1.STAFF_ADDRESS AS client_staff_addr,
+					s1.STAFF_ZIP AS client_staff_post_no
+				FROM
+					tb_staff s1
+				WHERE
+					s1.COMPANY_ID = #{compayId,jdbcType=VARCHAR}
+				AND s1.DELETE_FLAG = 0
+				ORDER BY
+					STAFF_ID ASC
+	</select>
+</mapper>

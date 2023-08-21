@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.persistence.dao.OrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Order">
+        <id column="order_id" property="orderId" />
+        <result column="order_no" property="orderNo" />
+        <result column="use_flg" property="useFlg" />
+        <result column="create_dt" property="createDt" />
+        <result column="client_nm" property="clientNm" />
+        <result column="order_amt_without_tax" property="orderAmtWithoutTax" />
+        <result column="work_start_ymd" property="workStartYmd" />
+        <result column="work_end_ymd" property="workEndYmd" />
+        <result column="pj_cd" property="pjCd" />
+        <result column="pj_nm" property="pjNm" />
+        <result column="work_content" property="workContent" />
+        <result column="work_place" property="workPlace" />
+        <result column="order_content" property="orderContent" />
+        <result column="special_affairs" property="specialAffairs" />
+        <result column="payment_cond" property="paymentCond" />
+        <result column="remark" property="remark" />
+        <result column="order_doc_file_id" property="orderDocFileId" />
+        <result column="est_hid" property="estHid" />
+        <result column="sys_ins_user_id" property="sysInsUserId" />
+        <result column="sys_ins_dt" property="sysInsDt" />
+        <result column="sys_ins_pg_id" property="sysInsPgId" />
+        <result column="sys_upd_user_id" property="sysUpdUserId" />
+        <result column="sys_upd_dt" property="sysUpdDt" />
+        <result column="sys_upd_pg_id" property="sysUpdPgId" />
+        <result column="order_amt_with_tax" property="orderAmtWithTax" />
+    </resultMap>
+
+</mapper>

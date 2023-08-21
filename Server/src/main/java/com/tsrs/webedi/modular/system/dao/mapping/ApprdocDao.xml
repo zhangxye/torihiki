@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.ApprdocDao">
+
+	<!-- 通用查询映射结果 -->
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Apprdoc">
+		<id column="appr_doc_id" property="apprDocId" />
+		<result column="appr_doc_no" property="apprDocNo" />
+		<result column="use_flg" property="useFlg" />
+		<result column="appr_doc_dt_from" property="apprDocDtFrom" />
+		<result column="appr_doc_dt_to" property="apprDocDtTo" />
+		<result column="appr_doc_create_k" property="apprDocCreateK" />
+		<result column="appr_doc_create_dt" property="apprDocCreateDt" />
+		<result column="appr_doc_st" property="apprDocSt" />
+		<result column="business_main_user_id" property="businessMainUserId" />
+		<result column="business_sub_user_id" property="businessSubUserId" />
+		<result column="dept_cd" property="deptCd" />
+		<result column="emp_no" property="empNo" />
+		<result column="emp_nm" property="empNm" />
+		<result column="emp_nm_fuli" property="empNmFuli" />
+		<result column="emp_sex" property="empSex" />
+		<result column="emp_birthday" property="empBirthday" />
+		<result column="site_entrance_dt" property="siteEntranceDt" />
+		<result column="entrance_dt" property="entranceDt" />
+		<result column="emp_k" property="empK" />
+		<result column="emp_my_number" property="empMyNumber" />
+		<result column="emp_pat_k" property="empPatK" />
+		<result column="affiliation_k" property="affiliationK" />
+		<result column="entrance_record_k" property="entranceRecordK" />
+		<result column="old_appr_doc_no" property="oldApprDocNo" />
+		<result column="take_over_k" property="takeOverK" />
+		<result column="contract_form_k" property="contractFormK" />
+		<result column="order_recv_hope_dt" property="orderRecvHopeDt" />
+		<result column="from_home_station_nm" property="fromHomeStationNm" />
+		<result column="client_contract_k" property="clientContractK" />
+		<result column="appoint_allow_ratio" property="appointAllowRatio" />
+		<result column="house_allow_ratio" property="houseAllowRatio" />
+		<result column="communication_allow_ratio" property="communicationAllowRatio" />
+		<result column="site_allow_ratio" property="siteAllowRatio" />
+		<result column="overwork_allow_ratio" property="overworkAllowRatio" />
+		<result column="other_allow1_nm" property="otherAllow1Nm" />
+		<result column="other_allow1_ratio" property="otherAllow1Ratio" />
+		<result column="other_allow2_nm" property="otherAllow2Nm" />
+		<result column="other_allow2_ratio" property="otherAllow2Ratio" />
+		<result column="sales_addup_month" property="salesAddupMonth" />
+		<result column="sum_contract_wm" property="sumContractWm" />
+		<result column="work_days" property="workDays" />
+		<result column="billing_month" property="billingMonth" />
+		<result column="sell_price" property="sellPrice" />
+		<result column="business_days" property="businessDays" />
+		<result column="cost_price" property="costPrice" />
+		<result column="sell_price_tax_k" property="sellPriceTaxK" />
+		<result column="cost_price_tax_k" property="costPriceTaxK" />
+		<result column="travel_cost_first_mon" property="travelCostFirstMon" />
+		<result column="other_cost_first_mon" property="otherCostFirstMon" />
+		<result column="travel_cost" property="travelCost" />
+		<result column="insurance_cost" property="insuranceCost" />
+		<result column="other_cost" property="otherCost" />
+		<result column="insurance_k" property="insuranceK" />
+		<result column="insurance_join_y" property="insuranceJoinY" />
+		<result column="insurance_join_ym" property="insuranceJoinYm" />
+		<result column="client_no" property="clientNo" />
+		<result column="client_nm" property="clientNm" />
+		<result column="client_url" property="clientUrl" />
+		<result column="client_my_number" property="clientMyNumber" />
+		<result column="client_post_no" property="clientPostNo" />
+		<result column="client_addr" property="clientAddr" />
+		<result column="client_tel_no" property="clientTelNo" />
+		<result column="client_fax_no" property="clientFaxNo" />
+		<result column="client_staff_nm" property="clientStaffNm" />
+		<result column="client_staff_nm_fuli" property="clientStaffNmFuli" />
+		<result column="client_staff_dept_nm" property="clientStaffDeptNm" />
+		<result column="client_staff_position" property="clientStaffPosition" />
+		<result column="client_staff_tel_no" property="clientStaffTelNo" />
+		<result column="client_staff_fax_no" property="clientStaffFaxNo" />
+		<result column="client_staff_mobile_no" property="clientStaffMobileNo" />
+		<result column="client_mail_addr" property="clientMailAddr" />
+		<result column="client_mail_addr_cc" property="clientMailAddrCc" />
+		<result column="client_req_staff_nm" property="clientReqStaffNm" />
+		<result column="client_req_staff_nm_fuli" property="clientReqStaffNmFuli" />
+		<result column="client_req_staff_dept_nm" property="clientReqStaffDeptNm" />
+		<result column="client_req_staff_position" property="clientReqStaffPosition" />
+		<result column="client_req_tel_no" property="clientReqTelNo" />
+		<result column="client_req_fax_no" property="clientReqFaxNo" />
+		<result column="client_req_staff_mobile_no" property="clientReqStaffMobileNo" />
+		<result column="client_req_mail_addr" property="clientReqMailAddr" />
+		<result column="client_req_mail_addr_cc" property="clientReqMailAddrCc" />
+		<result column="client_order_no" property="clientOrderNo" />
+		<result column="pj_nm" property="pjNm" />
+		<result column="work_place" property="workPlace" />
+		<result column="work_content" property="workContent" />
+		<result column="accounting_pat_k" property="accountingPatK" />
+		<result column="wh_max" property="whMax" />
+		<result column="wh_min" property="whMin" />
+		<result column="wh_mid" property="whMid" />
+		<result column="wh_other" property="whOther" />
+		<result column="excess_price" property="excessPrice" />
+		<result column="deducation_price" property="deducationPrice" />
+		<result column="pj_start_dt" property="pjStartDt" />
+		<result column="pj_end_dt" property="pjEndDt" />
+		<result column="work_time_unit_k" property="workTimeUnitK" />
+		<result column="contract_work_month" property="contractWorkMonth" />
+		<result column="pj_class_nm" property="pjClassNm" />
+		<result column="work_start_time" property="workStartTime" />
+		<result column="work_end_time" property="workEndTime" />
+		<result column="break_time_min" property="breakTimeMin" />
+		<result column="payment_plan_d" property="paymentPlanD" />
+		<result column="payment_due_k" property="paymentDueK" />
+		<result column="pay_month_k" property="payMonthK" />
+		<result column="pay_plan_d" property="payPlanD" />
+		<result column="salary_pay_plan_dt" property="salaryPayPlanDt" />
+		<result column="bp_comp_id" property="bpCompId" />
+		<result column="bp_comp_emp_nm" property="bpCompEmpNm" />
+		<result column="bp_comp_url" property="bpCompUrl" />
+		<result column="bp_my_number" property="bpMyNumber" />
+		<result column="bp_post_no" property="bpPostNo" />
+		<result column="bp_addr" property="bpAddr" />
+		<result column="bp_tel_no" property="bpTelNo" />
+		<result column="bp_fax_no" property="bpFaxNo" />
+		<result column="bp_staff_nm" property="bpStaffNm" />
+		<result column="bp_staff_nm_fuli" property="bpStaffNmFuli" />
+		<result column="bp_staff_dept_nm" property="bpStaffDeptNm" />
+		<result column="bp_staff_position" property="bpStaffPosition" />
+		<result column="bp_staff_tel_no" property="bpStaffTelNo" />
+		<result column="bp_staff_fax_no" property="bpStaffFaxNo" />
+		<result column="bp_staff_mobile_no" property="bpStaffMobileNo" />
+		<result column="bp_staff_mail_addr" property="bpStaffMailAddr" />
+		<result column="bp_staff_mail_addr_cc" property="bpStaffMailAddrCc" />
+		<result column="staff_addr" property="staffAddr" />
+		<result column="staff_post_no" property="staffPostNo" />
+		<result column="staff_mail_addr" property="staffMailAddr" />
+		<result column="staff_tel_no" property="staffTelNo" />
+		<result column="staff_mobile_no" property="staffMobileNo" />
+		<result column="working_pj_no" property="workingPjNo" />
+		<result column="bp_work_content" property="bpWorkContent" />
+		<result column="bp_accounting_pat_k" property="bpAccountingPatK" />
+		<result column="bp_wh_max" property="bpWhMax" />
+		<result column="bp_wh_min" property="bpWhMin" />
+		<result column="bp_wh_mid" property="bpWhMid" />
+		<result column="bp_wh_other" property="bpWhOther" />
+		<result column="bp_excess_price" property="bpExcessPrice" />
+		<result column="bp_deducation_price" property="bpDeducationPrice" />
+		<result column="bp_pj_start_dt" property="bpPjStartDt" />
+		<result column="bp_pj_end_dt" property="bpPjEndDt" />
+		<result column="bp_work_unit_k" property="bpWorkUnitK" />
+		<result column="bp_total_work_month" property="bpTotalWorkMonth" />
+		<result column="bp_pj_class_nm" property="bpPjClassNm" />
+		<result column="bp_work_start_time" property="bpWorkStartTime" />
+		<result column="bp_work_end_time" property="bpWorkEndTime" />
+		<result column="bp_break_time_min" property="bpBreakTimeMin" />
+		<result column="bp_payment_plan_d" property="bpPaymentPlanD" />
+		<result column="bp_payment_due_k" property="bpPaymentDueK" />
+		<result column="bp_pay_month_k" property="bpPayMonthK" />
+		<result column="bp_pay_plan_d" property="bpPayPlanD" />
+		<result column="bp_salary_pay_plan_dt" property="bpSalaryPayPlanDt" />
+		<result column="mon_pro_k" property="monProK" />
+		<result column="work_rep_f" property="workRepF" />
+		<result column="bill_f" property="billF" />
+		<result column="work_rep_dl_k" property="workRepDlK" />
+		<result column="bill_dl_k" property="billDlK" />
+		<result column="mon_attach_file_k" property="monAttachFileK" />
+		<result column="mon_attach_file_id" property="monAttachFileId" />
+		<result column="mon_remark" property="monRemark" />
+		<result column="procedure_method_k" property="procedureMethodK" />
+		<result column="withdrawal_reason_k" property="withdrawalReasonK" />
+		<result column="withdrawal_letter_k" property="withdrawalLetterK" />
+		<result column="insurance_con_k" property="insuranceConK" />
+		<result column="withdrawal_req_doc" property="withdrawalReqDoc" />
+		<result column="procedure_dt" property="procedureDt" />
+		<result column="withdrawal_dt" property="withdrawalDt" />
+		<result column="after_withdrawal_post_no" property="afterWithdrawalPostNo" />
+		<result column="after_withdrawal_addr" property="afterWithdrawalAddr" />
+		<result column="purchase_remark" property="purchaseRemark" />
+		<result column="commercial_dist_remark" property="commercialDistRemark" />
+		<result column="emp_remark" property="empRemark" />
+		<result column="emp_info_chg_flg" property="empInfoChgFlg" />
+		<result column="procedure_k" property="procedureK" />
+		<result column="appoint_allow_amt" property="appointAllowAmt" />
+		<result column="house_allow_amt" property="houseAllowAmt" />
+		<result column="communication_allow_amt" property="communicationAllowAmt" />
+		<result column="site_allow_amt" property="siteAllowAmt" />
+		<result column="overwork_allow_amt" property="overworkAllowAmt" />
+		<result column="other_allow1_amt" property="otherAllow1Amt" />
+		<result column="mon_req_st" property="monReqSt" />
+		<result column="mon_attach_file_remark" property="monAttachFileRemark" />
+		<result column="mon_add_remark" property="monAddRemark" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+
+	<select id="selectEmpHisList" parameterType="java.lang.String"  resultType="map">
+			select
+				  DATE_FORMAT(t1.site_entrance_dt,'%Y-%m-%d') AS  entrance_dt_dlt
+				  , DATE_FORMAT(t1.appr_doc_dt_from,'%Y-%m-%d') AS  appr_doc_dt_from
+				  , DATE_FORMAT(t1.appr_doc_dt_to,'%Y-%m-%d') AS  appr_doc_dt_to
+				  , t1.pj_nm
+				  , t1.work_content 
+			from
+				  apprdoc t1
+			where t1.emp_no = #{empno,jdbcType=VARCHAR}
+			and t1.use_flg ='Y'
+			order by t1.site_entrance_dt
+	</select>
+	<select id="selectEmpHisList2" parameterType="java.lang.String"  resultType="map">
+			select
+				  DATE_FORMAT(t1.site_entrance_dt,'%Y-%m-%d') AS  entrance_dt_dlt
+				  , DATE_FORMAT(t1.appr_doc_dt_from,'%Y-%m-%d') AS  appr_doc_dt_from
+				  , DATE_FORMAT(t1.appr_doc_dt_to,'%Y-%m-%d') AS  appr_doc_dt_to
+				  , t1.pj_nm
+				  , t1.work_content 
+			from
+				  apprdoc t1
+			where  t1.appr_doc_no != #{apprDocNo,jdbcType=VARCHAR}
+			and t1.use_flg ='Y'
+			and exists (select 1 from apprdoc t2 where t1.emp_no = t2.emp_no and t2.appr_doc_no = #{apprDocNo,jdbcType=VARCHAR} and t2.use_flg ='Y')
+			order by t1.site_entrance_dt
+	</select>
+	<select id="selectEmpLastInfo" parameterType="java.lang.String"  resultType="map">
+		select
+		  a.appr_doc_no,
+		  a.appr_doc_create_k ,
+		  a.appr_doc_create_dt ,
+		  a.appr_doc_dt_from,
+		  a.appr_doc_dt_to ,
+		  a.pj_cd ,
+		  a.site_entrance_dt ,
+		  a.entrance_dt ,
+		  a.business_main_user_id ,
+		  a.business_sub_user_id ,
+		  a.emp_nm ,
+		  a.emp_no ,
+		  a.emp_birthday ,
+		  a.emp_nm_fuli ,
+		  a.emp_sex,
+		  a.withdrawal_dt ,
+		  a.from_home_station_nm , 
+		  a.entrance_record_k,
+		  a.emp_my_number ,
+		  a.emp_pat_k ,
+		  a.insurance_k ,
+		  a.insurance_join_ymd ,
+		  a.affiliation_k ,
+		  a.client_no ,
+		  a.client_nm ,
+		  a.client_contract_k , 
+		  a.client_order_no , 
+		  a.order_recv_hope_dt ,
+		  a.take_over_k ,
+		  a.business_days ,
+		  a.work_days ,
+		  a.sum_contract_wm,
+		  a.sales_addup_month ,
+		  a.billing_month ,
+		  a.sell_price ,
+		  a.cost_price ,
+		  a.travel_cost ,
+		  a.travel_cost_first_mon ,
+		  a.insurance_cost ,
+		  a.other_cost ,
+		  a.other_cost_first_mon ,
+		  a.payment_plan_d,
+		  a.bp_payment_plan_d
+	   from apprdoc a
+	   where a.emp_no = #{empno,jdbcType=VARCHAR}
+	   and a.use_flg ='Y'
+	   order by a.site_entrance_dt desc
+	   LIMIT 0, 1
+   </select>
+   <select id="selectApprDocList" resultType="map">
+	   select
+	   a.appr_doc_no
+	   , b1.str_val1 as appr_doc_st
+	   , b.str_val1 as appr_doc_create_k_nm
+	   , date_format(a.appr_doc_create_dt,'%Y-%m-%d') as appr_doc_create_dt
+	   , date_format(a.appr_doc_dt_from,'%Y-%m-%d') as appr_doc_dt_from
+	   , date_format(a.appr_doc_dt_to,'%Y-%m-%d') as appr_doc_dt_to
+	   , a.emp_no
+	   , a.emp_nm
+	   , a.client_no
+	   , a.client_nm
+	   , a.pj_cd
+	   , a.pj_nm
+	   , IF(a.appr_doc_st = '1', 'true', 'false') as del_flg
+	   from
+	   apprdoc a
+	   left join syssetting b
+	   on a.appr_doc_create_k = b.minor_class_cd
+	   and b.sys_cd = 'WEBEDI'
+	   and b.major_class_cd = 'CREATE_K'
+	   left join syssetting b1
+	   on a.appr_doc_st = b1.minor_class_cd
+	   and b1.sys_cd = 'WEBEDI'
+	   and b1.major_class_cd = 'APPR_ST'
+	   <where>
+		   a.use_flg ='Y'
+		   <if test="clientNm != null and clientNm != ''">
+			   and a.client_nm like CONCAT('%',#{clientNm},'%')
+		   </if>
+		   <if test="empNm != null and empNm != ''">
+			   and a.emp_nm like CONCAT('%',#{empNm},'%')
+		   </if>
+		   <if test="apprDocNo != null and apprDocNo != ''">
+			   and a.appr_doc_no like CONCAT(#{apprDocNo},'%')
+		   </if>
+			<if test="deptCd != null and deptCd != ''">
+				and a.dept_cd = #{deptCd}
+			</if>
+			<if test="createDtFr != null and createDtFr != ''">
+				and a.appr_doc_create_dt <![CDATA[>=]]> #{createDtFr}
+			</if>
+			<if test="createDtTo != null and createDtTo != ''">
+				and a.appr_doc_create_dt <![CDATA[<=]]> #{createDtTo}
+			</if>
+			<if test="workMonth != null and workMonth != ''">
+				and date_format(a.appr_doc_dt_from,'%Y-%m') <![CDATA[<=]]> #{workMonth} and date_format(a.appr_doc_dt_to,'%Y-%m')  <![CDATA[>=]]> #{workMonth}
+			</if>
+			<if test="mainUserId != null and mainUserId != ''">
+				and a.business_main_user_id = #{mainUserId} 
+			</if>
+			<if test="arrpDocSt != null and arrpDocSt != ''">
+				and a.appr_doc_st = #{arrpDocSt} 
+			</if>
+			<if test="arrpDocSt == null or arrpDocSt == ''">
+				and a.appr_doc_st != 'A' 
+			</if>
+		</where>
+		order by
+		  a.appr_doc_no desc
+   </select>
+   <select id="selectApprDocInfo"  resultType="map">
+	   select a.appr_doc_id
+			, a.appr_doc_no
+			, a.use_flg
+			, date_format(a.appr_doc_dt_from, '%Y-%m-%d')                 as appr_doc_dt_from
+			, date_format(a.appr_doc_dt_to, '%Y-%m-%d')                   as appr_doc_dt_to
+			, a.appr_doc_create_k
+			, createk.str_val1                                            as appr_doc_create_k_nm
+			, date_format(a.appr_doc_create_dt, '%Y-%m-%d')               as appr_doc_create_dt
+			, a.appr_doc_st
+			, a.business_main_user_id
+			, b.name                                                      as business_main_user_nm
+			, a.business_sub_user_id
+			, c.name                                                      as business_sub_user_nm
+			, a.dept_cd
+			, a.emp_no
+			, a.emp_nm
+			, a.emp_nm_fuli
+			, a.emp_sex
+			, IF(a.emp_sex = '1', '男', '女')                             as emp_sex_nm
+			, date_format(a.emp_birthday, '%Y-%m-%d')                     as emp_birthday
+			, date_format(a.site_entrance_dt, '%Y-%m-%d')                 as site_entrance_dt
+			, date_format(a.entrance_dt, '%Y-%m-%d')                      as entrance_dt
+			, floor(TIMESTAMPDIFF(MONTH, a.emp_birthday, CURDATE()) / 12) as emp_age
+			, a.emp_my_number
+			, a.emp_pat_k
+			, patk.str_val1                                               as emp_pat_k_nm
+			, a.affiliation_k
+			, liationk.str_val1                                           as affiliation_k_nm
+			, a.entrance_record_k
+			, a.old_appr_doc_no
+			, a.take_over_k
+			, overk.str_val1                                              as take_over_k_nm
+			, date_format(a.order_recv_hope_dt, '%Y-%m-%d')               as order_recv_hope_dt
+			, a.from_home_station_nm
+			, a.client_contract_k
+			, contrack.str_val1                                           as client_contract_nm
+			, a.appoint_allow_ratio
+			, a.house_allow_ratio
+			, a.communication_allow_ratio
+			, a.site_allow_ratio
+			, a.overwork_allow_ratio
+			, a.other_allow1_nm
+			, a.other_allow1_ratio
+			, a.other_allow2_nm
+			, a.other_allow2_ratio
+			, date_format(a.sales_addup_month, '%Y-%m')                   as sales_addup_month
+			, a.sum_contract_wm
+			, a.work_days
+			, date_format(a.billing_month, '%Y-%m')                       as billing_month
+			, a.sell_price
+			, a.business_days
+			, a.cost_price
+			, a.travel_cost_first_mon
+			, a.other_cost_first_mon
+			, a.travel_cost
+			, a.insurance_cost
+			, a.other_cost
+			, a.insurance_k
+			, insurancek.str_val1                                         as insurance_k_nm
+			, date_format(a.insurance_join_ymd, '%Y-%m-%d')               as insurance_join_ymd
+			, a.client_no
+			, a.client_nm
+			, a.client_url
+			, a.client_my_number
+			, a.client_post_no
+			, a.client_addr
+			, a.client_tel_no
+			, a.client_fax_no
+			, a.client_staff_nm
+			, a.client_staff_nm_fuli
+			, a.client_staff_dept_nm
+			, a.client_staff_position
+			, a.client_staff_tel_no
+			, a.client_staff_fax_no
+			, a.client_staff_mobile_no
+			, a.client_mail_addr
+			, a.client_mail_addr_cc
+			, a.client_req_staff_nm
+			, a.client_req_staff_nm_fuli
+			, a.client_req_staff_dept_nm
+			, a.client_req_staff_position
+			, a.client_req_tel_no
+			, a.client_req_fax_no
+			, a.client_req_staff_mobile_no
+			, a.client_req_mail_addr
+			, a.client_req_mail_addr_cc
+			, a.client_req_post_no
+			, a.client_req_addr
+			, a.client_order_no
+			, a.pj_cd
+			, a.pj_nm
+			, a.work_place
+			, a.work_content
+			, a.accounting_pat_k
+			, accountk.str_val1                                           as accounting_pat_k_nm
+			, a.salary_pay_k
+			, payk.str_val1                                               as salary_pay_k_nm
+			, a.wh_max
+			, a.wh_min
+			, a.wh_mid
+			, a.excess_price
+			, a.deducation_price
+			, date_format(a.pj_start_dt, '%Y-%m-%d')                      as pj_start_dt
+			, date_format(a.pj_end_dt, '%Y-%m-%d')                        as pj_end_dt
+			, a.work_time_unit_k
+			, unitk.str_val1                                              as work_time_unit_k_nm
+			, a.contract_work_month
+			, a.pj_class_nm
+			, date_format(a.work_start_time, '%H:%i')                     as work_start_time
+			, date_format(a.work_end_time, '%H:%i')                       as work_end_time
+			, a.break_time_min
+			, a.payment_plan_d
+			, a.payment_due_k
+			, duek.str_val1                                               as payment_due_k_nm
+			, a.pay_month_k
+			, paymonthk.str_val1                                          as pay_month_k_nm
+			, a.pay_plan_d
+			, pland.str_val1                                              as pay_plan_d_nm
+			, a.salary_pay_plan_dt
+			, a.bp_comp_id
+			, a.bp_comp_emp_nm
+			, a.bp_comp_url
+			, a.bp_my_number
+			, a.bp_post_no
+			, a.bp_addr
+			, a.bp_tel_no
+			, a.bp_fax_no
+			, a.bp_staff_nm
+			, a.bp_staff_nm_fuli
+			, a.bp_staff_dept_nm
+			, a.bp_staff_position
+			, a.bp_staff_tel_no
+			, a.bp_staff_fax_no
+			, a.bp_staff_mobile_no
+			, a.bp_staff_mail_addr
+			, a.bp_staff_mail_addr_cc
+			, a.staff_addr
+			, a.staff_post_no
+			, a.staff_mail_addr
+			, a.staff_tel_no
+			, a.staff_mobile_no
+			, a.bp_accounting_pat_k
+			, a.bp_salary_pay_k
+			, bpaccountk.str_val1                                         as bp_accounting_pat_k_nm
+			, bppayk.str_val1                                             as bp_salary_pay_k_nm
+			, a.bp_wh_max
+			, a.bp_wh_min
+			, a.bp_wh_mid
+			, a.bp_excess_price
+			, a.bp_deducation_price
+			, a.bp_work_unit_k
+			, bpunitk.str_val1                                            as bp_work_unit_k_nm
+			, date_format(a.bp_work_start_time, '%H:%i')                  as bp_work_start_time
+			, date_format(a.bp_work_end_time, '%H:%i')                    as bp_work_end_time
+			, a.bp_break_time_min
+			, a.bp_payment_plan_d
+			, a.bp_payment_due_k
+			, bpduek.str_val1                                             as bp_payment_due_k_nm
+			, a.bp_pay_month_k
+			, bppaymonthk.str_val1                                        as bp_pay_month_k_nm
+			, a.bp_pay_plan_d
+			, bppland.str_val1                                            as bp_pay_plan_d_nm
+			, date_format(a.bp_salary_pay_plan_dt, '%Y-%m-%d')            as bp_salary_pay_plan_dt
+			, a.mon_pro_k
+			, monprok.str_val1                                            as mon_pro_k_nm
+			, a.work_rep_f
+			, workrepf.str_val1                                           as work_rep_f_nm
+			, a.bill_f
+			, billf.str_val1                                              as bill_f_nm
+			, a.work_rep_dl_k
+			, repdlk.str_val1                                             as work_rep_dl_k_nm
+			, a.bill_dl_k
+			, billdlk.str_val1                                            as bill_dl_k_nm
+			, a.mon_attach_file_k
+			, filek.str_val1                                              as mon_attach_file_k_nm
+			, a.mon_attach_file_id
+			, a.procedure_method_k
+			, procedureMethodK.str_val1                                   as procedure_method_k_nm
+			, a.withdrawal_reason_k
+			, reasonk.str_val1                                            as withdrawal_reason_k_nm
+			, a.withdrawal_letter_k
+			, letterk.str_val1                                            as withdrawal_letter_k_nm
+			, a.insurance_con_k
+			, insuconk.str_val1                                           as insurance_con_k_nm
+			, a.withdrawal_req_doc
+			, reqdoc.str_val1                                             as withdrawal_req_doc_nm
+			, date_format(a.procedure_dt, '%Y-%m-%d')                     as procedure_dt
+			, date_format(a.withdrawal_dt, '%Y-%m-%d')                    as withdrawal_dt
+			, a.after_withdrawal_post_no
+			, a.after_withdrawal_addr
+			, a.purchase_remark
+			, a.commercial_dist_remark
+			, a.emp_remark
+			, a.emp_info_chg_flg
+			, empInfoChgFlg.str_val1                                      as emp_info_chg_flg_nm
+			, a.procedure_k
+			, procedureK.str_val1                                         as procedure_k_nm
+			, a.appoint_allow_amt
+			, a.house_allow_amt
+			, a.communication_allow_amt
+			, a.site_allow_amt
+			, a.overwork_allow_amt
+			, a.other_allow1_amt
+			, a.other_allow2_amt
+			, a.sys_ins_user_id
+			, a.sys_ins_dt
+			, a.sys_ins_pg_id
+			, a.sys_upd_user_id
+			, a.sys_upd_dt
+			, a.sys_upd_pg_id
+			, commu.day_travel_cost
+			, commu.month_pass_travel_cost
+			, commu.pay_travel_costa_max
+			, commu.rount_dlt_content
+			, (select sum(d.travel_cost)
+			   from apprcommuteroutedtl d
+			   where d.appr_doc_id = a.appr_doc_id)                       as travel_cost_sum
+			, a.mon_req_st
+			, a.mon_attach_file_remark
+			, a.mon_add_remark
+	   from apprdoc a
+				left join user b
+						  on a.business_main_user_id = b.account
+				left join user c
+						  on a.business_sub_user_id = c.account
+				left join apprcommuteroutehdr commu
+						  on a.appr_doc_id = commu.appr_doc_id
+				left join syssetting createk
+						  on a.appr_doc_create_k = createk.minor_class_cd
+							  and createk.sys_cd = 'WEBEDI'
+							  and createk.major_class_cd = 'CREATE_K'
+				left join syssetting patk
+						  on a.emp_pat_k = patk.minor_class_cd
+							  and patk.sys_cd = 'WEBEDI'
+							  and patk.major_class_cd = 'PAT_K'
+				left join syssetting liationk
+						  on a.affiliation_k = liationk.minor_class_cd
+							  and liationk.sys_cd = 'WEBEDI'
+							  and liationk.major_class_cd = 'LIATION_K'
+				left join syssetting overk
+						  on a.take_over_k = overk.minor_class_cd
+							  and overk.sys_cd = 'WEBEDI'
+							  and overk.major_class_cd = 'OVER_K'
+				left join syssetting contrack
+						  on a.client_contract_k = contrack.minor_class_cd
+							  and contrack.sys_cd = 'WEBEDI'
+							  and contrack.major_class_cd = 'CONTRACT_K'
+				left join syssetting insurancek
+						  on a.insurance_k = insurancek.minor_class_cd
+							  and insurancek.sys_cd = 'WEBEDI'
+							  and insurancek.major_class_cd = 'INSURANCEK'
+				left join syssetting accountk
+						  on a.accounting_pat_k = accountk.minor_class_cd
+							  and accountk.sys_cd = 'WEBEDI'
+							  and accountk.major_class_cd = 'ACCOUNT_K'
+				left join syssetting payk
+						  on a.salary_pay_k = payk.minor_class_cd
+							  and payk.sys_cd = 'WEBEDI'
+							  and payk.major_class_cd = 'PAY_K'
+				left join syssetting unitk
+						  on a.work_time_unit_k = unitk.minor_class_cd
+							  and unitk.sys_cd = 'WEBEDI'
+							  and unitk.major_class_cd = 'UNIT_K'
+				left join syssetting duek
+						  on a.payment_due_k = duek.minor_class_cd
+							  and duek.sys_cd = 'WEBEDI'
+							  and duek.major_class_cd = 'DUE_K'
+				left join syssetting pland
+						  on a.pay_plan_d = pland.minor_class_cd
+							  and pland.sys_cd = 'WEBEDI'
+							  and pland.major_class_cd = 'DUE_K'
+				left join syssetting paymonthk
+						  on a.pay_month_k = paymonthk.minor_class_cd
+							  and paymonthk.sys_cd = 'WEBEDI'
+							  and paymonthk.major_class_cd = 'PAYMONTHK'
+				left join syssetting monprok
+						  on a.mon_pro_k = monprok.minor_class_cd
+							  and monprok.sys_cd = 'WEBEDI'
+							  and monprok.major_class_cd = 'MON_PRO_K'
+				left join syssetting workrepf
+						  on a.work_rep_f = workrepf.minor_class_cd
+							  and workrepf.sys_cd = 'WEBEDI'
+							  and workrepf.major_class_cd = 'WORK_REP_F'
+				left join syssetting billf
+						  on a.bill_f = billf.minor_class_cd
+							  and billf.sys_cd = 'WEBEDI'
+							  and billf.major_class_cd = 'BILL_F'
+				left join syssetting repdlk
+						  on a.work_rep_dl_k = repdlk.minor_class_cd
+							  and repdlk.sys_cd = 'WEBEDI'
+							  and repdlk.major_class_cd = 'REP_DL_K'
+				left join syssetting billdlk
+						  on a.bill_dl_k = billdlk.minor_class_cd
+							  and billdlk.sys_cd = 'WEBEDI'
+							  and billdlk.major_class_cd = 'BILL_DL_K'
+				left join syssetting filek
+						  on a.mon_attach_file_k = filek.minor_class_cd
+							  and filek.sys_cd = 'WEBEDI'
+							  and filek.major_class_cd = 'FILE_K'
+				left join syssetting procedureMethodK
+						  on a.procedure_method_k = procedureMethodK.minor_class_cd
+							  and procedureMethodK.sys_cd = 'WEBEDI'
+							  and procedureMethodK.major_class_cd = 'PROCEDUREK'
+				left join syssetting reasonk
+						  on a.withdrawal_reason_k = reasonk.minor_class_cd
+							  and reasonk.sys_cd = 'WEBEDI'
+							  and reasonk.major_class_cd = 'REASON_K'
+				left join syssetting letterk
+						  on a.withdrawal_letter_k = letterk.minor_class_cd
+							  and letterk.sys_cd = 'WEBEDI'
+							  and letterk.major_class_cd = 'LETTER_K'
+				left join syssetting insuconk
+						  on a.insurance_con_k = insuconk.minor_class_cd
+							  and insuconk.sys_cd = 'WEBEDI'
+							  and insuconk.major_class_cd = 'INSU_CON_K'
+				left join syssetting reqdoc
+						  on a.withdrawal_req_doc = reqdoc.minor_class_cd
+							  and reqdoc.sys_cd = 'WEBEDI'
+							  and reqdoc.major_class_cd = 'REQ_DOC'
+				left join syssetting bpaccountk
+						  on a.bp_accounting_pat_k = bpaccountk.minor_class_cd
+							  and bpaccountk.sys_cd = 'WEBEDI'
+							  and bpaccountk.major_class_cd = 'ACCOUNT_K'
+				left join syssetting bppayk
+						  on a.bp_salary_pay_k = bppayk.minor_class_cd
+							  and bppayk.sys_cd = 'WEBEDI'
+							  and bppayk.major_class_cd = 'PAY_K'
+				left join syssetting bpunitk
+						  on a.bp_work_unit_k = bpunitk.minor_class_cd
+							  and bpunitk.sys_cd = 'WEBEDI'
+							  and bpunitk.major_class_cd = 'UNIT_K'
+				left join syssetting bpduek
+						  on a.bp_payment_due_k = bpduek.minor_class_cd
+							  and bpduek.sys_cd = 'WEBEDI'
+							  and bpduek.major_class_cd = 'DUE_K'
+				left join syssetting bppland
+						  on a.bp_pay_plan_d = bppland.minor_class_cd
+							  and bppland.sys_cd = 'WEBEDI'
+							  and bppland.major_class_cd = 'DUE_K'
+				left join syssetting bppaymonthk
+						  on a.bp_pay_month_k = bppaymonthk.minor_class_cd
+							  and bppaymonthk.sys_cd = 'WEBEDI'
+							  and bppaymonthk.major_class_cd = 'PAYMONTHK'
+				left join syssetting empInfoChgFlg
+						  on a.emp_info_chg_flg = empInfoChgFlg.minor_class_cd
+							  and empInfoChgFlg.sys_cd = 'WEBEDI'
+							  and empInfoChgFlg.major_class_cd = 'CHG_FLG'
+				left join syssetting procedureK
+						  on a.procedure_k = procedureK.minor_class_cd
+							  and procedureK.sys_cd = 'WEBEDI'
+							  and procedureK.major_class_cd = 'PRO_K'
+	   where a.appr_doc_no = #{apprDocNo}
+		 and a.use_flg = 'Y'
+   </select>
+   <select id="selectApprDocPrevInfo"  resultType="map">
+  	 select
+			a.appr_doc_id
+		  , a.appr_doc_no
+		  , a.use_flg
+		  , date_format(a.appr_doc_dt_from,'%Y-%m-%d') as appr_doc_dt_from
+		  , date_format(a.appr_doc_dt_to,'%Y-%m-%d') as appr_doc_dt_to
+		  , a.appr_doc_create_k
+		  , date_format(a.appr_doc_create_dt,'%Y-%m-%d') as appr_doc_create_dt
+		  , a.appr_doc_st
+		  , a.business_main_user_id
+		  , a.business_sub_user_id
+		  , a.dept_cd
+		  , a.emp_no
+		  , a.emp_nm
+		  , a.emp_nm_fuli
+		  , a.emp_sex
+		  , date_format(a.emp_birthday,'%Y-%m-%d') as emp_birthday
+		  , date_format(a.site_entrance_dt,'%Y-%m-%d') as site_entrance_dt
+		  , date_format(a.entrance_dt,'%Y-%m-%d') as entrance_dt
+		  , a.emp_my_number
+		  , a.emp_pat_k
+		  , a.affiliation_k
+		  , a.entrance_record_k
+		  , a.old_appr_doc_no
+		  , a.take_over_k
+		  , date_format(a.order_recv_hope_dt,'%Y-%m-%d') as order_recv_hope_dt
+		  , a.from_home_station_nm
+		  , a.client_contract_k
+		  , a.appoint_allow_ratio
+		  , a.house_allow_ratio
+		  , a.communication_allow_ratio
+		  , a.site_allow_ratio
+		  , a.overwork_allow_ratio
+		  , a.other_allow1_nm
+		  , a.other_allow1_ratio
+		  , a.other_allow2_nm
+		  , a.other_allow2_ratio
+		  , a.sales_addup_month
+		  , a.work_days
+		  , a.sum_contract_wm
+		  , a.billing_month
+		  , a.sell_price
+		  , a.business_days
+		  , a.cost_price
+		  , a.travel_cost_first_mon
+		  , a.other_cost_first_mon
+		  , a.travel_cost
+		  , a.insurance_cost
+		  , a.other_cost
+		  , a.insurance_k
+		  , date_format(a.insurance_join_ymd,'%Y-%m-%d') as insurance_join_ymd
+		  , a.client_no
+		  , a.client_nm
+		  , a.client_url
+		  , a.client_my_number
+		  , a.client_post_no
+		  , a.client_addr
+		  , a.client_tel_no
+		  , a.client_fax_no
+		  , a.client_staff_nm
+		  , a.client_staff_nm_fuli
+		  , a.client_staff_dept_nm
+		  , a.client_staff_position
+		  , a.client_staff_tel_no
+		  , a.client_staff_fax_no
+		  , a.client_staff_mobile_no
+		  , a.client_mail_addr
+		  , a.client_mail_addr_cc
+		  , a.client_req_staff_nm
+		  , a.client_req_staff_nm_fuli
+		  , a.client_req_staff_dept_nm
+		  , a.client_req_staff_position
+		  , a.client_req_tel_no
+		  , a.client_req_fax_no
+		  , a.client_req_staff_mobile_no
+		  , a.client_req_mail_addr
+		  , a.client_req_mail_addr_cc
+		  , a.client_req_post_no
+		  , a.client_req_addr
+		  , a.client_order_no
+		  , a.pj_cd
+		  , a.pj_nm
+		  , a.work_place
+		  , a.work_content
+		  , a.accounting_pat_k
+		  , a.salary_pay_k
+		  , a.wh_max
+		  , a.wh_min
+		  , a.wh_mid
+		  , a.excess_price
+		  , a.deducation_price
+		  , date_format(a.pj_start_dt,'%Y-%m-%d') as pj_start_dt
+		  , date_format(a.pj_end_dt,'%Y-%m-%d') as pj_end_dt
+		  , a.work_time_unit_k
+		  , a.contract_work_month
+		  , a.pj_class_nm
+		  , date_format(a.work_start_time,'%H:%i') as work_start_time
+		  , date_format(a.work_end_time,'%H:%i') as work_end_time
+		  , a.break_time_min
+		  , a.payment_plan_d
+		  , a.payment_due_k
+		  , a.pay_month_k
+		  , a.pay_plan_d
+		  , a.salary_pay_plan_dt
+		  , a.bp_comp_id
+		  , a.bp_comp_emp_nm
+		  , a.bp_comp_url
+		  , a.bp_my_number
+		  , a.bp_post_no
+		  , a.bp_addr
+		  , a.bp_tel_no
+		  , a.bp_fax_no
+		  , a.bp_staff_nm
+		  , a.bp_staff_nm_fuli
+		  , a.bp_staff_dept_nm
+		  , a.bp_staff_position
+		  , a.bp_staff_tel_no
+		  , a.bp_staff_fax_no
+		  , a.bp_staff_mobile_no
+		  , a.bp_staff_mail_addr
+		  , a.bp_staff_mail_addr_cc
+		  , a.staff_addr
+		  , a.staff_post_no
+		  , a.staff_mail_addr
+		  , a.staff_tel_no
+		  , a.staff_mobile_no
+		  , a.bp_accounting_pat_k
+		  , a.bp_salary_pay_k
+		  , a.bp_wh_max
+		  , a.bp_wh_min
+		  , a.bp_wh_mid
+		  , a.bp_excess_price
+		  , a.bp_deducation_price
+		  , a.bp_work_unit_k
+		  , date_format(a.bp_work_start_time,'%H:%i') as bp_work_start_time
+		  , date_format(a.bp_work_end_time,'%H:%i') as bp_work_end_time
+		  , a.bp_break_time_min
+		  , a.bp_payment_plan_d
+		  , a.bp_payment_due_k
+		  , a.bp_pay_month_k
+		  , a.bp_pay_plan_d
+		  , date_format(a.bp_salary_pay_plan_dt,'%Y-%m-%d') as bp_salary_pay_plan_dt
+		  , a.mon_pro_k
+		  , a.work_rep_f
+		  , a.bill_f
+		  , a.work_rep_dl_k
+		  , a.bill_dl_k
+		  , a.mon_attach_file_k
+		  , a.mon_attach_file_id
+		  , a.procedure_method_k
+		  , a.withdrawal_reason_k
+		  , a.withdrawal_letter_k
+		  , a.insurance_con_k
+		  , a.withdrawal_req_doc
+		  , date_format(a.procedure_dt,'%Y-%m-%d') as procedure_dt
+		  , date_format(a.withdrawal_dt,'%Y-%m-%d') as withdrawal_dt
+		  , a.after_withdrawal_post_no
+		  , a.after_withdrawal_addr
+		  , a.purchase_remark
+		  , a.commercial_dist_remark
+		  , a.emp_remark
+		  , a.emp_info_chg_flg
+		  , a.procedure_k		  
+		  , a.appoint_allow_amt
+		  , a.house_allow_amt
+		  , a.communication_allow_amt
+		  , a.site_allow_amt
+		  , a.overwork_allow_amt
+		  , a.other_allow1_amt
+		  , a.other_allow2_amt
+		  , a.sys_ins_user_id
+		  , a.sys_ins_dt
+		  , a.sys_ins_pg_id
+		  , a.sys_upd_user_id
+		  , a.sys_upd_dt
+		  , a.sys_upd_pg_id 
+		from
+		  apprdoc a
+		where
+		exists(select 1 from apprdoc b where a.appr_doc_no = b.old_appr_doc_no and b.appr_doc_no = #{apprDocNo} and b.use_flg ='Y')
+		and a.use_flg ='Y'
+		order by a.site_entrance_dt desc
+	    LIMIT 0, 1
+   </select>
+	<select id="selectApprDocInfo2" resultType="map">
+		select a.appr_doc_id
+			 , a.appr_doc_no
+			 , a.use_flg
+			 , a.appr_doc_dt_from
+			 , a.appr_doc_dt_to
+			 , a.appr_doc_create_k
+			 , a.appr_doc_create_dt
+			 , a.appr_doc_st
+			 , a.business_main_user_id
+			 , a.business_sub_user_id
+			 , a.dept_cd
+			 , a.emp_no
+			 , a.emp_nm
+			 , a.emp_nm_fuli
+			 , a.emp_sex
+			 , IF(a.emp_sex = 'M', '男', '女')                             as emp_sex_nm
+			 , a.emp_birthday
+			 , floor(TIMESTAMPDIFF(MONTH, a.emp_birthday, CURDATE()) / 12) as emp_age
+			 , a.site_entrance_dt
+			 , a.entrance_dt
+			 , a.emp_my_number
+			 , a.emp_pat_k
+			 , a.affiliation_k
+			 , a.entrance_record_k
+			 , a.old_appr_doc_no
+			 , a.take_over_k
+			 , a.order_recv_hope_dt
+			 , a.from_home_station_nm
+			 , a.client_contract_k
+			 , a.appoint_allow_ratio
+			 , a.house_allow_ratio
+			 , a.communication_allow_ratio
+			 , a.site_allow_ratio
+			 , a.overwork_allow_ratio
+			 , a.other_allow1_nm
+			 , a.other_allow1_ratio
+			 , a.other_allow2_nm
+			 , a.other_allow2_ratio
+			 , a.sales_addup_month
+			 , a.work_days
+			 , a.sum_contract_wm
+			 , a.billing_month
+			 , a.sell_price
+			 , a.business_days
+			 , a.cost_price
+			 , a.travel_cost_first_mon
+			 , a.other_cost_first_mon
+			 , a.travel_cost
+			 , a.insurance_cost
+			 , a.other_cost
+			 , a.insurance_k
+			 , a.insurance_join_ymd
+			 , a.client_no
+			 , a.client_nm
+			 , a.client_url
+			 , a.client_my_number
+			 , a.client_post_no
+			 , a.client_addr
+			 , a.client_tel_no
+			 , a.client_fax_no
+			 , a.client_staff_nm
+			 , a.client_staff_nm_fuli
+			 , a.client_staff_dept_nm
+			 , a.client_staff_position
+			 , a.client_staff_tel_no
+			 , a.client_staff_fax_no
+			 , a.client_staff_mobile_no
+			 , a.client_mail_addr
+			 , a.client_mail_addr_cc
+			 , a.client_req_staff_nm
+			 , a.client_req_staff_nm_fuli
+			 , a.client_req_staff_dept_nm
+			 , a.client_req_staff_position
+			 , a.client_req_tel_no
+			 , a.client_req_fax_no
+			 , a.client_req_staff_mobile_no
+			 , a.client_req_mail_addr
+			 , a.client_req_mail_addr_cc
+			 , a.client_req_post_no
+			 , a.client_req_addr
+			 , a.client_order_no
+			 , a.pj_cd
+			 , a.pj_nm
+			 , a.work_place
+			 , a.work_content
+			 , a.accounting_pat_k
+			 , a.salary_pay_k
+			 , a.wh_max
+			 , a.wh_min
+			 , a.wh_mid
+			 , a.excess_price
+			 , a.deducation_price
+			 , a.pj_start_dt
+			 , a.pj_end_dt
+			 , a.work_time_unit_k
+			 , a.contract_work_month
+			 , a.pj_class_nm
+			 , a.work_start_time
+			 , a.work_end_time
+			 , a.break_time_min
+			 , CAST(a.payment_plan_d as char)                              as payment_plan_d
+			 , a.payment_due_k
+			 , a.pay_month_k
+			 , a.pay_plan_d
+			 , a.salary_pay_plan_dt
+			 , a.bp_comp_id
+			 , a.bp_comp_emp_nm
+			 , a.bp_comp_url
+			 , a.bp_my_number
+			 , a.bp_post_no
+			 , a.bp_addr
+			 , a.bp_tel_no
+			 , a.bp_fax_no
+			 , a.bp_staff_nm
+			 , a.bp_staff_nm_fuli
+			 , a.bp_staff_dept_nm
+			 , a.bp_staff_position
+			 , a.bp_staff_tel_no
+			 , a.bp_staff_fax_no
+			 , a.bp_staff_mobile_no
+			 , a.bp_staff_mail_addr
+			 , a.bp_staff_mail_addr_cc
+			 , a.staff_addr
+			 , a.staff_post_no
+			 , a.staff_mail_addr
+			 , a.staff_tel_no
+			 , a.staff_mobile_no
+			 , a.bp_accounting_pat_k
+			 , a.bp_salary_pay_k
+			 , a.bp_wh_max
+			 , a.bp_wh_min
+			 , a.bp_wh_mid
+			 , a.bp_excess_price
+			 , a.bp_deducation_price
+			 , a.bp_work_unit_k
+			 , a.bp_work_start_time
+			 , a.bp_work_end_time
+			 , a.bp_break_time_min
+			 , CAST(a.bp_payment_plan_d as char)                           as bp_payment_plan_d
+			 , a.bp_payment_due_k
+			 , a.bp_pay_month_k
+			 , a.bp_pay_plan_d
+			 , a.bp_salary_pay_plan_dt
+			 , a.mon_pro_k
+			 , a.work_rep_f
+			 , a.bill_f
+			 , a.work_rep_dl_k
+			 , a.bill_dl_k
+			 , a.mon_attach_file_k
+			 , filek.str_val1                                              as mon_attach_file_k_nm
+			 , a.mon_attach_file_id
+			 , a.procedure_method_k
+			 , a.withdrawal_reason_k
+			 , a.withdrawal_letter_k
+			 , a.insurance_con_k
+			 , a.withdrawal_req_doc
+			 , a.procedure_dt
+			 , a.withdrawal_dt
+			 , a.after_withdrawal_post_no
+			 , a.after_withdrawal_addr
+			 , a.purchase_remark
+			 , a.commercial_dist_remark
+			 , a.emp_remark
+			 , a.emp_info_chg_flg
+			 , a.procedure_k
+			 , a.appoint_allow_amt
+			 , a.house_allow_amt
+			 , a.communication_allow_amt
+			 , a.site_allow_amt
+			 , a.overwork_allow_amt
+			 , a.other_allow1_amt
+			 , a.other_allow2_amt
+			 , a.sys_ins_user_id
+			 , a.sys_ins_dt
+			 , a.sys_ins_pg_id
+			 , a.sys_upd_user_id
+			 , a.sys_upd_dt
+			 , a.sys_upd_pg_id
+			 , a.mon_req_st
+			 , a.mon_attach_file_remark
+			 , a.mon_add_remark
+		from apprdoc a
+				 left join syssetting filek
+						   on a.mon_attach_file_k = filek.minor_class_cd
+							   and filek.sys_cd = 'WEBEDI'
+							   and filek.major_class_cd = 'FILE_K'
+		where a.appr_doc_no = #{apprDocNo}
+		  and a.use_flg = 'Y'
+	</select>
+   
+   
+   <select id="searchForMonReqList"  resultType="map">
+		SELECT
+			a.appr_doc_id ,
+			a.appr_doc_no ,
+			a.appr_doc_st ,
+			apprst.str_val1 AS appr_doc_st_nm ,
+			a.appr_doc_create_k ,
+			createk.str_val1 AS appr_doc_create_k_nm ,
+			DATE_FORMAT( a.appr_doc_create_dt, '%Y-%m-%d' ) AS appr_doc_create_dt ,
+			DATE_FORMAT( a.appr_doc_dt_from, '%Y-%m-%d' ) AS appr_doc_dt_from ,
+			DATE_FORMAT( a.appr_doc_dt_to, '%Y-%m-%d' ) AS appr_doc_dt_to ,
+			a.emp_no ,
+			a.emp_nm ,
+			a.client_no ,
+			a.client_nm ,
+			a.client_url ,
+			a.client_my_number ,
+			a.client_post_no ,
+			a.client_addr ,
+			a.client_tel_no ,
+			a.client_fax_no ,
+			a.client_staff_nm ,
+			a.client_staff_nm_fuli ,
+			a.client_staff_dept_nm ,
+			a.client_staff_position ,
+			a.client_staff_tel_no ,
+			a.client_staff_fax_no ,
+			a.client_staff_mobile_no ,
+			a.client_mail_addr ,
+			a.client_mail_addr_cc ,
+			a.client_req_staff_nm ,
+			a.client_req_staff_nm_fuli ,
+			a.client_req_staff_dept_nm ,
+			a.client_req_staff_position ,
+			a.client_req_tel_no ,
+			a.client_req_fax_no ,
+			a.client_req_staff_mobile_no ,
+			a.client_req_mail_addr ,
+			a.client_req_mail_addr_cc ,
+			a.client_req_post_no ,
+			a.client_req_addr ,
+			a.client_order_no,
+			a.pj_cd ,
+			a.pj_nm ,
+			a.mon_req_st ,
+			IFNULL(monreqst.str_val1,'') AS mon_req_st_nm ,
+			a.mon_attach_file_remark ,
+			a.mon_add_remark ,
+			a.mon_pro_k ,
+			monprok.str_val1 AS mon_pro_k_nm ,
+			a.work_rep_f ,
+			workrepf.str_val1 AS work_rep_f_nm ,
+			a.bill_f ,
+			billf.str_val1 AS bill_f_nm ,
+			a.work_rep_dl_k ,
+			repdlk.str_val1 AS work_rep_dl_k_nm ,
+			a.bill_dl_k ,
+			billdlk.str_val1 AS bill_dl_k_nm ,
+			a.emp_pat_k,
+			patk.str_val1 AS emp_pat_k_nm,
+			a.business_main_user_id ,
+			a.client_contract_k,
+			contrack.str_val1 AS client_contract_k_nm,
+			a.mon_attach_file_k,
+			filek.str_val1 AS mon_attach_file_k_nm,
+			bussmainuser.name AS business_main_user_nm,
+			'N' AS edit_f
+		FROM
+			apprdoc a
+		LEFT JOIN syssetting apprst ON
+			a.appr_doc_st = apprst.minor_class_cd
+			AND apprst.sys_cd = 'WEBEDI'
+			AND apprst.major_class_cd = 'APPR_ST'
+		LEFT JOIN syssetting createk ON
+			a.appr_doc_create_k = createk.minor_class_cd
+			AND createk.sys_cd = 'WEBEDI'
+			AND createk.major_class_cd = 'CREATE_K'
+		LEFT JOIN syssetting monreqst ON
+			a.mon_req_st = monreqst.minor_class_cd
+			AND monreqst.sys_cd = 'WEBEDI'
+			AND monreqst.major_class_cd = 'MON_REQ_ST'
+		LEFT JOIN syssetting monprok ON
+			a.mon_pro_k = monprok.minor_class_cd
+			AND monprok.sys_cd = 'WEBEDI'
+			AND monprok.major_class_cd = 'MON_PRO_K'
+		LEFT JOIN syssetting workrepf ON
+			a.work_rep_f = workrepf.minor_class_cd
+			AND workrepf.sys_cd = 'WEBEDI'
+			AND workrepf.major_class_cd = 'WORK_REP_F'
+		LEFT JOIN syssetting billf ON
+			a.bill_f = billf.minor_class_cd
+			AND billf.sys_cd = 'WEBEDI'
+			AND billf.major_class_cd = 'BILL_F'
+		LEFT JOIN syssetting repdlk ON
+			a.work_rep_dl_k = repdlk.minor_class_cd
+			AND repdlk.sys_cd = 'WEBEDI'
+			AND repdlk.major_class_cd = 'REP_DL_K'
+		LEFT JOIN syssetting billdlk ON
+			a.bill_dl_k = billdlk.minor_class_cd
+			AND billdlk.sys_cd = 'WEBEDI'
+			AND billdlk.major_class_cd = 'BILL_DL_K'
+		LEFT JOIN syssetting patk ON
+			a.emp_pat_k = patk.minor_class_cd
+			AND patk.sys_cd = 'WEBEDI'
+			AND patk.major_class_cd = 'PAT_K'
+		LEFT JOIN syssetting contrack ON
+			a.client_contract_k = contrack.minor_class_cd
+			AND contrack.sys_cd = 'WEBEDI'
+			AND contrack.major_class_cd = 'CONTRACT_K'
+		LEFT JOIN syssetting filek ON
+			a.mon_attach_file_k = filek.minor_class_cd
+			AND filek.sys_cd = 'WEBEDI'
+			AND filek.major_class_cd = 'FILE_K'
+		LEFT JOIN user bussmainuser ON
+			a.business_main_user_id = bussmainuser.account
+	    <where>
+	     a.use_flg ='Y'
+	        <if test="work_mon != null and work_mon != ''">
+				AND #{work_mon} BETWEEN date_format(a.appr_doc_dt_from,'%Y-%m') AND date_format(a.appr_doc_dt_to,'%Y-%m')
+		    </if>
+			<if test="mon_req_st != null and mon_req_st != ''">
+				AND a.mon_req_st = #{mon_req_st}
+			</if>
+			<if test="mon_pro_k != null and mon_pro_k != ''">
+				AND a.mon_pro_k = #{mon_pro_k}
+			</if>
+			<if test="work_rep_dl_k != null and work_rep_dl_k != ''">
+				AND a.work_rep_dl_k = #{work_rep_dl_k}
+			</if>
+			<if test="bill_dl_k != null and bill_dl_k != ''">
+				AND a.bill_dl_k = #{bill_dl_k}
+			</if>
+			<if test="business_main_user_id != null and business_main_user_id != ''">
+				AND a.business_main_user_id = #{business_main_user_id} 
+			</if>
+			<if test="appr_doc_st != null and appr_doc_st != ''">
+				AND a.appr_doc_st = #{appr_doc_st}
+			</if>
+			<if test="client_nm != null and client_nm != ''">
+				AND a.client_nm like CONCAT('%',#{client_nm},'%')
+			</if>
+			<if test="emp_nm != null and emp_nm != ''">
+				AND a.emp_nm like CONCAT('%',#{emp_nm},'%')
+			</if>
+		</where>
+		order by
+		  a.client_no ASC, a.appr_doc_no DESC
+   </select>
+   
+</mapper>

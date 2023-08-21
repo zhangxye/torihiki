@@ -1,0 +1,51 @@
+利用session监听器监听每一个登录用户的登录情况
+用户登录后，先去数据库查询该登录名是否存在、是否锁定，在登录名存在且非锁定的情况下，
+从application内置作用域对象中取出所有的登录信息，查看该登录名是否已经登录，
+如果登录了，就友好提示下；反之表示可以登录，将该登录信息保存在application中。
+//所有的登录信息
+Map<String, String> loginUserMap = (Map<String, String>) super.getApplicationAttr(Constant.LOGIN_USER_MAP);
+boolean isExist = false;
+String sessionId = super.getSessionId(false);
+if(loginUserMap==null){
+	loginUserMap = new HashMap<String, String>();
+}
+for (String username : loginUserMap.keySet()) {
+	//判断是否已经保存该登录用户的信息，是否为同一个用户进行重复登录
+	if(!username.equals(user.getFuUserName()) || loginUserMap.containsValue(sessionId)){
+		continue;
+	}
+	isExist = true;
+	break;
+}
+if(isExist){
+	//该用户已登录
+}else {
+	//该用户没有登录
+	loginUserMap.put(result.getFuUserName(), sessionId);
+}
+B.登录考虑完之后，来考虑考虑退出。
+用户正常退出时，我们需要将该用户的登录信息从session中移除。我们可以写一个Session监听器，监听sessioon销毁的时候，我们将登录的用户注销掉，也就是从application中移除。表示该用户已经下线了。 
+主要代码如下：
+public void sessionDestroyed(HttpSessionEvent event) {  
+        //在session销毁的时候 把loginUserMap中保存的键值对清除   
+        User user = (User)event.getSession().getAttribute("loginUser");  
+        if(user!=null){  
+            Map<String, String> loginUserMap = (Map<String, String>)event.getSession().getServletContext().getAttribute("loginUserMap");  
+            loginUserMap.remove(user.getFuUserName());  
+		event.getSession().getServletContext().setAttribute("loginUserMap",loginUserMap); 
+        } 
+        //
+} 
+//
+另外，还有一个问题，如果说登录的用户突然关闭了浏览器而没有点击退出按钮。那么可以利用beforeunload 事件，在浏览器刷新或者关闭的时候触发。
+//在刷新或关闭时调用的事件 
+$(window).bind('beforeunload',function(){
+   $.ajax({
+       url:"${ctx}/system/user/user!logout.action",
+       type:"post",
+       success:function(){
+           alert("您已退出登录");
+       }
+   });
+});
+

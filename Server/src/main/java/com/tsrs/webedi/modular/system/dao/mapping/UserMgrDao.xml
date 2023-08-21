@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.UserMgrDao">
+	 <resultMap id="BaseResultMap" type="com.tsrs.webedi.common.persistence.model.UserExt" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="account" property="account" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="job_title_nm" property="job_title_nm" jdbcType="VARCHAR" />
+	    <result column="job_title_cd" property="jobTitleCd"  jdbcType="VARCHAR" />
+	    <result column="roleid" property="roleid" jdbcType="VARCHAR" />
+	    <result column="deptid" property="deptid" jdbcType="VARCHAR" />
+	    <result column="role_nm" property="role_nm" jdbcType="VARCHAR" />
+	    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+	    <result column="user_type_nm" property="user_type_nm" jdbcType="VARCHAR" />
+	    <result column="last_login_dt_str" property="last_login_dt_str" jdbcType="VARCHAR" />
+	    <result column="status" property="status" jdbcType="VARCHAR" />
+	    <result column="status_nm" property="status_nm" jdbcType="VARCHAR" />
+	  </resultMap>
+
+	<sql id="Base_Column_List">
+		id, account, name, last_login_dt, sex, email, avatar,
+		phone, roleid,
+		deptid, status,user_type,job_title_cd,
+		createtime, version
+	</sql>
+
+	<sql id="Base_Column_List_With_Pwd">
+		id, account, name, last_login_dt,password, sex, email, avatar,
+		phone, roleid,salt,
+		deptid, status,user_type,user.job_title_cd,jobtitle.job_title_nm,
+		createtime, version
+	</sql>
+
+	<select id="selectUsers" resultType="map">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where status != 3
+		<if test="name != null and name != ''">
+			and (phone like CONCAT('%',#{name},'%')
+			or account like CONCAT('%',#{name},'%')
+			or name like CONCAT('%',#{name},'%'))
+		</if>
+		<if test="jobTitleCd != null and jobTitleCd != ''">
+			and job_title_cd = #{jobTitleCd}
+		</if>
+		<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+			and (createTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+		</if>
+	</select>
+
+	<select id="selectAllUsers" resultMap="BaseResultMap" resultType="com.tsrs.webedi.common.persistence.model.UserExt">
+		select
+		  a.account, a.name, b.job_title_nm AS job_title_nm, a.roleid, a.deptid
+		  , c.name as role_nm
+		  , a.user_type
+		  , case
+		    when a.user_type = 'C' then '普通'
+		    when a.user_type = 'A' then '管理者'
+		    else ''
+		    end as user_type_nm
+
+		  , DATE_FORMAT(a.last_login_dt,'%Y/%m/%d %T') as last_login_dt_str
+		  , a.status
+		   , case
+		    when a.status = 1 then '利用中'
+		    when a.status = 2 then '终止中'
+		    else ''
+		    end as status_nm
+		from
+		  user a
+		  left join jobtitle b
+		    on a.job_title_cd = b.job_title_cd
+		  left join role c
+		    on a.roleid = c.id
+		where
+		  a.status != 3
+		<if test="name != null and name != ''">
+			and (a.account like CONCAT('%',#{name},'%') or a.name like CONCAT('%',#{name},'%'))
+		</if>
+		<if test="jobTitleCd != null and jobTitleCd != ''">
+			and a.job_title_cd = #{jobTitleCd}
+		</if>
+		order by a.account
+	</select>
+
+	<update id="setStatus">
+		update user set status = #{status} where id =
+		#{userId}
+	</update>
+
+	<update id="changePwd">
+		update user set password = #{pwd} where id =
+		#{userId}
+	</update>
+
+	<update id="setRoles">
+		update user set roleid = #{roleIds} where id =
+		#{userId}
+	</update>
+
+	<select id="getByAccount" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List_With_Pwd" />
+		from user
+		left join jobtitle
+		    on jobtitle.job_title_cd = user.job_title_cd
+		where account = #{account} and status != 3
+	</select>
+
+	<select id="selectActiveUserList" parameterType="java.lang.String"  resultType="map">
+		select
+		a.account as value,a.name as label,b.job_title_nm as fullname
+		from user a left join jobtitle b on a.job_title_cd = b.job_title_cd where a.status = 1
+		<if test="account != null and account != ''">
+			and a.account != #{account,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="jobUserList" resultType="com.tsrs.webedi.common.persistence.model.LabelValueBean">
+		select
+		a.account as value,a.name as label
+		from user a
+		<where>
+			a.status = 1
+			<!--<if test="jobTitleCd != null and jobTitleCd != ''">
+				and a.job_title_cd = #{jobTitleCd,jdbcType=VARCHAR}
+			</if>-->
+		</where>
+	</select>
+</mapper>

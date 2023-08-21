@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.DownLoadDtMapping">
+
+	<!-- 通用查询映射结果 -->
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.tsrs.webedi.modular.system.persistence.model.DownLoadDt">
+		<id column="emp_no" property="empNo" />
+		<result column="emp_nm" property="empNm" />
+		<result column="bp_comp_id" property="bpCompId" />
+		<result column="bp_comp_emp_nm" property="bpCompEmpNm" />
+		<result column="emp_pat_k" property="empPatk" />
+		<result column="pj_cd" property="pjCd" />
+		<result column="wh_max" property="whMax" />
+		<result column="wh_min" property="whMin" />
+		<result column="sell_price" property="sellPrice" />
+		<result column="cost_price" property="costPrice" />
+		<result column="excess_price" property="excessPrice" />
+		<result column="deducation_price" property="deducationPrice" />
+		<result column="other_cost" property="otherCost" />
+		<result column="staff_mobile_no" property="staffMobileNo" />
+		<result column="appr_doc_dt_from" property="apprDocDtFrom" />
+		<result column="appr_doc_dt_to" property="apprDocDtTo" />
+		<result column="staff_mail_addr" property="staffMailAddr" />
+		<result column="bp_payment_plan_d" property="bpPaymentPland" />
+		<result column="bp_payment_due_k" property="bpPaymentDuek" />
+		<result column="bp_pay_month_k" property="bpPayMonthk" />
+		<result column="entrance_dt" property="entranceDt " />
+		<result column="site_entrance_dt" property="siteEntranceDt " />
+		<result column="insurance_cost" property="insuranceCost" />
+		<result column="emp_my_number" property="empMyNumber" />
+		<result column="bp_my_number" property="bpMyNumber" />
+		<result column="work_start_time" property="workStartTime" />
+		<result column="work_end_time" property="workEndTime" />
+		<result column="pj_nm" property="pjNm" />
+		<result column="work_content" property="workContent" />
+		<result column="work_place" property="workPlace" />
+		<result column="payment_due_k" property="paymentDuek" />
+		<result column="pay_plan_d" property="payPland" />
+		<result column="pay_month_k" property="payMonthk" />
+		<result column="business_main_user_id" property="businessMainUserId" />
+		<result column="business_sub_user_id" property="businessSubUserId" />
+		<result column="order_recv_hope_dt" property="orderRecvHopeDt" />
+		<result column="pj_start_dt" property="pjStartDt" />
+		<result column="pj_end_dt" property="pjEndDt" />
+		<result column="work_time_unit_k" property="workTimeUnitk" />
+		<result column="client_staff_nm" property="clientStaffNm" />
+		<result column="client_staff_dept_nm" property="clientStaffDeptNm" />
+		<result column="client_staff_position" property="clientStaffPosition" />
+		<result column="client_staff_nm_fuli" property="clientStaffNmFuli" />
+		<result column="client_staff_mobile_no" property="clientStaffMobileNo" />
+		<result column="client_mail_addr" property="clientMailAddr" />
+		<result column="client_mail_addr_cc" property="clientMailAddrCc" />
+		<result column="sales_addup_month" property="salesAddupMonth" />
+		<result column="client_no" property="clientNo" />
+		<result column="client_nm" property="clientNm" />
+		<result column="client_tel_no" property="clientTelNo" />
+		<result column="client_fax_no" property="clientFaxNo" />
+		<result column="client_post_no" property="clientPostNo" />
+		<result column="client_addr" property="clientAddr" />
+		<result column="staff_addr" property="staffAddr" />
+		<result column="staff_post_no" property="staffPostNo" />
+		<result column="staff_tel_no" property="staffTelNo" />
+		<result column="client_my_number" property="clientMyNumber" />
+		<result column="kou_su1" property="kouSu1" />
+		<result column="payment_plan_d" property="paymentPland" />
+		<result column="emp_sex" property="empSex" />
+		<result column="emp_birthday" property="empBirthday" />
+		<result column="emp_nm_fuli" property="empNmFuli" />
+		<result column="break_time_min" property="breakTimeMin" />
+		<result column="sell_price_other_cost" property="sellPriceOtherCost" />
+		<result column="house_allow_ratio" property="houseAllowRatio" />
+		<result column="communication_allow_ratio" property="communicationAllowRatio" />
+		<result column="overwork_allow_ratio" property="overworkAllowRatio" />
+		<result column="bp_pay_plan_d" property="bpPayPland" />
+		<result column="bp_work_start_time" property="bpWorkStartTime" />
+		<result column="bp_work_end_time" property="bpWorkEndTime" />
+		<result column="appoint_allow_ratio" property="appointAllowRatio" />
+		<result column="site_allow_ratio" property="siteAllowRatio" />
+		<result column="bp_wh_max" property="bpWhMax" />
+		<result column="bp_wh_min" property="bpWhMin" />
+		<result column="bp_excess_price" property="bpExcessPrice" />
+		<result column="bp_deducation_price" property="bpDeducationPrice" />
+		<result column="bp_work_unit_k" property="bpWorkUnitk" />
+		<result column="insurance_k" property="insurancek" />
+		<result column="withdrawal_dt" property="withdrawalDt" />
+		<result column="after_withdrawal_post_no" property="afterWithdrawalPostNo" />
+		<result column="after_withdrawal_addr" property="afterWithdrawalAddr" />
+		<result column="travel_cost" property="travelCost" />
+		<result column="travel_cost_first_mon" property="travelCostFirstMon" />
+		<result column="appr_doc_create_k" property="apprDocCreateK" />
+		<result column="appr_doc_create_dt" property="apprDocCreateDt" />
+		<result column="appr_doc_no" property="apprDocNo" />
+		<result column="procedure_dt" property="procedureDt" />
+		<result column="pj_class_nm" property="pjClassNm" />
+		<result column="other_allow1_ratio" property="otherAllow1Ratio" />
+		<result column="other_allow2_ratio" property="otherAllow2Ratio" />
+		<result column="bp_fax_no" property="bpFaxNo" />
+		<result column="bp_staff_nm_fuli" property="bpStaffNmFuli" />
+		<result column="bp_staff_dept_nm" property="bpStaffDeptNm" />
+		<result column="bp_staff_position" property="bpStaffPosition" />
+		<result column="bp_staff_mail_addr" property="bpStaffMailAddr" />
+		<result column="billing_month" property="billingMonth" />
+		<result column="day_travel_cost" property="dayTravelCost" />
+	</resultMap>
+</mapper>

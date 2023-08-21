@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.ApprcommuteroutehdrMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Apprcommuteroutehdr">
+		<id column="appr_doc_id" property="apprDocId" />
+		<result column="day_travel_cost" property="dayTravelCost" />
+		<result column="month_pass_travel_cost" property="monthPassTravelCost" />
+		<result column="pay_travel_costa_max" property="payTravelCostaMax" />
+		<result column="rount_dlt_content" property="rountDltContent" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+
+</mapper>

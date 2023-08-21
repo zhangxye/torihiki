@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.OrderDao">
+
+	<sql id="orderSql">
+		SELECT ''                                                     AS sel,
+			   `order`.order_id,
+			   `order`.order_no,
+			   DATE_FORMAT(order.create_dt, '%Y-%m-%d')               AS create_dt,
+			   `order`.client_nm,
+			   `order`.order_amt_without_tax,
+			   `order`.order_amt_with_tax,
+			   `order`.pj_cd,
+			   `order`.pj_nm,
+			   `order`.work_content,
+			   `order`.work_place,
+			   DATE_FORMAT(order.work_start_ymd, '%Y-%m-%d')          AS work_start_ymd,
+			   DATE_FORMAT(order.work_end_ymd, '%Y-%m-%d')            AS work_end_ymd,
+			   `order`.order_content,
+			   `order`.special_affairs,
+			   `order`.payment_cond,
+			   `order`.remark,
+			   `order`.order_doc_file_id,
+			   `order`.est_hid,
+			   esthdr.est_no,
+			   orderconfirm.order_confirm_user_id,
+			   user.name                                              AS order_confirm_user_nm,
+			   DATE_FORMAT(orderconfirm.order_confirm_dt, '%Y-%m-%d') AS order_confirm_dt,
+			   orderconfirm.order_confirm_remark,
+			   IF(orderconfirm.order_id IS NOT NULL, 'Y', 'N')        AS del_flg
+		FROM `order`
+				 INNER JOIN esthdr
+							ON esthdr.est_hid = `order`.est_hid
+								AND esthdr.use_flg = 'Y'
+				 LEFT JOIN orderconfirm
+						   ON orderconfirm.order_id = `order`.order_id
+				 LEFT JOIN user
+						   ON user.account = orderconfirm.order_confirm_user_id
+	</sql>
+
+	<select id="searchForDetail" parameterType="hashmap" resultType="hashmap">
+		<include refid="orderSql"/>
+		WHERE order.use_flg='Y'
+		<if test="searchCond.est_no != null and searchCond.est_no != ''">
+			AND order.est_no like CONCAT(#{searchCond.est_no},'%')
+		</if>
+		<if test="searchCond.client_nm != null and searchCond.client_nm != ''">
+			AND order.client_nm like CONCAT('%',#{searchCond.client_nm},'%')
+		</if>
+		<if test="searchCond.pj_nm != null and searchCond.pj_nm != ''">
+			AND order.pj_nm like CONCAT('%',#{searchCond.pj_nm},'%')
+		</if>
+		<if test="searchCond.work_mon != null and searchCond.work_mon != ''">
+			AND #{searchCond.work_mon} between date_format(order.work_start_ymd,'%Y-%m') AND
+			date_format(order.work_end_ymd,'%Y-%m')
+		</if>
+		AND EXISTS(
+		SELECT 1
+		FROM apprdoc
+		INNER JOIN estdtl
+		ON estdtl.appr_doc_id = apprdoc.appr_doc_id
+		WHERE apprdoc.use_flg = 'Y'
+		AND estdtl.est_hid = esthdr.est_hid
+		<if test="searchCond.emp_nm != null and searchCond.emp_nm != ''">
+			AND apprdoc.emp_nm like CONCAT('%',#{searchCond.emp_nm},'%')
+		</if>
+		<if test="searchCond.appr_doc_no != null and searchCond.appr_doc_no != ''">
+			AND apprdoc.appr_doc_no like CONCAT(#{searchCond.appr_doc_no},'%')
+		</if>
+		<if test="searchCond.business_main_user_id != null and searchCond.business_main_user_id != ''">
+			AND apprdoc.business_main_user_id = #{searchCond.business_main_user_id}
+		</if>
+		)
+		<if test="searchCond.confirm_flg == 1">
+			AND orderconfirm.order_id IS NULL
+		</if>
+		<if test="searchCond.confirm_flg == 2">
+			AND orderconfirm.order_id IS NOT NULL
+		</if>
+		ORDER BY
+		order.order_no DESC
+	</select>
+	
+	<select id="selectOrderInfoForDetail"  parameterType="Integer" resultType="hashmap">
+		<include refid="orderSql"/>
+		WHERE
+			order.order_id = #{order_id}
+	</select>
+	
+	<update id="updateApprDocSt">
+		UPDATE
+			apprdoc
+		SET appr_doc_st     = #{map.appr_doc_st},
+			sys_upd_dt      = CURRENT_TIME,
+			sys_upd_pg_id   = #{map.pg_id},
+			sys_upd_user_id = #{map.user_id}
+		WHERE EXISTS(SELECT estdtl.appr_doc_id
+					 FROM `order`
+							  INNER JOIN esthdr ON
+								 esthdr.est_hid = `order`.est_hid
+							 AND esthdr.use_flg = 'Y'
+							  INNER JOIN estdtl ON
+						 estdtl.est_hid = esthdr.est_hid
+					 WHERE `order`.use_flg = 'Y'
+					   AND estdtl.appr_doc_id = apprdoc.appr_doc_id
+					   AND order_id = #{map.order_id})
+		  AND apprdoc.use_flg = 'Y'
+	</update>
+	
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.ApprapplydtlMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Apprapplydtl">
+		<id column="appr_apply_did" property="apprApplyDid" />
+		<result column="appr_apply_hid" property="apprApplyHid" />
+		<result column="display_order" property="displayOrder" />
+		<result column="accept_user_id" property="acceptUserId" />
+		<result column="confirm_st" property="confirmSt" />
+		<result column="con_rej_comment" property="conRejComment" />
+		<result column="con_rej_dt" property="conRejDt" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+
+	<resultMap id="BaseResultMap2" type="com.tsrs.webedi.modular.system.jmodel.ApproveDtl">
+		<result column="display_order" property="display_order" />
+		<result column="accept_user_id" property="accept_user_id" />
+		<result column="accept_user_nm" property="accept_user_nm" />
+		<result column="confirm_st" property="confirm_st" />
+		<result column="confirm_st_nm" property="confirm_st_nm" />
+		<result column="job_title_cd" property="job_title_cd" />
+		<result column="job_title_nm" property="job_title_nm" />
+		<result column="con_rej_dt" property="con_rej_dt" />
+		<result column="con_rej_comment" property="con_rej_comment" />
+	</resultMap>
+ <select id="selectApprApplyList"  resultType="map">
+		select
+		  d.display_order
+		  , d.accept_user_id
+		  , u.name AS accept_user_nm
+		  , d.confirm_st
+		  , cunfirmst.str_val1 as confirm_st_nm
+		  , u.job_title_cd as job_title_cd　
+		  , j.job_title_nm as job_title_nm
+		  , DATE_FORMAT(d.con_rej_dt, '%Y-%m-%d %H:%i:%S') as con_rej_dt
+		  , d.con_rej_comment 
+		from
+		  apprapplyhdr h 
+		  left join apprapplydtl d 
+		    on h.appr_apply_hid = d.appr_apply_hid
+		  left join user u 
+		    on d.accept_user_id = u.account 
+		    and u.status = 1 
+		  left join jobtitle j
+		  	on u.job_title_cd = j.job_title_cd
+		  	and j.use_flg='Y'
+		  left join syssetting cunfirmst 
+		    on d.confirm_st = cunfirmst.minor_class_cd 
+		    and cunfirmst.sys_cd = 'WEBEDI' 
+		    and cunfirmst.major_class_cd = 'CONFIRM_ST' 
+		where
+		    h.use_flg='Y'
+		    and exists ( 
+		    select
+		      1 
+		    from
+		      apprdoc t1 
+		    where
+		      h.appr_doc_id = t1.appr_doc_id 
+		      and t1.appr_doc_no = #{apprDocNo,jdbcType=VARCHAR}
+		      and t1.use_flg ='Y'
+		  ) 
+		order by
+		  h.appr_apply_hid asc ,d.display_order asc
+  </select>
+  
+  <select id="selectApplyList"  resultType="map">
+		select
+		  d.display_order
+		  , d.accept_user_id
+		  , u.name AS accept_user_name
+		  , d.confirm_st
+		  , cunfirmst.str_val1 as confirm_st_name
+		  , u.job_title_cd as job_title_cd　
+		  , j.job_title_nm as job_title_name
+		  , d.con_rej_dt
+		  , d.con_rej_comment 
+		from
+		  apprapplyhdr h 
+		  left join apprapplydtl d 
+		    on h.appr_apply_hid = d.appr_apply_hid 
+		  left join user u 
+		    on d.accept_user_id = u.account 
+		    and u.status = 1
+		  left join jobtitle j
+		  	on u.job_title_cd = j.job_title_cd
+		  	and j.use_flg='Y'
+		  left join syssetting cunfirmst 
+		    on d.confirm_st = cunfirmst.minor_class_cd 
+		    and cunfirmst.sys_cd = 'WEBEDI' 
+		    and cunfirmst.major_class_cd = 'CONFIRM_ST' 
+		where
+		h.appr_doc_id = #{apprDocId} and h.appr_apply_hid = #{apprApplyHid} and h.use_flg ='Y'
+		order by
+		  d.display_order
+  </select>
+  
+</mapper>

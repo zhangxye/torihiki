@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.persistence.dao.SyssettingMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Syssetting">
+		<id column="sys_setting_id" property="sysSettingId" />
+		<result column="sys_cd" property="sysCd" />
+		<result column="major_class_cd" property="majorClassCd" />
+		<result column="mid_class_cd" property="midClassCd" />
+		<result column="minor_class_cd" property="minorClassCd" />
+		<result column="str_val1" property="strVal1" />
+		<result column="str_val2" property="strVal2" />
+		<result column="str_val3" property="strVal3" />
+		<result column="str_val4" property="strVal4" />
+		<result column="str_val5" property="strVal5" />
+		<result column="num_val1" property="numVal1" />
+		<result column="num_val2" property="numVal2" />
+		<result column="num_val3" property="numVal3" />
+		<result column="num_val4" property="numVal4" />
+		<result column="num_val5" property="numVal5" />
+		<result column="remark1" property="remark1" />
+		<result column="remark2" property="remark2" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+
+</mapper>

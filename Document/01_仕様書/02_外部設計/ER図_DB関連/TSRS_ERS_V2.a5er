@@ -1,0 +1,2745 @@
+﻿# A5:ER FORMAT:12
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=TSRS
+Author=金
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Comment=V1　新規作成\nV2　稟議書の各テーブルを統合
+Page=Main
+PageInfo="Main",0,"A3Landscape",$FFFFFF
+Page=マスタ
+PageInfo="マスタ",7,"A3Landscape",$FFFFFF
+Page=稟議書＆見積＆受注
+PageInfo="稟議書＆見積＆受注",7,"A3Landscape",$FFFFFF
+Page=発注＆検収
+PageInfo="発注＆検収",7,"A3Landscape",$FFFFFF
+Page=勤怠管理
+PageInfo="勤怠管理",7,"A3Landscape",$FFFFFF
+Page=売上&請求
+PageInfo="売上&請求",7,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=0
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=TSRS
+HeaderCenter=
+HeaderRight=%Date%
+FooterLeft=作成者：金
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+GenerateDropTableStatement=1
+DropTableIfExists=1
+CommonField="登録者","sys_ins_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF
+CommonField="登録日時","sys_ins_dt","@DATETIME","NOT NULL",,"","",$FFFFFFFF
+CommonField="登録機能ID","sys_ins_pg_id","@VARCHAR(15)","NOT NULL",,"","",$FFFFFFFF
+CommonField="更新者","sys_upd_user_id","@VARCHAR(10)",,,"","",$FFFFFFFF
+CommonField="更新日時","sys_upd_dt","@DATETIME",,,"","",$FFFFFFFF
+CommonField="更新機能ID","sys_upd_pg_id","@VARCHAR(15)",,,"","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Relation]
+Entity1=order
+Entity2=estHdr
+RelationType1=2
+RelationType2=1
+Fields1=est_hid
+Fields2=est_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,805,9195,818,R,R
+Position="稟議書＆見積＆受注",0,7232,2768,7222,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20180410095635
+LineMode=0
+Bar1=80
+Bar2=920
+Bar3=82
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=menu
+Entity2=menuProgram
+RelationType1=1
+RelationType2=3
+Fields1=menu_id
+Fields2=sub_menu_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1250,8750,1278,R,R
+Position="マスタ",0,4227,5773,4320,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20180228085857
+LineMode=0
+Bar1=125
+Bar2=875
+Bar3=128
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=roleMenuRel
+Entity2=menu
+RelationType1=2
+RelationType2=2
+Fields1=menu_id
+Fields2=menu_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1164,8836,500,R,R
+Position="マスタ",0,4320,5680,4163,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20180228202155
+LineMode=0
+Bar1=116
+Bar2=884
+Bar3=50
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=user
+Entity2=userWfConfirmRoute
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=user_wf_confirm_route_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,516,9484,500,R,R
+Position="マスタ",0,2023,7977,2240,R,R
+Dependence=1
+Caption=
+PName=
+LineMode=0
+Bar1=52
+Bar2=948
+Bar3=50
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=jobTitle
+Entity2=user
+RelationType1=1
+RelationType2=3
+Fields1=job_title_cd
+Fields2=job_title_cd
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,500,9500,500,R,R
+Position="マスタ",0,951,4088,5958,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=50
+Bar2=950
+Bar3=50
+TermPos1=R
+TermPos2=R
+
+[Comment]
+Comment=GUNSテーブル\nWEBEDIのテーブルと統合？
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=12
+FontColor=$0000FF
+LineColor=$000000
+BkColor=$FFFFFF
+Page=マスタ
+Left=2800
+Top=1650
+Width=626
+Height=137
+
+[Relation]
+Entity1=role
+Entity2=roleMenuRel
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=role_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3935,6065,3669,R,R
+Position="マスタ",0,6318,4007,5549,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20180228202117
+LineMode=0
+Bar1=394
+Bar2=606
+Bar3=367
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=user
+Entity2=role
+RelationType1=4
+RelationType2=2
+Fields1=roleid
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,500,9500,500,R,R
+Position="マスタ",0,3856,4035,5878,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170901215433
+LineMode=0
+Bar1=50
+Bar2=950
+Bar3=50
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=user
+Entity2=dept
+RelationType1=4
+RelationType2=2
+Fields1=deptid
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="マスタ",0,8891,2581,7370,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170901215401
+LineMode=0
+Bar1=889
+Bar2=258
+Bar3=737
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=login_log
+LName=登録ログ
+Comment=
+TableOption=
+Page=マスタ
+Left=2300
+Top=2600
+Field="キー","id","int(65) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ログ名称","logname","varchar(255)",,,"","",$FFFFFFFF,""
+Field="管理者id","userid","int(65)",,,"","",$FFFFFFFF,""
+Field="作成時間","createtime","datetime",,,"","",$FFFFFFFF,""
+Field="実行成功","succeed","varchar(255)",,,"","",$FFFFFFFF,""
+Field="詳細情報","message","text",,,"","",$FFFFFFFF,""
+Field="登録ip","ip","varchar(255)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="マスタ",2300,2600
+
+[Entity]
+PName=operation_log
+LName=おべログ
+Comment=
+TableOption=
+Page=マスタ
+Left=2900
+Top=2550
+Field="キー","id","int(65) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ログタイプ","logtype","varchar(255)",,,"","",$FFFFFFFF,""
+Field="ログ名称","logname","varchar(255)",,,"","",$FFFFFFFF,""
+Field="ユーザーid","userid","int(65)",,,"","",$FFFFFFFF,""
+Field="クラス名称","classname","varchar(255)",,,"","",$FFFFFFFF,""
+Field="メソッド名称","method","text",,,"","",$FFFFFFFF,""
+Field="作成時間","createtime","datetime",,,"","",$FFFFFFFF,""
+Field="成功","succeed","varchar(255)",,,"","",$FFFFFFFF,""
+Field="備考","message","text",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="マスタ",2900,2550
+
+[Entity]
+PName=notice
+LName=お知らせ
+Comment=
+TableOption=
+Page=マスタ
+Left=2300
+Top=2350
+Field="キー","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="タイトル","title","varchar(255)",,,"","",$FFFFFFFF,""
+Field="タイプ","type","int(11)",,,"","",$FFFFFFFF,""
+Field="内容","content","text",,,"","",$FFFFFFFF,""
+Field="作成時間","createtime","datetime",,,"","",$FFFFFFFF,""
+Field="作成者","creater","int(11)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170901215253
+Position="マスタ",2300,2350
+
+[Entity]
+PName=role
+LName=ロール
+Comment=
+TableOption=
+Page=マスタ
+Left=1450
+Top=50
+Field="キーid","id","int(11)","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="順番","num","int(11)",,,"","",$FFFFFFFF,""
+Field="親ロールid","pid","int(11)",,,"","",$FFFFFFFF,""
+Field="ロール名称","name","varchar(255)",,,"","",$FFFFFFFF,""
+Field="部門名称","deptid","int(11)",,,"","",$FFFFFFFF,""
+Field="ヒント","tips","varchar(255)",,,"","",$FFFFFFFF,""
+Field="保持フィールド","version","int(11)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180302175040
+Position="マスタ",1450,50
+Position="MAIN",1450,50
+
+[Entity]
+PName=roleMenuRel
+LName=ロールメニー関連表
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=マスタ
+Left=1500
+Top=350
+Field="キー","id","@INT","NOT NULL",0,"","",$000028FF,"AUTO_INCREMENT"
+Field="ロールid","role_id","int(11)","NOT NULL",,"","",$FFFFFFFF,""
+Field="メニーid","menu_id","@INT","NOT NULL",,"","",$000028FF,""
+Field="表示順","display_order","@INT","NOT NULL",,"","",$000028FF,""
+Index=role_menu_pk=0,role_id,menu_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180228202907
+Position="マスタ",1500,350
+Position="MAIN",1500,350
+
+[Entity]
+PName=dict
+LName=辞書
+Comment=
+TableOption=
+Page=マスタ
+Left=2900
+Top=2350
+Field="キーid","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="順番","num","int(11)",,,"","",$FFFFFFFF,""
+Field="親辞書","pid","int(11)",,,"","",$FFFFFFFF,""
+Field="名称","name","varchar(255)",,,"","",$FFFFFFFF,""
+Field="ヒント","tips","varchar(255)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170901215238
+Position="マスタ",2900,2350
+
+[Entity]
+PName=dept
+LName=部門
+Comment=
+TableOption=
+Page=マスタ
+Left=0
+Top=500
+Field="キーid","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="順番","num","int(11)",,,"","",$FFFFFFFF,""
+Field="親部門id","pid","int(11)",,,"","",$FFFFFFFF,""
+Field="略称","simplename","varchar(45)",,,"","",$FFFFFFFF,""
+Field="フルネーム","fullname","varchar(255)",,,"","",$FFFFFFFF,""
+Field="ヒント","tips","varchar(255)",,,"","",$FFFFFFFF,""
+Field="バージョン","version","int(11)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170901215247
+Position="マスタ",0,500
+
+[Entity]
+PName=user
+LName=ユーザー
+Comment=
+TableOption=
+Page=マスタ
+Left=650
+Top=50
+Field="キーid","id","int(11) auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="アバター","avatar","varchar(255)",,,"","",$FFFFFFFF,""
+Field="アカウント","account","varchar(45)",,,"","",$FFFFFFFF,""
+Field="パスワード","password","varchar(45)",,,"","",$FFFFFFFF,""
+Field="パスワード塩","salt","varchar(45)",,,"","",$FFFFFFFF,""
+Field="名前","name","varchar(45)",,,"","",$FFFFFFFF,""
+Field="生日","last_login_dt","datetime",,,"","",$FFFFFFFF,""
+Field="性別","sex","int(11)",,,"","（1：男 2：女）",$FFFFFFFF,""
+Field="eメール","email","varchar(45)",,,"","",$FFFFFFFF,""
+Field="電話番号","phone","varchar(45)",,,"","",$FFFFFFFF,""
+Field="ロールid","roleid","int(11)",,,"","",$FFFFFFFF,""
+Field="部門id","deptid","int(11)",,,"","",$FFFFFFFF,""
+Field="状態","status","int(11)",,,"","(1：起用  2：凍結  3：削除）",$FFFFFFFF,""
+Field="作成時間","createtime","datetime",,,"","",$FFFFFFFF,""
+Field="保持フィールド","version","int(11)",,,"","",$FFFFFFFF,""
+Field="ユーザータイプ","user_type","varchar(1)",,,"","",$FFFFFFFF,""
+Field="職位C","job_title_cd","@CHAR(3)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170917225519
+Position="マスタ",650,50
+
+[Relation]
+Entity1=apprDoc
+Entity2=apprCommuteRouteHdr
+RelationType1=2
+RelationType2=2
+Fields1=appr_doc_id
+Fields2=appr_doc_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3999,6001,3686,R,R
+Position="稟議書＆見積＆受注",0,4466,5120,2637,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20170901110918
+LineMode=0
+Bar1=400
+Bar2=600
+Bar3=369
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=apprDoc
+Entity2=apprDocClientContractEvidence
+RelationType1=2
+RelationType2=3
+Fields1=appr_doc_id
+Fields2=appr_doc_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4234,5766,3686,R,R
+Position="稟議書＆見積＆受注",0,3364,6240,4081,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170901110902
+LineMode=0
+Bar1=423
+Bar2=577
+Bar3=369
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=apprDocClientContractEvidence
+LName=クライアント契約契約条件エビデンス
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=稟議書＆見積＆受注
+Left=1100
+Top=1000
+Field="エビデンスID","appr_client_contract_evidence_d","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","display_order","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="エビデンス","work_evidence","@VARCHAR(2000)",,,"","",$FFFFFFFF,""
+Index=clientContractEvidence_uk1=1,appr_doc_id,display_order
+EffectMode=None
+Tag=VE
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170905233822
+Position="稟議書＆見積＆受注",1100,1000
+Position="MAIN",1550,700
+
+[Relation]
+Entity1=requestApplyHdr
+Entity2=requestAccepted
+RelationType1=2
+RelationType2=3
+Fields1=req_apply_hid
+Fields2=req_apply_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4206,5794,5309,R,R
+Position="売上&請求",0,10000,4168,4983,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=421
+Bar2=579
+Bar3=531
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=request
+Entity2=requestApplyHdr
+RelationType1=2
+RelationType2=3
+Fields1=req_id
+Fields2=req_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5101,4899,3723,R,R
+Position="売上&請求",0,5149,4851,3897,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=510
+Bar2=490
+Bar3=372
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=request
+Entity2=requestAccepted
+RelationType1=2
+RelationType2=1
+Fields1=req_id
+Fields2=req_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4206,5794,4743,R,R
+Position="売上&請求",0,3760,6240,3897,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20170509204443
+LineMode=0
+Bar1=421
+Bar2=579
+Bar3=474
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=requestApplyHdr
+Entity2=requestApplyDtl
+RelationType1=2
+RelationType2=3
+Fields1=req_apply_hid
+Fields2=req_apply_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4241,5759,4328,R,R
+Position="売上&請求",0,5873,4127,5983,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=424
+Bar2=576
+Bar3=433
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=requestAccepted
+Entity2=moneyRev
+RelationType1=2
+RelationType2=1
+Fields1=req_id
+Fields2=req_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4743,5257,4743,R,R
+Position="売上&請求",0,3806,6194,3832,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170509204835
+LineMode=0
+Bar1=474
+Bar2=526
+Bar3=474
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=requestAccepted
+LName=承認済請求
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=2550
+Top=1150
+Field="請求ID","req_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="最終承認者ID","last_accept_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="最終承認日時","last_accept_date","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="請求申請HID","req_apply_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=VE
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170509204216
+Position="売上&請求",2550,1150
+Position="MAIN",3350,1100
+
+[Entity]
+PName=requestApplyDtl
+LName=請求申請DTL情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=1600
+Top=1850
+Field="請求申請DID","req_apply_did","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="請求申請HID","req_apply_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","display_order","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認者ID","accept_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認状況","confirm_st","@CHAR(1)","NOT NULL",,"","1：未承認\n2：承認済\n3：拒否",$FFFFFFFF,""
+Field="承認(拒否)コメント","con_rej_comment","@VARCHAR(500)","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認(拒否)日時","con_rej_dt","@DATETIME",,,"","",$FFFFFFFF,""
+Index=apprApplyDtl_u_1=2,req_apply_hid,display_order
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170814205755
+Position="売上&請求",1600,1850
+Position="MAIN",3150,1450,248,50
+
+[Entity]
+PName=requestApplyHdr
+LName=請求申請HDR情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=1650
+Top=1400
+Field="請求申請HID","req_apply_hid","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="稟議書ID","req_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN:削除",$FFFFFFFF,""
+Field="申請理由","apply_reason","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="申請者ID","apply_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="申請日時","apply_dt","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認待表示順","confirm_wait_display_order","@INT",,,"","承認待となっている申請DTLの表示順を設定",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170814205855
+Position="売上&請求",1650,1400
+Position="MAIN",3150,1350
+
+[Comment]
+Comment=売上請求
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=Main
+Left=2150
+Top=750
+Width=441
+Height=73
+
+[Entity]
+PName=moneyRev
+LName=入金
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=3250
+Top=900
+Field="入金ID","money_rec_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="入金日","req_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="入金金額","money_rec_amt","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="入金備考","money_rec_remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="請求ID","req_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170509204844
+Position="売上&請求",3250,900
+Position="MAIN",3650,1100
+
+[Relation]
+Entity1=salesReqDtl
+Entity2=saleReqRel
+RelationType1=2
+RelationType2=1
+Fields1=sales_id
+Fields2=sales_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2954,7046,2954,R,R
+Position="売上&請求",0,1164,6334,1655,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20170509195400
+LineMode=0
+Bar1=295
+Bar2=705
+Bar3=295
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=request
+Entity2=saleReqRel
+RelationType1=2
+RelationType2=4
+Fields1=req_id
+Fields2=req_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2954,7046,2363,R,R
+Position="売上&請求",0,1343,8657,4701,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20170509195307
+LineMode=0
+Bar1=295
+Bar2=705
+Bar3=236
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=saleReqRel
+LName=売上・請求・対照表
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=750
+Top=1900
+Field="請求ID","req_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="売上ID","sales_id","@INT","NOT NULL",1,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=T
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170509195153
+Position="売上&請求",750,1900
+Position="MAIN",2400,1350
+
+[Entity]
+PName=request
+LName=請求
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=1300
+Top=1000
+Field="請求ID","req_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="請求日","req_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="請求担当","req_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="請求金額（税抜）","req_amt_without_tax","@DECIMAL(10,1)","NOT NULL",,"","請求金額（税抜）の合計",$FFFFFFFF,""
+Field="消費税","req_amt_tax","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="請求金額（税込）","req_amt_with_tax","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="請求備考","req_remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170509195200
+Position="売上&請求",1300,1000
+Position="MAIN",2750,1350
+
+[Relation]
+Entity1=sales
+Entity2=salesIncentiveDtl
+RelationType1=2
+RelationType2=2
+Fields1=sales_id
+Fields2=sales_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,500,9500,3453,R,R
+Position="売上&請求",0,393,9401,1394,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20170505171550
+LineMode=0
+Bar1=50
+Bar2=950
+Bar3=345
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=sales
+Entity2=salesCostDtl
+RelationType1=2
+RelationType2=2
+Fields1=sales_id
+Fields2=sales_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,500,9500,3256,R,R
+Position="売上&請求",0,5110,6544,2119,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20170505171534
+LineMode=0
+Bar1=50
+Bar2=950
+Bar3=326
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=sales
+Entity2=salesReqDtl
+RelationType1=2
+RelationType2=2
+Fields1=sales_id
+Fields2=sales_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,500,9500,3160,R,R
+Position="売上&請求",0,1264,8736,2061,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20170505171514
+LineMode=0
+Bar1=50
+Bar2=950
+Bar3=316
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=salesIncentiveDtl
+LName=売上_インセンティブ明細
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=1650
+Top=100
+Field="売上ID","sales_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="締日","payment_dat","@DATE",,,"","",$FFFFFFFF,""
+Field="作業案件名称","pj_nm","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="クライアント番号","client_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="クライアント名称","client_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=VE
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170801205935
+Position="売上&請求",1650,100
+Position="MAIN",2450,1000
+
+[Entity]
+PName=salesCostDtl
+LName=売上_原価明細
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=1500
+Top=350
+Field="売上ID","sales_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="締日","payment_dat","@DATE",,,"","",$FFFFFFFF,""
+Field="作業案件名称","pj_nm","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="所属会社ID","bp_comp_id","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="所属会社名/社員氏名","bp_comp_emp_nm","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="社保加算後単価","bp_cost_price","@DECIMAL(10,1)",,,"","加入の場合、単価＋交通費＋（健康保険+厚生年金）＊1.0085\n加入しない場合、単価＋交通費",$FFFFFFFF,""
+Field="社保加算金額（税抜）","bp_cost_amt_without_tax","@DECIMAL(10,1)",,,"","社保加算後単価＊工数（月次用）",$FFFFFFFF,""
+Field="消費税","bp_cost_tax","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="社保加算金額（税込）","bp_cost_amt_with_tax","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="支払サイト/出金日付の日","payment_plan_d","@INT",,,"","",$FFFFFFFF,""
+Field="支払サイト/締日区分","payment_due_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="支払サイト/支払月区分","pay_month_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="支払サイト/支払日付の日","pay_plan_d","@INT",,,"","",$FFFFFFFF,""
+Field="出金予定日","salary_pay_plan_dt","@DATE",,,"","",$FFFFFFFF,""
+Field="売上原価備考","sales_cost_remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=VE
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170801205705
+Position="売上&請求",1500,350
+Position="MAIN",2200,850
+
+[Entity]
+PName=salesReqDtl
+LName=売上_請求明細
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=売上&請求
+Left=350
+Top=800
+Field="売上ID","sales_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="締日","payment_dat","@DATE","NOT NULL",,"","クライアントの締日",$FFFFFFFF,""
+Field="次のPJ","next_pj_k","@CHAR(1)",,,"","次のPJ（売上）選択し\n1：既存\n2：経験",$FFFFFFFF,""
+Field="作業案件名称","pj_nm","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業内容・範囲","work_content","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="勤務地/最寄駅","work_place","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="クライアント番号","client_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="クライアント名","client_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="期間FROM","req_start_dt","@DATE",,,"","請求書",$FFFFFFFF,""
+Field="期間TO","req_end_dt","@DATE",,,"","請求書",$FFFFFFFF,""
+Field="上位単金/単価","sell_price","@DECIMAL(10,1)","NOT NULL",,"","請求書の基準単価",$FFFFFFFF,""
+Field="工数（月次用）","current_mon_work_time","@DECIMAL(4,2)","NOT NULL",,"","当月入社の場合、小数部、そのほか、１とする",$FFFFFFFF,""
+Field="作業時間（上限・H）","wh_max","@DECIMAL(4,1)",,,"","",$FFFFFFFF,""
+Field="作業時間（下限・H）","wh_min","@DECIMAL(4,1)",,,"","",$FFFFFFFF,""
+Field="実績時間","real_work_hour","@DECIMAL(4,1)",,,"","勤怠情報から取得（単位：時間）",$FFFFFFFF,""
+Field="超過単価（円）","excess_price","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="控除単価（円）","deducation_price","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="金額","work_amt","@DECIMAL(10,1)",,,"","工数（月次用）＊基準単価\n手動変更可能か？",$FFFFFFFF,""
+Field="交通費","travel_cost","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="作業時間単位","work_time_unit_k","@CHAR(1)",,,"","1:10分　2：15分　3：30分　4：1時",$FFFFFFFF,""
+Field="経費/オンライン当番","other_cost","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="支払サイト/支払月区分","pay_month_k","@CHAR(1)",,,"","1：翌月/2：翌々月/3：翌々々月",$FFFFFFFF,""
+Field="支払サイト/支払日付の日","pay_plan_d","@INT",,,"","",$FFFFFFFF,""
+Field="お支払期日","client_pay_dt","@DATE",,,"","支払月＝当月＋支払サイト/支払月区分（1：翌月/2：翌々月/3：翌々々月）\nお支払期日＝ 支払月+支払サイト/支払日付の日",$FFFFFFFF,""
+Field="残業代","overwork_amt","@DECIMAL(10,1)",,,"","計算方法が確認要",$FFFFFFFF,""
+Field="控除金額","deduction_amt","@DECIMAL(10,1)",,,"","計算方法が確認要\n欠勤控除？",$FFFFFFFF,""
+Field="税抜金額","client_pay_without_tax","@DECIMAL(10,1)",,,"","基本金額＋交通費＋経費",$FFFFFFFF,""
+Field="消 費 税","client_pay_tax","@DECIMAL(10,1)",,,"","税抜金額＊消費税",$FFFFFFFF,""
+Field="税込金額","client_pay_with_tax","@DECIMAL(10,1)",,,"","税抜合計＋税込合計",$FFFFFFFF,""
+Field="案件分類名称","pj_class_nm","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="粗利額","gross_amt","@DECIMAL(10,1)",,,"","請求の税抜金額-原価の税抜金額",$FFFFFFFF,""
+Field="売上請求備考","sales_req_remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="入金予定日","money_rec_plan_dt","@DATE",,,"","手入力",$FFFFFFFF,""
+Field="支払LT","pay_lt","INT",,,"","売上請求明細の入金予定日-原価明細の出金予定日",$FFFFFFFF,""
+EffectMode=None
+Tag=VE
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170509194332
+Position="売上&請求",350,800
+Position="MAIN",2100,1350
+
+[Entity]
+PName=sales
+LName=売上
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=2200
+Top=1100
+Field="売上ID","sales_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="受注HID","order_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="受注DID","order_did","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="計上年月","add_up_ym","@VARCHAR(6)","NOT NULL",,"","",$FFFFFFFF,""
+Field="計上日","add_up_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="要員区分/補助","emp_k","@CHAR(1)","NOT NULL",,"","1：新規要員\n2：既存要員\n3：要員退社",$FFFFFFFF,""
+Field="社員番号","emp_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="社員名","emp_nm","@VARCHAR(30)","NOT NULL",,"","",$FFFFFFFF,""
+Field="社員名(フリガナ)","emp_nm_fuli","@VARCHAR(30)","NOT NULL",,"","",$FFFFFFFF,""
+Field="営業主担当","bussiness_main_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="売上登録備考","sales_remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170801211518
+Position="MAIN",2200,1100
+Position="売上&請求",400,200
+
+[Comment]
+Comment=売上＆請求
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=売上&請求
+Left=50
+Top=50
+Width=441
+Height=73
+
+[Relation]
+Entity1=workContent
+Entity2=workHourDtl
+RelationType1=1
+RelationType2=3
+Fields1=work_content_cd
+Fields2=work_content_cd
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2059,7941,6390,R,R
+Position="勤怠管理",0,2195,7805,2462,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=206
+Bar2=794
+Bar3=639
+TermPos1=R
+TermPos2=R
+
+[Comment]
+Comment=作業内容CD　作業内容名称\n-----------------------------------------------\n001                外部設計\n002                内部設計\n003                要件定義\n004                運用管理\n005                開発・製造\n006                構築業務\n007                検証業務\n008                納入・検収
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=8
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=勤怠管理
+Left=100
+Top=850
+Width=643
+Height=463
+
+[Entity]
+PName=workContent
+LName=作業内容
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=勤怠管理
+Left=100
+Top=650
+Field="作業内容C","work_content_cd","@CHAR(3)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="作業内容名称","work_content_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN：廃止",$FFFFFFFF,""
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170421204803
+Position="勤怠管理",100,650
+Position="MAIN",950,1050
+
+[Relation]
+Entity1=workHourHdr
+Entity2=workHourDtl
+RelationType1=2
+RelationType2=4
+Fields1=wh_hid
+Fields2=wh_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4859,6878,2673,R,R
+Position="勤怠管理",0,2686,7314,2710,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170421140531
+LineMode=0
+Bar1=486
+Bar2=688
+Bar3=267
+TermPos1=R
+TermPos2=R
+
+[Comment]
+Comment=勤怠管理
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=勤怠管理
+Left=100
+Top=50
+Width=441
+Height=73
+
+[Entity]
+PName=workHourDtl
+LName=勤怠管理DTL
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=勤怠管理
+Left=950
+Top=550
+Field="勤怠管理DID","wh_did","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="勤怠管理HID","wh_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="年月日","ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="勤怠区分","wh_k","@CHAR(1)","NOT NULL",,"","1:出勤\n2:有休\n3:休日\n4:休暇\n5:代休\n6:欠勤",$FFFFFFFF,""
+Field="作業内容C","work_content_cd","@VARCHAR(3)",,,"","出勤の場合、必須",$FFFFFFFF,""
+Index=calendar_i_1=0,wh_hid
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170421140446
+Position="勤怠管理",950,550
+Position="MAIN",1200,1050
+
+[Comment]
+Comment=勤怠管理
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=Main
+Left=1000
+Top=750
+Width=441
+Height=73
+
+[Entity]
+PName=workHourHdr
+LName=勤怠管理HDR
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=1150
+Top=900
+Field="勤怠管理HID","wh_hid","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="ユーザーID","user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="年月","ym","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:有効\nN：削除",$FFFFFFFF,""
+Index=calendar_i_1=0,ym
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170421135716
+Position="MAIN",1150,900
+Position="勤怠管理",1000,300
+
+[Entity]
+PName=calendar
+LName=カレンダー
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=950
+Top=900
+Field="カレンダーID","calendar_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="年月","ym","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="年月日","ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="カレンダー区分","calendar_k","@CHAR(1)","NOT NULL",,"","1:稼働日\n2:週末\n3:祝日",$FFFFFFFF,""
+Field="カレンダー備考","calendar_remark","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Index=calendar_i_1=0,ym
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180701224225
+Position="MAIN",950,900
+Position="勤怠管理",200,300
+
+[Relation]
+Entity1=bpEstHdr
+Entity2=bpEstDtl
+RelationType1=2
+RelationType2=3
+Fields1=bp_est_hid
+Fields2=bp_est_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,500,9500,3491,R,R
+Position="発注＆検収",0,3649,6351,3718,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=50
+Bar2=950
+Bar3=349
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=bpEstDtl
+LName=BP見積DTL情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=発注＆検収
+Left=1350
+Top=1650
+Field="BP見積DID","bp_est_did","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="BP見積HID","bp_est_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170412195121
+Position="発注＆検収",1350,1650,458,122
+
+[Relation]
+Entity1=bpEstReqHdr
+Entity2=bpEstReqDtl
+RelationType1=2
+RelationType2=4
+Fields1=bp_est_req_hid
+Fields2=bp_est_req_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,500,9500,806,R,R
+Position="発注＆検収",0,1154,4990,1793,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170412191349
+LineMode=0
+Bar1=50
+Bar2=950
+Bar3=81
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=bpEstReqDtl
+LName=BP見積依頼DTL情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=発注＆検収
+Left=250
+Top=800
+Field="BP見積依頼DID","bp_est_req_did","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="BP見積依頼HID","bp_est_req_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170412195127
+Position="発注＆検収",250,800
+
+[Entity]
+PName=jobTitle
+LName=職位
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=0
+Top=100
+Field="職位C","job_title_cd","@CHAR(3)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="職位名称","job_title_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN：廃止",$FFFFFFFF,""
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170921151153
+Position="MAIN",0,100
+Position="マスタ",0,300
+
+[Comment]
+Comment=<既存仕様>\n契約番号：基+会社C（8桁）+MMDD
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=7
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=発注＆検収
+Left=1150
+Top=50
+Width=639
+Height=164
+
+[Comment]
+Comment=発注、検収
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=発注＆検収
+Left=0
+Top=0
+Width=441
+Height=73
+
+[Comment]
+Comment=タイプ          報酬月額From  報酬月額To      標準報酬\n-----------------------------------------------------------------\n厚生年金     0                    101,000            98,000\n厚生年金     101,000           107000             104,000\n厚生年金     107,000           114000             110,000\n厚生年金     114,000           122000             118,000\n厚生年金     122,000           130000             126,000\n厚生年金     130,000           138000             134,000\n厚生年金     138,000           146000             142,000\n厚生年金     146,000           155000             150,000\n厚生年金     155,000           165000             160,000\n厚生年金     165,000           175000             170,000\n厚生年金     175,000           185000             180,000\n厚生年金     185,000           195000             190,000\n厚生年金     195,000           210000             200,000\n厚生年金     210,000           230000             220,000\n厚生年金     230,000           250000             240,000\n厚生年金     250,000           270000             260,000\n厚生年金     270,000           290000             280,000\n厚生年金     290,000           310000             300,000\n厚生年金     310,000           330000             320,000\n厚生年金     330,000           350000             340,000\n厚生年金     350,000           370000             360,000\n厚生年金     370,000           395000             380,000\n厚生年金     395,000           425000             410,000\n厚生年金     425,000           455000             440,000\n厚生年金     455,000           485000             470,000\n厚生年金     485,000           515000             500,000\n厚生年金     515,000           545000             530,000\n厚生年金     545,000           575000             560,000\n厚生年金     575,000           605000             590,000\n厚生年金     605,000           999999999        620,000
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=8
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=マスタ
+Left=800
+Top=2500
+Width=889
+Height=272
+
+[Comment]
+Comment=タイプ          報酬月額From  報酬月額To      標準報酬\n-----------------------------------------------------------------\n健康保険     0                    63,000              58,000\n健康保険     63,000             73000               68,000\n健康保険     73,000             83000               78,000\n健康保険     83,000             93000               88,000\n健康保険     93,000             101000             98,000\n健康保険     101,000           107000             104,000\n健康保険     107,000           114000             110,000\n健康保険     114,000           122000             118,000\n健康保険     122,000           130000             126,000\n健康保険     130,000           138000             134,000\n健康保険     138,000           146000             142,000\n健康保険     146,000           155000             150,000\n健康保険     155,000           165000             160,000\n健康保険     165,000           175000             170,000\n健康保険     175,000           185000             180,000\n健康保険     185,000           195000             190,000\n健康保険     195,000           210000             200,000\n健康保険     210,000           230000             220,000\n健康保険     230,000           250000             240,000\n健康保険     250,000           270000             260,000\n健康保険     270,000           290000             280,000\n健康保険     290,000           310000             300,000\n健康保険     310,000           330000             320,000\n健康保険     330,000           350000             340,000\n健康保険     350,000           370000             360,000\n健康保険     370,000           395000             380,000\n健康保険     395,000           425000             410,000\n健康保険     425,000           455000             440,000\n健康保険     455,000           485000             470,000\n健康保険     485,000           515000             500,000\n健康保険     515,000           545000             530,000\n健康保険     545,000           575000             560,000\n健康保険     575,000           605000             590,000\n健康保険     605,000           635000             620,000\n健康保険     635,000           665000             650,000\n健康保険     665,000           695000             680,000\n健康保険     695,000           730000             710,000\n健康保険     730,000           770000             750,000\n健康保険     770,000           810000             790,000\n健康保険     810,000           855000             830,000\n健康保険     855,000           905000             880,000\n健康保険     905,000           955000             930,000\n健康保険     955,000           1005000           980,000\n健康保険     1,005,000         1055000           1,030,000\n健康保険     1,055,000         1115000           1,090,000\n健康保険     1,115,000         1175000           1,150,000\n健康保険     1,175,000         1235000           1,210,000\n健康保険     1,235,000         1295000           1,270,000\n健康保険     1,295,000         1355000           1,330,000\n健康保険     1,355,000         999999999        1,390,000\n
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=8
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=マスタ
+Left=800
+Top=2200
+Width=889
+Height=276
+
+[Comment]
+Comment=タイプ         年齢From    年齢To          料率\n----------------------------------------------------\n健康保険     0                40                 9.96\n健康保険     40              65                 11.54\n健康保険     65              999               9.96\n厚生年金     0                999               17.828
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=8
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=マスタ
+Left=800
+Top=1600
+Width=672
+Height=267
+
+[Comment]
+Comment=開始日           終了日          消費税率\n----------------------------------------\n1900/01/01     2015/03/31     5.00\n2015/04/01     2999/12/31     8.00
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=8
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=マスタ
+Left=100
+Top=2150
+Width=613
+Height=344
+
+[Entity]
+PName=basePriceMgr
+LName=標準報酬管理
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=400
+Top=650
+Field="標準報酬管理ID","base_price_mgr_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="標準報酬タイプ","base_price_type","@CHAR(1)","NOT NULL",,"","1：健康保険\n2：厚生年金",$FFFFFFFF,""
+Field="開始日","start_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="終了日","end_dt","@DATE","NOT NULL",,"","‘2099/12/31’",$FFFFFFFF,""
+Field="報酬月額From","salary_from","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="報酬月額To(含まれまい)","salary_to","@DECIMAL(10,1)","NOT NULL",,"999","",$FFFFFFFF,""
+Field="標準報酬","base_price","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Index=ratioMgr_u_atl1=1,base_price_type,salary_from,salary_to
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170502214637
+Position="MAIN",400,650
+Position="マスタ",800,2000
+
+[Entity]
+PName=ratioMgr
+LName=料率管理
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=400
+Top=550
+Field="料率管理ID","ratio_mgr_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="料率タイプ","ratio_type","@CHAR(1)","NOT NULL",,"","1：健康保険\n2：厚生年金",$FFFFFFFF,""
+Field="開始日","start_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="終了日","end_dt","@DATE","NOT NULL",,"\q2099/12/31\q","",$FFFFFFFF,""
+Field="年齢From","age_from","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="年齢To(含まない)","age_to","@INT","NOT NULL",,"999","",$FFFFFFFF,""
+Field="料率","ratio","@DECIMAL(6,3)","NOT NULL",,"","",$FFFFFFFF,""
+Index=ratioMgr_u_atl1=1,ratio_type,age_from,age_to
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20171122110235
+Position="MAIN",400,550
+Position="マスタ",800,1300
+
+[Entity]
+PName=taxMgr
+LName=消費税管理
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=100
+Top=850
+Field="消費税管理ID","tax_mgr_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="開始日","start_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="終了日","end_dt","@DATE","NOT NULL",,"\q2099/12/31\q","",$FFFFFFFF,""
+Field="消費率","tax_rate","@DECIMAL(5,2)","NOT NULL",,"","",$FFFFFFFF,""
+Index=taxMgr_u_atl1=1,start_dt,end_dt
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170801211957
+Position="MAIN",100,850
+Position="マスタ",100,2000
+
+[Relation]
+Entity1=apprCommuteRouteHdr
+Entity2=apprCommuteRouteDtl
+RelationType1=2
+RelationType2=4
+Fields1=appr_doc_id
+Fields2=appr_doc_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2394,7606,2510,R,R
+Position="稟議書＆見積＆受注",0,3409,5449,3737,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170321200034
+LineMode=0
+Bar1=239
+Bar2=761
+Bar3=251
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=apprCommuteRouteDtl
+LName=通勤経路Dtl
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=稟議書＆見積＆受注
+Left=1150
+Top=1650
+Field="通勤経路ID","appr_commute_route_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="自宅最寄駅の線","from_home_line_nm","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="自宅最寄駅の駅","from_home_station_nm","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="現場最寄駅の線","to_comp_line_nm","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="現場最寄駅の駅","to_comp_station_nm","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="通勤経路の交通費","travel_cost","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170801210458
+Position="稟議書＆見積＆受注",1150,1650
+Position="MAIN",1550,500
+
+[Entity]
+PName=apprCommuteRouteHdr
+LName=通勤経路Hdr
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=稟議書＆見積＆受注
+Left=1100
+Top=1300
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="交通費日額（往復）","day_travel_cost","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="1ヶ月の通勤代（定期）","month_pass_travel_cost","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="支払上限","pay_travel_costa_max","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="自宅→現場（乗り換え含め交通経路記入）","rount_dlt_content","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=VE
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170801210435
+Position="稟議書＆見積＆受注",1100,1300
+Position="MAIN",1550,350
+
+[Comment]
+Comment=稟議書
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=稟議書＆見積＆受注
+Left=50
+Top=0
+Width=217
+Height=73
+
+[Comment]
+Comment=見積、受注
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=稟議書＆見積＆受注
+Left=2500
+Top=0
+Width=441
+Height=73
+
+[Comment]
+Comment=＜NO採番構成＞\n接頭辞（2桁）＋年（2桁）＋月（２桁）＋連番（４桁）\n例：\n稟議書NO    AD17030001\n見積NO       ES17030001\n受注NO       SO17030001\nBP見積NO   ER17030001\nBP発注NO   PO17030001\n請求NO       RE17030001\n
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=8
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=マスタ
+Left=2900
+Top=450
+Width=937
+Height=730
+
+[Comment]
+Comment=ユーザー管理、設定
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=Main
+Left=0
+Top=0
+Width=550
+Height=73
+
+[Comment]
+Comment=ユーザー管理、設定
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=マスタ
+Left=0
+Top=0
+Width=550
+Height=73
+
+[Relation]
+Entity1=bpEstRecv
+Entity2=bpEstHdr
+RelationType1=4
+RelationType2=2
+Fields1=bp_est_no
+Fields2=bp_est_no
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2951,500,2951,R,R
+Position="発注＆検収",0,6579,5828,6113,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170315165319
+LineMode=0
+Bar1=295
+Bar2=50
+Bar3=295
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=bpEstRecv
+LName=BP見積受信情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=1050
+Top=1700
+Field="BP見積受信ID","bp_est_recv_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="受信日時","recv_dt","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積NO","bp_est_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積依頼NO","bp_est_req_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR","NOT NULL",,"\qY\q","Y/N",$FFFFFFFF,""
+Field="見積金額(税抜)","bp_est_amt_without_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業開始日","work_start_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業終了日","work_end_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件番号","project_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件名称","project_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="作業内容","work_content","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業場所","work_place","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="見積内容","bp_est_content","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="特記事項","special_affairs","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="備考","remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="稟議書NO","appr_doc_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170412194334
+Position="MAIN",1050,1700
+Position="発注＆検収",200,1100
+
+[Entity]
+PName=bpShippingOrder
+LName=BP発注情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=2050
+Top=1700
+Field="BP発注ID","bp_shipping_order_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="BP発注NO","bp_shipping_order_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積ID","bp_estimation_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積NO","bp_estimation_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積依頼ID","bp_estimation_request_id","@INT",,,"","",$FFFFFFFF,""
+Field="BP見積依頼NO","bp_estimation_request_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR","NOT NULL",,"\qY\q","Y/N",$FFFFFFFF,""
+Field="受注HID","order_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="受注金額(税抜)","order_amt_without_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業開始日","work_start_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業終了日","work_end_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件番号","project_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件名称","project_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="作業内容","work_content","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業場所","work_place","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="注文内容","order_content","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="特記事項","order_special_affairs","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="備考","order_remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="注文書","order_doc_file_id","@INT",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170328194528
+Position="MAIN",2050,1700
+Position="発注＆検収",2700,1150
+
+[Entity]
+PName=bpEstHdr
+LName=BP見積HDR情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=1400
+Top=1700
+Field="BP見積ID","bp_est_hid","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="BP見積NO","bp_est_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積依頼NO","bp_est_request_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR","NOT NULL",,"\qY\q","Y/N",$FFFFFFFF,""
+Field="見積金額(税抜)","bp_est_amt_without_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業開始日","work_start_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業終了日","work_end_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件番号","project_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件名称","project_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="作業内容","work_content","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業場所","work_place","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="見積内容","bp_est_content","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="特記事項","special_affairs","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="備考","remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170412195013
+Position="MAIN",1400,1700
+Position="発注＆検収",1250,1150
+
+[Comment]
+Comment=発注、検収（続き）
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=Main
+Left=1000
+Top=1500
+Width=441
+Height=73
+
+[Relation]
+Entity1=bpEstReqAccepted
+Entity2=bpEstReqSend
+RelationType1=2
+RelationType2=3
+Fields1=bp_estimation_request_id
+Fields2=bp_est_req_send_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4380,2652,4380,R,R
+Position="発注＆検収",0,5315,8512,2633,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170314194831
+LineMode=0
+Bar1=438
+Bar2=265
+Bar3=438
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=bpEstReqApplyHdr
+Entity2=bpEstReqAccepted
+RelationType1=2
+RelationType2=1
+Fields1=bp_est_req_apply_hid
+Fields2=bp_est_req_apply_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4827,4401,6284,R,R
+Position="発注＆検収",0,897,9103,6817,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170314194350
+LineMode=0
+Bar1=483
+Bar2=440
+Bar3=628
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=bpEstReqHdr
+Entity2=bpEstReqAccepted
+RelationType1=2
+RelationType2=1
+Fields1=bp_estimation_request_id
+Fields2=bp_estimation_request_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,3111,3509,3111,R,R
+Position="発注＆検収",0,2760,9103,1395,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170314194845
+LineMode=0
+Bar1=311
+Bar2=351
+Bar3=311
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=bpEstReqAccepted
+LName=承認済見積依頼書
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=3500
+Top=200
+Field="BP見積依頼HID","bp_est_req_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="最終承認者ID","last_accept_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="最終承認日時","last_accept_date","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積依頼申請HID","bp_est_req_apply_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170412193116
+Position="MAIN",3500,200
+Position="発注＆検収",2250,150
+
+[Entity]
+PName=bpEstReqSend
+LName=BP見積依頼送信情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=3800
+Top=200
+Field="BP見積依頼送信ID","bp_est_req_send_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="送信日時","send_dt","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積依頼ID","bp_est_req_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP見積依頼NO","bp_est_req_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR","NOT NULL",,"\qY\q","Y/N",$FFFFFFFF,""
+Field="見積希望金額(税抜)","bp_est_hope_amt_without_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業開始日","work_start_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業終了日","work_end_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件番号","project_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件名称","project_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="作業内容","work_content","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業場所","work_place","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="見積依頼内容","bp_est_req_content","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="特記事項","order_special_affairs","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="備考","order_remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="稟議書NO","appr_doc_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170412194052
+Position="MAIN",3800,200
+Position="発注＆検収",3150,100
+
+[Relation]
+Entity1=bpEstReqApplyHdr
+Entity2=bpEstReqApplyDtl
+RelationType1=2
+RelationType2=4
+Fields1=bp_est_req_apply_hid
+Fields2=bp_estimation_request_apply_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5564,5785,5654,R,R
+Position="発注＆検収",0,2081,8342,1415,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170414093249
+LineMode=0
+Bar1=556
+Bar2=578
+Bar3=565
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=bpEstReqHdr
+Entity2=bpEstReqApplyHdr
+RelationType1=2
+RelationType2=1
+Fields1=bp_estimation_request_id
+Fields2=bp_estimation_request_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,7852,2471,3627,R,R
+Position="発注＆検収",0,6834,8745,1415,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170314193911
+LineMode=0
+Bar1=785
+Bar2=247
+Bar3=363
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=noSeqMgr
+LName=採番管理
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=99
+Top=648
+Field="システムC","sys_cd","@VARCHAR(10)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="テーブルID","sys_tbl_id","@VARCHAR(255)","NOT NULL",1,"","",$FFFFFFFF,""
+Field="フィールドID","sys_field","@VARCHAR(255)","NOT NULL",2,"","",$FFFFFFFF,""
+Field="接頭辞","sys_prefix","@VARCHAR(2)","NOT NULL",,"","",$FFFFFFFF,""
+Field="年月","sys_ym","@VARCHAR(4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="開始NO","sys_seq_start_no","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="終了NO","sys_seq_end_no","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="カレントNO","sys_current_no","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="備考","sys_field_remark","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Index=sysSetting_u1=1,sys_field,sys_ym,sys_seq_start_no,sys_seq_end_no
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170324155923
+Position="MAIN",99,648
+Position="マスタ",2650,150
+
+[Entity]
+PName=bpEstReqApplyDtl
+LName=BP見積依頼申請DTL情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=3500
+Top=550
+Field="BP見積依頼申請DID","bp_est_req_apply_did","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="BP見積依頼申請HID","bp_est_req_apply_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","display_order","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認者ID","accept_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認状況","confirm_st","@CHAR(1)","NOT NULL",,"","1：未承認\n2：承認済\n3：拒否",$FFFFFFFF,""
+Field="承認(拒否)コメント","con_rej_comment","@VARCHAR(500)","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認(拒否)日時","con_rej_dt","@DATETIME",,,"","",$FFFFFFFF,""
+Index=bpEstReqApplyDtl_u_1=1,bp_est_req_apply_hid,display_order
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170814205719
+Position="MAIN",3500,550
+Position="発注＆検収",1250,850
+
+[Entity]
+PName=bpEstReqApplyHdr
+LName=BP見積依頼申請HDR情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=3500
+Top=350
+Field="BP見積依頼申請HID","bp_est_req_apply_hid","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="BP見積依頼ID","bp_est_req_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN:削除",$FFFFFFFF,""
+Field="申請理由","apply_reason","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="申請者ID","apply_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="申請日時","apply_dt","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認待表示順","confirm_wait_display_order","@INT",,,"","承認待となっている申請DTLの表示順を設定",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170814205843
+Position="MAIN",3500,350
+Position="発注＆検収",1200,500
+
+[Relation]
+Entity1=orderConfirm
+Entity2=bpEstReqHdr
+RelationType1=2
+RelationType2=1
+Fields1=order_id
+Fields2=order_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",2,5769,4061,5769,R,R
+Position="稟議書＆見積＆受注",0,927,9073,1032,R,R
+Position="発注＆検収",0,1397,8603,815,R,L
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170401165119
+LineMode=2
+Bar1=577
+Bar2=406
+Bar3=577
+TermPos1=R
+TermPos2=R
+
+[Comment]
+Comment=発注、検収
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=Main
+Left=3200
+Top=0
+Width=441
+Height=73
+
+[Entity]
+PName=bpEstReqHdr
+LName=BP見積依頼HDR情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=3200
+Top=200
+Field="BP見積依頼HID","bp_est_req_hid","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="BP見積依頼NO","bp_est_req_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="BP受注NO","bp_order_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR","NOT NULL",,"\qY\q","Y/N",$FFFFFFFF,""
+Field="受注HID","order_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="見積希望金額(税抜)","bp_est_hope_amt_without_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業開始日","work_start_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業終了日","work_end_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件番号","project_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件名称","project_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="作業内容","work_content","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業場所","work_place","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="見積依頼内容","bp_est_req_content","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="特記事項","order_special_affairs","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="備考","order_remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170412193820
+Position="MAIN",3200,200
+Position="発注＆検収",250,200
+
+[Relation]
+Entity1=order
+Entity2=orderConfirm
+RelationType1=2
+RelationType2=1
+Fields1=order_id
+Fields2=order_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5687,4429,5687,R,R
+Position="稟議書＆見積＆受注",2,2715,7264,5939,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170901124014
+LineMode=0
+Bar1=569
+Bar2=443
+Bar3=569
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=orderConfirm
+LName=受注確定情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=2950
+Top=200
+Field="受注ID","order_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="受注確認者ID","order_confirm_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="受注確認日時","order_confirm_dt","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="受注確認備考","order_confirm_remark","VARCHAR(500)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=VE
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180525173729
+Position="MAIN",2950,200
+Position="稟議書＆見積＆受注",3500,300
+
+[Comment]
+Comment=見積、受注
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=Main
+Left=2500
+Top=0
+Width=441
+Height=73
+
+[Entity]
+PName=order
+LName=受注HDR情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=2700
+Top=200
+Field="受注ID","order_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="受注NO","order_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN:削除",$FFFFFFFF,""
+Field="作成日","create_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="クライアント名","client_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="受注金額(税抜)","order_amt_without_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="受注金額(税込)","order_amt_with_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業開始日","work_start_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業終了日","work_end_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件番号","pj_cd","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件名称","pj_nm","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業内容","work_content","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業場所","work_place","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="注文内容","order_content","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="特記事項","special_affairs","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="備考","remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="お支払条件","payment_cond","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="注文書","order_doc_file_id","@INT",,,"","",$FFFFFFFF,""
+Field="見積HID","est_hid","@INT",,,"","",$FFFFFFFF,""
+Index=orderhdr_i_alt1=1,order_no
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180614174855
+Position="MAIN",2700,200
+Position="稟議書＆見積＆受注",2800,1050
+
+[Entity]
+PName=sysFileMgr
+LName=ファイル管理
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=100
+Top=750
+Field="ファイルID","file_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="拡張子","file_ext","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="MimeType","mime_type","@VARCHAR(64)",,,"","",$FFFFFFFF,""
+Field="オリジナルファイル名","file_nm","@VARCHAR(64)",,,"","",$FFFFFFFF,""
+Field="保存相対パス ","file_path","@VARCHAR(255)",,,"","",$FFFFFFFF,""
+Field="ファイルサイズ","file_size","@INT",,,"","",$FFFFFFFF,""
+Field="保存ユーザ","file_user_id","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="保存日時","file_ymd","@DATETIME",,,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)",,,"\qY\q","Y:使用\nN:削除",$FFFFFFFF,""
+Index=sysSetting_u1=1,file_ext,mime_type,file_nm,file_path
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20171013192016
+Position="MAIN",100,750
+Position="マスタ",100,1000
+
+[Entity]
+PName=sysSetting
+LName=設定
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=100
+Top=550
+Field="設定ID","sys_setting_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="システムC","sys_cd","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="大分類C","major_class_cd","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="中分類C","mid_class_cd","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="小分類C","minor_class_cd","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="文字列1","str_val1","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="文字列2","str_val2","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="文字列3","str_val3","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="文字列4","str_val4","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="文字列5","str_val5","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="数値1","num_val1","@DECIMAL(10,3)",,,"","",$FFFFFFFF,""
+Field="数値2","num_val2","@DECIMAL(10,3)",,,"","",$FFFFFFFF,""
+Field="数値3","num_val3","@DECIMAL(10,3)",,,"","",$FFFFFFFF,""
+Field="数値4","num_val4","@DECIMAL(10,3)",,,"","",$FFFFFFFF,""
+Field="数値5","num_val5","@DECIMAL(10,3)",,,"","",$FFFFFFFF,""
+Field="備考1","remark1","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="備考2","remark2","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Index=sysSetting_u1=1,sys_cd,major_class_cd,mid_class_cd,minor_class_cd
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170324160334
+Position="MAIN",100,550,75,51
+Position="マスタ",100,1300
+
+[Relation]
+Entity1=apprApplyHdr
+Entity2=apprDocAccepted
+RelationType1=2
+RelationType2=1
+Fields1=appr_apply_hid
+Fields2=approval_apply_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",2,5712,4288,6491,R,R
+Position="稟議書＆見積＆受注",4,4876,2113,7550,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170321143949
+LineMode=2
+Bar1=571
+Bar2=429
+Bar3=649
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=estHdr
+Entity2=estDtl
+RelationType1=2
+RelationType2=4
+Fields1=est_hid
+Fields2=est_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5474,3290,5613,R,R
+Position="稟議書＆見積＆受注",0,5249,5347,2704,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170314140333
+LineMode=0
+Bar1=547
+Bar2=329
+Bar3=561
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=apprDocAccepted
+Entity2=estDtl
+RelationType1=2
+RelationType2=1
+Fields1=appr_doc_id
+Fields2=appr_doc_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",3,6710,3290,500,R,R
+Position="稟議書＆見積＆受注",0,6890,6260,2494,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20180410095711
+LineMode=3
+Bar1=671
+Bar2=329
+Bar3=50
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=estHdr
+LName=見積HDR情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=2500
+Top=200
+Field="見積HID","est_hid","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="見積NO","est_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN:削除",$FFFFFFFF,""
+Field="見積区分","est_k","@CHAR(1)","NOT NULL",,"","1:概算\n2:確定",$FFFFFFFF,""
+Field="提出日","submit_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="発行日","issue_dt","@DATE",,,"","",$FFFFFFFF,""
+Field="送付日","delivery_dt","@DATE",,,"","",$FFFFFFFF,""
+Field="発注仕様書NO","shipping_order_spec_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="クライアント名","client_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="見積金額(税抜)","est_amt_without_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="見積金額(税込)","est_amt_with_tax","@DECIMAL(13,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業開始日","work_start_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業終了日","work_end_ymd","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件番号","pj_cd","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="案件名称","pj_nm","@VARCHAR(200)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業内容","work_content","@VARCHAR(200)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作業場所","work_place","@VARCHAR(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="注文内容","order_content","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="特記事項","special_affairs","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="お支払条件","payment_cond","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="備考","remark","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Index=esthdr_i_alt1=1,est_no
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180614174843
+Position="MAIN",2500,200,158,50
+Position="稟議書＆見積＆受注",2350,100
+
+[Entity]
+PName=estDtl
+LName=見積DTL情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=2500
+Top=300
+Field="見積DID","est_did","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="見積HID","est_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Index=estdtl_i_atl1=0,est_hid
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180326203853
+Position="MAIN",2500,300
+Position="稟議書＆見積＆受注",2650,850
+
+[Relation]
+Entity1=apprDoc
+Entity2=apprDocAccepted
+RelationType1=2
+RelationType2=1
+Fields1=appr_doc_id
+Fields2=appr_doc_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,4412,4354,4412,R,R
+Position="稟議書＆見積＆受注",0,2238,6180,4239,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20170314134212
+LineMode=0
+Bar1=441
+Bar2=435
+Bar3=441
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=apprDocAccepted
+LName=承認済稟議書
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=2200
+Top=150
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="最終承認者ID","last_accept_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="最終承認日時","last_accept_date","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="稟議書申請HID","approval_apply_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=VE
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170324155611
+Position="MAIN",2200,150
+Position="稟議書＆見積＆受注",2000,700
+
+[Relation]
+Entity1=apprDoc
+Entity2=apprApplyHdr
+RelationType1=2
+RelationType2=3
+Fields1=appr_doc_id
+Fields2=appr_doc_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,6491,8793,5712,R,R
+Position="稟議書＆見積＆受注",0,217,7650,3449,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170323102516
+LineMode=0
+Bar1=649
+Bar2=879
+Bar3=571
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=apprApplyHdr
+Entity2=apprApplyDtl
+RelationType1=2
+RelationType2=4
+Fields1=appr_apply_hid
+Fields2=appr_apply_hid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5650,5328,5760,R,R
+Position="稟議書＆見積＆受注",0,3542,4835,3959,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170901110135
+LineMode=0
+Bar1=565
+Bar2=533
+Bar3=576
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=apprApplyDtl
+LName=稟議書申請DTL情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=1900
+Top=450
+Field="稟議書申請DID","appr_apply_did","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="稟議書申請HID","appr_apply_hid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","display_order","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認者ID","accept_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認状況","confirm_st","@CHAR(1)","NOT NULL",,"","0：申請済（申請者はWFの一つ目に表示する）\n1：未承認\n2：同意\n3：拒否",$FFFFFFFF,""
+Field="承認(拒否)コメント","con_rej_comment","@VARCHAR(500)","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認(拒否)日時","con_rej_dt","@DATETIME",,,"","",$FFFFFFFF,""
+Index=apprApplyDtl_u_1=2,appr_apply_hid,display_order
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170922142241
+Position="MAIN",1900,450
+Position="稟議書＆見積＆受注",1200,500
+
+[Entity]
+PName=apprApplyHdr
+LName=稟議書申請HDR情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=1900
+Top=250
+Field="稟議書申請HID","appr_apply_hid","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN:削除",$FFFFFFFF,""
+Field="申請理由","apply_reason","@VARCHAR(500)",,,"","",$FFFFFFFF,""
+Field="申請者ID","apply_user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="申請日時","apply_dt","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認待表示順","confirm_wait_display_order","@INT",,,"","承認待となっている申請DTLの表示順を設定",$FFFFFFFF,""
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170814205825
+Position="MAIN",1900,250
+Position="稟議書＆見積＆受注",1200,150
+
+[Relation]
+Entity1=menuProgram
+Entity2=program
+RelationType1=1
+RelationType2=3
+Fields1=pg_id
+Fields2=pg_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5909,8308,5909,R,R
+Position="マスタ",0,2961,7039,3455,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20170314103825
+LineMode=0
+Bar1=591
+Bar2=831
+Bar3=591
+TermPos1=R
+TermPos2=R
+
+[Entity]
+PName=menuProgram
+LName=メニュー・機能対照表
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=400
+Top=400
+Field="サブメニューid","sub_menu_id","@INT",,0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="メニューid","menu_id","@INT",,,"","",$FFFFFFFF,""
+Field="機能ID","pg_id","@VARCHAR(15)","NOT NULL",,"","",$FFFFFFFF,""
+Field="下位サブメニューid","low_menu_id","@INT",,,"","",$FFFFFFFF,""
+Field="表示順","display_order","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=T
+Color=$0000FF
+BkColor=$FFFFFF
+ModifiedDateTime=20180323200123
+Position="MAIN",400,400
+Position="マスタ",1450,1000
+
+[Entity]
+PName=userWfConfirmRoute
+LName=ユーザーWF承認経路
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=100
+Top=200
+Field="ユーザーWF承認経路ID","user_wf_confirm_route_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="ユーザーID","user_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="承認者ID","accept_user_id","@CHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="表示順","display_order","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20170901224141
+Position="MAIN",100,200
+Position="マスタ",600,650
+
+[Entity]
+PName=menu
+LName=メニュー情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=450
+Top=300
+Field="メニューid","menu_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="メニュー名","menu_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="PATH","menu_path","@VARCHAR(255)",,,"","",$FFFFFFFF,""
+Field="COMPONENT","menu_component","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="ICON","menu_icon","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=R
+Color=$0028FF
+BkColor=$FFFFFF
+ModifiedDateTime=20180307104747
+Position="MAIN",450,300
+Position="マスタ",1500,550
+
+[Entity]
+PName=program
+LName=機能情報
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=750
+Top=400
+Field="機能ID","pg_id","@VARCHAR(15)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="機能名","pg_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="機能連番","pg_seq","@INT","NOT NULL",,"","",$000028FF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN:削除",$FFFFFFFF,""
+Field="備考","pg_remark","@VARCHAR(500)",,,"","",$000028FF,""
+Field="PATH","pg_path","@VARCHAR(255)",,,"","",$000028FF,""
+Field="COMPONENT","pg_component","@VARCHAR(50)",,,"","",$000028FF,""
+Field="ICON","pg_icon","@VARCHAR(100)",,,"","",$000028FF,""
+Field="REDIRECT","pg_redirect","@VARCHAR(255)",,,"","",$000028FF,""
+Field="PROPS","pg_props","@VARCHAR(255)",,,"","",$000028FF,""
+Field="メニュー表示FLG","menu_display_flg","@CHAR(1)",,,"\qY\q","Y:メニュー表示する\nN：メニューに表示しない",$000028FF,""
+EffectMode=None
+Tag=R
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180323193123
+Position="MAIN",750,400
+Position="マスタ",2300,1000
+
+[Comment]
+Comment=稟議書
+FontName=Tahoma
+FontBold=0
+FontItalic=0
+FontUnderline=0
+FontSize=11
+FontColor=$000000
+LineColor=$000000
+BkColor=$FFFFFF
+Page=Main
+Left=1000
+Top=0
+Width=217
+Height=73
+
+[Entity]
+PName=apprDoc
+LName=稟議書
+Comment=
+TableOption=ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+Page=MAIN
+Left=1450
+Top=150
+Field="稟議書ID","appr_doc_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"AUTO_INCREMENT"
+Field="稟議書NO","appr_doc_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="使用FLG","use_flg","@CHAR(1)","NOT NULL",,"\qY\q","Y:使用\nN:削除",$FFFFFFFF,""
+Field="対象期間From","appr_doc_dt_from","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="対象期間To","appr_doc_dt_to","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="稟議書作成区分","appr_doc_create_k","@CHAR(1)","NOT NULL",,"","1：通常更新\n2：新規\n3：条件変更\n4：正社員化\n5：退職\n6：再販",$FFFFFFFF,""
+Field="稟議書作成日","appr_doc_create_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="稟議書状態","appr_doc_st","@CHAR(1)","NOT NULL",,"","1：申請待    稟議書データ登録直後\n2：承認待    稟議書データ承認WFを申請後　※申請後、承認中前、申請取消が可能\n3：承認中    稟議書承認WFがスタート後\n4：承認済    承認経路の承認者がすべて承認済、\n5：契約済    受注先と合意済の後\nA:取消     ユーザー取消（画面上で検索可能）\n\n",$FFFFFFFF,""
+Field="営業主担当","business_main_user_id","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="営業副担当","business_sub_user_id","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="部署C","dept_cd","@VARCHAR(3)",,,"","",$FFFFFFFF,""
+Field="社員番号","emp_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="社員名","emp_nm","@VARCHAR(30)","NOT NULL",,"","",$FFFFFFFF,""
+Field="社員名（フリガナ）","emp_nm_fuli","@VARCHAR(30)","NOT NULL",,"","",$FFFFFFFF,""
+Field="性別","emp_sex","@CHAR(1)","NOT NULL",,"","M：男\nF：女",$FFFFFFFF,""
+Field="生年月日","emp_birthday","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="入場日","site_entrance_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="入社日","entrance_dt","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+Field="要員マイナンバー","emp_my_number","@VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="希望雇用形態","emp_pat_k","@CHAR(1)","NOT NULL",,"","1：正社員\n2：契約社員\n3：出向社員\n4：派遣社員\n5：委託契約",$FFFFFFFF,""
+Field="所属区分","affiliation_k","@CHAR(1)","NOT NULL",,"","1：個人事業主\n2：協力会社（ＢＰ）",$FFFFFFFF,""
+Field="入社経歴","entrance_record_k","@CHAR(1)","NOT NULL",,"","1：有\n2：無",$FFFFFFFF,""
+Field="前回稟議書NO","old_appr_doc_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="引取区分","take_over_k","@CHAR(1)",,,"","1：新規取引先\n2：既存取引先",$FFFFFFFF,""
+Field="注文書受領日（見込）","order_recv_hope_dt","@DATE",,,"","",$FFFFFFFF,""
+Field="最寄駅（自宅）","from_home_station_nm","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="契約（上位）","client_contract_k","@CHAR(1)",,,"","1：委任契約\n2：派遣契約\n",$FFFFFFFF,""
+Field="役職手当割合","appoint_allow_ratio","@DECIMAL(5,2)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="役職手当金額","appoint_allow_amt","@DECIMAL(10,1)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="住宅手当割合","house_allow_ratio","@DECIMAL(5,2)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="住宅手当金額","house_allow_amt","@DECIMAL(10,1)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="通信手当割合","communication_allow_ratio","@DECIMAL(5,2)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="通信手当金額","communication_allow_amt","@DECIMAL(10,1)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="現場手当割合","site_allow_ratio","@DECIMAL(5,2)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="現場手当金額","site_allow_amt","@DECIMAL(10,1)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="残業手当割合","overwork_allow_ratio","@DECIMAL(5,2)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="残業手当金額","overwork_allow_amt","@DECIMAL(10,1)","NOT NULL",,"0","",$FFFFFFFF,""
+Field="そのた手当1名称","other_allow1_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="そのた手当1割合","other_allow1_ratio","@DECIMAL(5,2)",,,"0","",$FFFFFFFF,""
+Field="そのた手当1金額","other_allow1_amt","@DECIMAL(10,1)",,,"0","",$FFFFFFFF,""
+Field="そのた手当２名称","other_allow2_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="そのた手当２割合","other_allow2_ratio","@DECIMAL(5,2)",,,"0","",$FFFFFFFF,""
+Field="そのた手当２金額","other_allow2_amt","@DECIMAL(10,1)",,,"0","",$FFFFFFFF,""
+Field="売上販売計上月","sales_addup_month","@DATE","NOT NULL",,"","1～12\n売上販売の計上月\n（請求対象月ではない）",$FFFFFFFF,""
+Field="契約総工数(人月)","sum_contract_wm","@DECIMAL(7,2)","NOT NULL",,"","",$FFFFFFFF,""
+Field="当月稼働日","work_days","@INT","NOT NULL",,"","1～31",$FFFFFFFF,""
+Field="請求計上月","billing_month","@DATE","NOT NULL",,"","1～12",$FFFFFFFF,""
+Field="上位単金/単価","sell_price","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="当月営業日","business_days","@INT","NOT NULL",,"","1～31",$FFFFFFFF,""
+Field="要員渡し/原価","cost_price","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="交通費(初月)","travel_cost_first_mon","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="その他(初月)","other_cost_first_mon","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="交通費","travel_cost","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="社保費","insurance_cost","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="その他","other_cost","@DECIMAL(10,1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="保険加入区分","insurance_k","@CHAR(1)",,,"","1：雇用保険のみ\n2：社保険完備\n3：保険無し",$FFFFFFFF,""
+Field="社保加入予定日","insurance_join_ymd","@DATE",,,"","",$FFFFFFFF,""
+Field="クライアント番号","client_no","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="クライアント名","client_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="クライアントURL","client_url","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="クライアント法人マイナンバー","client_my_number","@VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="クライアント郵便番号","client_post_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="クライアント連絡先住所","client_addr","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="クライアント電話番号","client_tel_no","@VARCHAR(15)",,,"","XX-XXXX-XXXX",$FFFFFFFF,""
+Field="クライアントFAX番号","client_fax_no","@VARCHAR(15)",,,"","XX-XXXX-XXXX",$FFFFFFFF,""
+Field="クライアント担当者名","client_staff_nm","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="クライアント担当者名（フリガナ）","client_staff_nm_fuli","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="クライアント担当者所属部署","client_staff_dept_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="クライアント担当者役職","client_staff_position","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="クライアント担当者電話番号","client_staff_tel_no","@VARCHAR(15)",,,"","",$FFFFFFFF,""
+Field="クライアント担当者FAX番号","client_staff_fax_no","@VARCHAR(15)",,,"","",$FFFFFFFF,""
+Field="クライアント担当者携帯番号","client_staff_mobile_no","@VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="クライアントメール","client_mail_addr","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="クライアントメールCC","client_mail_addr_cc","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="請求担当者名","client_req_staff_nm","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="請求担当者名（フリガナ）","client_req_staff_nm_fuli","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="請求担当者所属部署","client_req_staff_dept_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="請求担当者役職","client_req_staff_position","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="請求担当者電話番号","client_req_tel_no","@VARCHAR(15)",,,"","XX-XXXX-XXXX",$FFFFFFFF,""
+Field="請求担当者FAX番号","client_req_fax_no","@VARCHAR(15)",,,"","XX-XXXX-XXXX",$FFFFFFFF,""
+Field="請求担当者携帯番号","client_req_staff_mobile_no","@VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="請求担当者メール","client_req_mail_addr","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="請求担当者メールCC","client_req_mail_addr_cc","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="請求担当者郵便番号","client_req_post_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="請求担当者連絡先住所","client_req_addr","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="受注（注文）書No","client_order_no","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="作業案件CD","pj_cd","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="作業案件名称","pj_nm","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="勤務地/最寄駅","work_place","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="作業内容・範囲","work_content","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="精算条件","accounting_pat_k","@CHAR(1)",,,"","1：上下割\n2：中割\n3：固定\n ← 記入例：140-200（36-58）/稼働時間200H以内想定",$FFFFFFFF,""
+Field="給料支払区分","salary_pay_k","@CHAR(1)",,,"","1：月給\n2：時給",$FFFFFFFF,""
+Field="作業時間（上限・H）","wh_max","@DECIMAL(4,1)",,,"","",$FFFFFFFF,""
+Field="作業時間（下限・H）","wh_min","@DECIMAL(4,1)",,,"","",$FFFFFFFF,""
+Field="中割時間","wh_mid","@DECIMAL(4,1)",,,"","",$FFFFFFFF,""
+Field="超過単価（円）","excess_price","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="控除単価（円）","deducation_price","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="業務案件今月分の開始日","pj_start_dt","@DATE",,,"","",$FFFFFFFF,""
+Field="業務案件今月分の終了日","pj_end_dt","@DATE",,,"","",$FFFFFFFF,""
+Field="作業時間単位","work_time_unit_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="工数（契約用）","contract_work_month","@DECIMAL(6,2)",,,"","",$FFFFFFFF,""
+Field="案件分類名称","pj_class_nm","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="出勤時刻","work_start_time","@TIME",,,"","",$FFFFFFFF,""
+Field="退勤時刻","work_end_time","@TIME",,,"","",$FFFFFFFF,""
+Field="休憩時間（分）","break_time_min","@INT",,,"","",$FFFFFFFF,""
+Field="支払サイト/出金日付の日","payment_plan_d","@INT",,,"","",$FFFFFFFF,""
+Field="支払サイト/締日区分","payment_due_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="支払サイト/支払月区分","pay_month_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="支払サイト/支払日付の日","pay_plan_d","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="支払サイト/出金予定日","salary_pay_plan_dt","@INT",,,"","",$FFFFFFFF,""
+Field="所属会社ID","bp_comp_id","@VARCHAR(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="所属会社名/社員氏名","bp_comp_emp_nm","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="所属会社URL","bp_comp_url","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="所属会社法人マイナンバー","bp_my_number","@VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="所属会社郵便番号","bp_post_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="所属会社連絡先住所","bp_addr","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="所属会社電話番号","bp_tel_no","@VARCHAR(15)",,,"","",$FFFFFFFF,""
+Field="所属会社FAX番号","bp_fax_no","@VARCHAR(15)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者名","bp_staff_nm","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者名（フリガナ）","bp_staff_nm_fuli","@VARCHAR(30)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者所属部署","bp_staff_dept_nm","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者役職","bp_staff_position","@VARCHAR(50)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者電話番号","bp_staff_tel_no","@VARCHAR(15)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者FAX番号","bp_staff_fax_no","@VARCHAR(15)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者携帯番号","bp_staff_mobile_no","@VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者個人メール","bp_staff_mail_addr","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="所属会社担当者個人メールCC","bp_staff_mail_addr_cc","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="要員住所","staff_addr","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="要員郵便番号","staff_post_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="要員メールアドレス","staff_mail_addr","@VARCHAR(100)",,,"","",$FFFFFFFF,""
+Field="要員電話番号","staff_tel_no","@VARCHAR(15)",,,"","",$FFFFFFFF,""
+Field="要員携帯電話番号","staff_mobile_no","@VARCHAR(20)",,,"","",$FFFFFFFF,""
+Field="精算条件（BP）","bp_accounting_pat_k","@CHAR(1)",,,"","1：上下割\n2：中割\n3：固定\n ← 記入例：140-200（36-58）/稼働時間200H以内想定",$FFFFFFFF,""
+Field="給料支払区分（BP）","bp_salary_pay_k","@CHAR(1)",,,"","1：月給\n2：時給",$FFFFFFFF,""
+Field="作業時間（上限・H）（BP）","bp_wh_max","@DECIMAL(4,1)",,,"","",$FFFFFFFF,""
+Field="作業時間（下限・H）（BP）","bp_wh_min","@DECIMAL(4,1)",,,"","",$FFFFFFFF,""
+Field="中割時間（BP）","bp_wh_mid","@DECIMAL(4,1)",,,"","",$FFFFFFFF,""
+Field="超過単価（円）（BP）","bp_excess_price","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="控除単価（円）（BP）","bp_deducation_price","@DECIMAL(10,1)",,,"","",$FFFFFFFF,""
+Field="作業時間単位（BP）","bp_work_unit_k","@CHAR(1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="出勤時刻（BP）","bp_work_start_time","@TIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="退勤時刻（BP）","bp_work_end_time","@TIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="休憩時間（分）（BP）","bp_break_time_min","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="支払サイト/出金日付の日（BP）","bp_payment_plan_d","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="支払サイト/締日区分（BP）","bp_payment_due_k","@CHAR(1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="支払サイト/支払月区分（BP）","bp_pay_month_k","@CHAR(1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="支払サイト/支払日付の日（BP）","bp_pay_plan_d","@CHAR(1)","NOT NULL",,"","",$FFFFFFFF,""
+Field="支払サイト/出金予定日（BP）","bp_salary_pay_plan_dt","@INT",,,"","",$FFFFFFFF,""
+Field="月次処理区分","mon_pro_k","@CHAR(1)","NOT NULL",,"","1：通常締結\n2：EDI\n",$FFFFFFFF,""
+Field="作業報告書F","work_rep_f","@CHAR(1)","NOT NULL",,"","1：指定なし\n2：客先F",$FFFFFFFF,""
+Field="請求書F","bill_f","@CHAR(1)","NOT NULL",,"","1：指定なし\n2：客先F",$FFFFFFFF,""
+Field="作業報告書締め区分","work_rep_dl_k","@CHAR(1)","NOT NULL",,"","1：指定なし\n2：第1営業日\n3：第2営業日\n4：第3営業日\n5：第4-5営業日\n",$FFFFFFFF,""
+Field="請求書締め区分","bill_dl_k","@CHAR(1)","NOT NULL",,"","1：指定なし\n2：第1営業日\n3：第2営業日\n4：第3営業日\n5：第4-5営業日\n",$FFFFFFFF,""
+Field="添付資料F","mon_attach_file_k","@CHAR(1)","NOT NULL",,"","1：有\n2：無",$FFFFFFFF,""
+Field="添付ファイルID","mon_attach_file_id","@INT",,,"","",$FFFFFFFF,""
+Field="手続き方法","procedure_method_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="退社理由","withdrawal_reason_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="離職票の有無","withdrawal_letter_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="社保任意継続","insurance_con_k","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="必要書類","withdrawal_req_doc","@CHAR(1)",,,"","",$FFFFFFFF,""
+Field="手続き日付","procedure_dt","@DATE",,,"","",$FFFFFFFF,""
+Field="退社日","withdrawal_dt","@DATE",,,"","",$FFFFFFFF,""
+Field="退社後郵便番号","after_withdrawal_post_no","@VARCHAR(10)",,,"","",$FFFFFFFF,""
+Field="退社後住所","after_withdrawal_addr","@VARCHAR(200)",,,"","",$FFFFFFFF,""
+Field="連絡事項（購買へ）","purchase_remark","@VARCHAR(2000)",,,"","",$FFFFFFFF,""
+Field="商流記載","commercial_dist_remark","@VARCHAR(2000)",,,"","",$FFFFFFFF,""
+Field="特記事項（要員）","emp_remark","@VARCHAR(2000)",,,"","",$FFFFFFFF,""
+Field="個人情報変更Flg","emp_info_chg_flg","@CHAR(1)",,,"","Y：変更あり、N：変更なし",$FFFFFFFF,""
+Field="手続き区分","procedure_k","@CHAR(1)",,,"","1:新規入社処理\n2:契約期間更新処理\n3:退社処理\n",$FFFFFFFF,""
+Field="月次請求ステータス","mon_req_st","@CHAR(1)",,,"","1:作業報告○\n2:作業報告×\n3:作業報告▲\n4:請求完了",$000028FF,""
+Field="月次請求添付資料備考","mon_attach_file_remark","@VARCHAR(2000)",,,"","",$FFFFFFFE,""
+Field="月次請求補足備考","mon_add_remark","@VARCHAR(2000)",,,"","",$FFFFFFFE,""
+Index=apprDoc_i_alt1=1,appr_doc_no
+EffectMode=None
+Tag=E
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20180614174805
+Position="MAIN",1450,150
+Position="稟議書＆見積＆受注",50,150,870,2650

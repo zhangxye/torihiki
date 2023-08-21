@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.persistence.dao.SalesreqdtlMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Salesreqdtl">
+		<id column="sales_id" property="salesId" />
+		<result column="payment_dat" property="paymentDat" />
+		<result column="next_pj_k" property="nextPjK" />
+		<result column="pj_nm" property="pjNm" />
+		<result column="work_content" property="workContent" />
+		<result column="work_place" property="workPlace" />
+		<result column="client_no" property="clientNo" />
+		<result column="client_nm" property="clientNm" />
+		<result column="req_start_dt" property="reqStartDt" />
+		<result column="req_end_dt" property="reqEndDt" />
+		<result column="sell_price" property="sellPrice" />
+		<result column="current_mon_work_time" property="currentMonWorkTime" />
+		<result column="wh_max" property="whMax" />
+		<result column="wh_min" property="whMin" />
+		<result column="real_work_hour" property="realWorkHour" />
+		<result column="excess_price" property="excessPrice" />
+		<result column="deducation_price" property="deducationPrice" />
+		<result column="work_amt" property="workAmt" />
+		<result column="travel_cost" property="travelCost" />
+		<result column="work_time_unit_k" property="workTimeUnitK" />
+		<result column="other_cost" property="otherCost" />
+		<result column="pay_month_k" property="payMonthK" />
+		<result column="pay_plan_d" property="payPlanD" />
+		<result column="client_pay_dt" property="clientPayDt" />
+		<result column="overwork_amt" property="overworkAmt" />
+		<result column="deduction_amt" property="deductionAmt" />
+		<result column="client_pay_without_tax" property="clientPayWithoutTax" />
+		<result column="client_pay_tax" property="clientPayTax" />
+		<result column="client_pay_with_tax" property="clientPayWithTax" />
+		<result column="pj_class_nm" property="pjClassNm" />
+		<result column="gross_amt" property="grossAmt" />
+		<result column="sales_req_remark" property="salesReqRemark" />
+		<result column="money_rec_plan_dt" property="moneyRecPlanDt" />
+		<result column="pay_lt" property="payLt" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+
+</mapper>

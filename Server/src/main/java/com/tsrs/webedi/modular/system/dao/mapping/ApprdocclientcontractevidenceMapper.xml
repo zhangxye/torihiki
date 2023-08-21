@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.ApprdocclientcontractevidenceMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Apprdocclientcontractevidence">
+		<id column="appr_client_contract_evidence_d" property="apprClientContractEvidenceD" />
+		<result column="appr_doc_id" property="apprDocId" />
+		<result column="display_order" property="displayOrder" />
+		<result column="work_evidence" property="workEvidence" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+	<select id="selectEvidenceList"  resultType="map">
+			select
+			e.display_order
+			, e.work_evidence
+			from
+			  apprdocclientcontractevidence e join apprdoc d 
+			    on e.appr_doc_id = d.appr_doc_id 
+			where
+			  d.appr_doc_no = #{apprDocNo,jdbcType=VARCHAR} 
+			order by
+			  e.display_order asc
+	  </select>
+</mapper>

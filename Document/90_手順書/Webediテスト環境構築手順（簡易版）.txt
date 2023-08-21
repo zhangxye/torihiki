@@ -1,0 +1,206 @@
+#(1)テストユーザー追加
+#一般不用root，用专门用户来安装，用户名可以随意指定。
+#建议用webedi
+useradd -m jin-qk
+passwd jin-qk
+cd /home/jin-qk/
+mkdir InstallFiles
+
+#(2)[Option]Install NodeJs & Run the Front Page
+#解压安装文件
+cd InstallFiles/
+xz -d node-v6.11.2-linux-x64.tar.xz
+tar xvf node-v6.11.2-linux-x64.tar
+#执行的命令加到 path 里面，这样执行命令式就不用每次都用绝对路径
+ln -s /home/jin-qk/InstallFiles/node-v6.11.2-linux-x64/bin/node /usr/local/bin/node
+ln -s /home/jin-qk/InstallFiles/node-v6.11.2-linux-x64/bin/npm /usr/local/bin/npm
+node -v
+npm -v
+#国内npm命令很慢，用淘宝的cnpm代替
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+ln -s /home/jin-qk/InstallFiles/node-v6.11.2-linux-x64/bin/cnpm /usr/local/bin/cnpm
+rm /usr/local/bin/cnpm
+ln -s /home/jin-qk/InstallFiles/node-v6.11.2-linux-x64/bin/cnpm /usr/local/bin/cnpm
+#安装VUE的脚手架，方便程序运行和打包
+cnpm install -g vue-cli
+ln -s /home/jin-qk/InstallFiles/node-v6.11.2-linux-x64/bin/vue /usr/local/bin/vue
+ln -s /home/jin-qk/InstallFiles/node-v6.11.2-linux-x64/bin/vue-init /usr/local/bin/vue-init
+ln -s /home/jin-qk/InstallFiles/node-v6.11.2-linux-x64/bin/vue-list /usr/local/bin/vue-list
+ln -s /home/jin-qk/InstallFiles/node-v6.11.2-linux-x64/bin/vue-build /usr/local/bin/vue-build
+vue -v
+yum search bzip2
+yum -y install bzip2.x86_64
+
+#把程序放到指定路径
+cd /home/webedi/Screen
+cnpm install
+
+#启动程序
+nohup cnpm run dev &
+  
+#(3)Install Mysql5.7  & Import DB data
+#通过网络安装Mysql
+cd /home/jin-qk/InstallFiles/
+mkdir -p mysql
+cd mysql
+wget http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+yum repolist enabled
+yum localinstall mysql57-community-release-el7-11.noarch.rpm
+yum repolist enabled
+vim /etc/yum.repos.d/mysql-community.repo
+yum install mysql-community-server
+#启动Mysql
+systemctl start mysqld
+systemctl status mysqld
+//systemctl stop mysqld
+systemctl enable mysqld
+systemctl daemon-reload
+
+#找到root的初始密码
+grep 'temporary password' /var/log/mysqld.log
+mysql -uroot -p
+#设置Mysql 详见(5)Mysql setting
+vi /etc/my.cnf
+#导入DB数据
+cd /home/webedi/
+mkdir -p db_data
+cd db_data/
+mysql -u root -p webedi <webedi.sql
+mysql -u root -p jobnavi <jobnavi.sql
+mysql -u webedi -p
+
+#(4)Install Java(JDK8) & Run the Server
+#解压JDK
+cd  /usr/local/
+mkdir -p tools
+cd tools/
+tar zxvf jdk-8u144-linux-x64.tar.gz
+cd ../
+mkdir -p jdk
+cd tools/
+mv jdk1.8.0_144/ ../jdk/
+cd ../jdk/
+#添加JDK到path
+vi /etc/profile
+source /etc/profile
+java -version
+cd /home/webedi/Server/
+nohup java -jar WebEDI-1.0.0-SNAPSHOT.jar  &
+
+   
+#(5)Mysql setting
+##/etc/My.cnf 
+
+character_set_server=utf8
+init_connect='SET NAMES utf8'
+
+##change password
+##更改数据库默认密码
+mysql> alter user 'root'@'localhost' IDENTIFIED BY 'webedi#1234';
+ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'WebEdi#1234';
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> show variables like '%password%'
+    -> ;
++---------------------------------------+--------+
+| Variable_name                         | Value  |
++---------------------------------------+--------+
+| default_password_lifetime             | 0      |
+| disconnect_on_expired_password        | ON     |
+| log_builtin_as_identified_by_password | OFF    |
+| mysql_native_password_proxy_users     | OFF    |
+| old_passwords                         | 0      |
+| report_password                       |        |
+| sha256_password_proxy_users           | OFF    |
+| validate_password_check_user_name     | OFF    |
+| validate_password_dictionary_file     |        |
+| validate_password_length              | 8      |
+| validate_password_mixed_case_count    | 1      |
+| validate_password_number_count        | 1      |
+| validate_password_policy              | MEDIUM |
+| validate_password_special_char_count  | 1      |
++---------------------------------------+--------+
+14 rows in set (0.00 sec)
+
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'webedi'@'%' IDENTIFIED BY 'WebEdi#1234' WITH GRANT OPTION;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+##Webedi
+URL 47.91.166.19:3306/webedi
+UserId/Pwd webedi/WebEdi#1234
+##Jobnavi
+URL 47.91.166.19:3306/jobnavi
+UserId/Pwd webedi/WebEdi#1234
+
+#（6）Install Nginx(Option)
+#安装Nginx Ap引擎
+#用它最终来代替NodeJs运行环境
+#性能极佳
+cd /home/jin-qk/InstallFiles/
+wget http://nginx.org/download/nginx-1.12.1.tar.gz
+tar -zxvf nginx-1.12.1.tar.gz
+cd nginx-1.12.1
+./configure \
+yum install -y zlib zlib-devel
+yum install -y pcre pcre-devel
+mkdir -p /var/temp/nginx
+./configure --prefix=/usr/local/nginx --pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/var/lock/nginx.lock --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --with-http_gzip_static_module --http-client-body-temp-path=/var/temp/nginx/client --http-proxy-temp-path=/var/temp/nginx/proxy --http-fastcgi-temp-path=/var/temp/nginx/fastcgi --http-uwsgi-temp-path=/var/temp/nginx/uwsgi --http-scgi-temp-path=/var/temp/nginx/scgi
+make
+make install
+cd /usr/local/nginx/
+vi conf/nginx.conf
+/usr/local/nginx/sbin/nginx
+/usr/local/nginx/sbin/nginx -s quit
+/usr/local/nginx/sbin/nginx -s reload
+/usr/local/nginx/sbin/nginx -t
+
+##nginx.conf的修改内容
+##vi conf/nginx.conf
+
+        location / {
+#          root   html;
+            root   /home/webedi/Screen/dist;
+            index  index.html index.htm;
+        }
+		
+		location ^~/api/{
+		rewrite ^/api/(.*)$ /$1 break;
+		proxy_pass http://localhost:1111/;
+		}
+		
+#如果出现nginx "403 Forbidden" 错误
+#查看/home/webedi/Screen/dist 的所有文件夹是否有 x 权限
+#没有的话，执行 chmod -R a+x /home/webedi
+
+#开机自启动
+#即在rc.local增加启动代码就可以了。
+#vi /etc/rc.local
+#增加一行 /usr/local/nginx/sbin/nginx
+#设置执行权限：
+#chmod 755 rc.local
+
+
+##（7）关闭firewall：
+systemctl stop firewalld.service #停止firewall
+systemctl disable firewalld.service #禁止firewall开机启动
+firewall-cmd --state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）
+
+#下面是前端和后端的停止，启动命令
+#Run the server and screen
+------------------------------------------------------------------------------
+#Server run
+#nohup java -Dspring.profiles.active=it -jar WebEDI-1.0.0-SNAPSHOT.jar &
+#nohup java -Dspring.profiles.active=produce -jar WebEDI-1.0.0-SNAPSHOT.jar &
+nohup java -jar WebEDI-1.0.0-SNAPSHOT.jar &
+ps aux | grep java
+kill pid
+
+#Screen run
+#nohup cnpm run dev &
+cd /home/webedi/Screen/ && nohup cnpm run dev &
+ps aux | grep npm
+kill pid
+
+

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.EstDao">
+
+	<sql id="apprDocSql">
+		SELECT
+			apprdoc.appr_doc_id,
+			apprdoc.appr_doc_no,
+			createk.str_val1 AS appr_doc_create_k_nm,
+			DATE_FORMAT( apprdoc.appr_doc_create_dt, '%Y-%m-%d' ) AS appr_doc_create_dt,
+			DATE_FORMAT( apprdoc.appr_doc_dt_from, '%Y-%m-%d' ) AS appr_doc_dt_from,
+			DATE_FORMAT( apprdoc.appr_doc_dt_to, '%Y-%m-%d' ) AS appr_doc_dt_to,
+			apprdoc.emp_no,
+			apprdoc.emp_nm,
+			apprdoc.client_no,
+			apprdoc.client_nm,
+			apprdoc.pj_cd,
+			apprdoc.pj_nm,
+			apprdoc.work_content,
+			apprdoc.work_place,
+			CONCAT( '毎月', duek.str_val1, '締め', paymonthk.str_val1, pland.str_val1, 'のお支払' ) AS client_payment,
+			apprdoc.sell_price,
+			apprdoc.sum_contract_wm,
+			apprdoc.accounting_pat_k,
+			apprdoc.wh_max,
+			apprdoc.wh_min,
+			apprdoc.wh_mid,
+			apprdoc.excess_price,
+			apprdoc.deducation_price,
+			apprdoc.payment_plan_d,
+			apprdoc.payment_due_k,
+			duek.str_val1 AS payment_due_k_nm,
+			apprdoc.pay_month_k,
+			paymonthk.str_val1 AS pay_month_k_nm,
+			apprdoc.pay_plan_d,
+			pland.str_val1 AS pay_plan_d_nm
+		FROM
+			apprdoc
+		INNER JOIN apprdocaccepted ON
+			apprdocaccepted.appr_doc_id = apprdoc.appr_doc_id
+		LEFT JOIN syssetting createk ON
+			apprdoc.appr_doc_create_k = createk.minor_class_cd
+			AND createk.sys_cd = 'WEBEDI'
+			AND createk.major_class_cd = 'CREATE_K'
+		LEFT JOIN syssetting duek ON
+			apprdoc.payment_due_k = duek.minor_class_cd
+			AND duek.sys_cd = 'WEBEDI'
+			AND duek.major_class_cd = 'DUE_K'
+		LEFT JOIN syssetting pland ON
+			apprdoc.pay_plan_d = pland.minor_class_cd
+			AND pland.sys_cd = 'WEBEDI'
+			AND pland.major_class_cd = 'DUE_K'
+		LEFT JOIN syssetting paymonthk ON
+			apprdoc.pay_month_k = paymonthk.minor_class_cd
+			AND paymonthk.sys_cd = 'WEBEDI'
+			AND paymonthk.major_class_cd = 'PAYMONTHK'
+		WHERE
+			apprdoc.use_flg = 'Y'
+	</sql>
+	
+	<sql id="estHdrSql">
+		SELECT
+			esthdr.est_hid,
+			esthdr.est_no,
+			esthdr.shipping_order_spec_no,
+			DATE_FORMAT( esthdr.submit_dt, '%Y-%m-%d' ) AS submit_dt,
+			esthdr.client_nm,
+			esthdr.est_amt_without_tax,
+			esthdr.est_amt_with_tax,
+			esthdr.pj_cd,
+			esthdr.pj_nm,
+			esthdr.work_content,
+			esthdr.work_place,
+			DATE_FORMAT( esthdr.work_start_ymd, '%Y-%m-%d' ) AS work_start_ymd,
+			DATE_FORMAT( esthdr.work_end_ymd, '%Y-%m-%d' ) AS work_end_ymd,
+			esthdr.order_content,
+			esthdr.special_affairs,
+			esthdr.payment_cond,
+			esthdr.remark,
+			esthdr.est_k,
+			estK.str_val1 AS est_k_nm,			
+			DATE_FORMAT( esthdr.issue_dt, '%Y-%m-%d' ) AS issue_dt,
+			DATE_FORMAT( esthdr.delivery_dt, '%Y-%m-%d' ) AS delivery_dt,
+			CASE
+			   WHEN order.order_id IS NOT NULL THEN 'Y'
+			   ELSE 'N'
+			END AS del_flg
+		FROM
+			esthdr
+		LEFT JOIN `order`
+		       ON order.est_hid = esthdr.est_hid
+		      AND order.use_flg = 'Y'
+		LEFT JOIN syssetting estK
+		       ON estK.minor_class_cd = esthdr.est_k
+		      AND estK.sys_cd = 'WEBEDI' 
+		      AND estK.major_class_cd = 'EST_K'	</sql>
+
+	<select id="searchForEntry" parameterType="hashmap" resultType="hashmap">
+		<include refid="apprDocSql"/>
+		AND apprdoc.appr_doc_st = '4'
+		AND NOT EXISTS(
+		SELECT
+		1
+		FROM
+		esthdr
+		INNER JOIN estdtl
+		USING(est_hid)
+		WHERE
+		esthdr.use_flg = 'Y'
+		AND estdtl.appr_doc_id = apprdoc.appr_doc_id
+		)
+		<if test="searchCond.client_nm != null and searchCond.client_nm != ''">
+			AND apprdoc.client_nm like CONCAT('%',#{searchCond.client_nm},'%')
+		</if>
+		<if test="searchCond.pj_nm != null and searchCond.pj_nm != ''">
+			AND apprdoc.pj_nm like CONCAT('%',#{searchCond.pj_nm},'%')
+		</if>
+		<if test="searchCond.emp_nm != null and searchCond.emp_nm != ''">
+			AND apprdoc.emp_nm like CONCAT('%',#{searchCond.emp_nm},'%')
+		</if>
+		<if test="searchCond.appr_doc_no != null and searchCond.appr_doc_no != ''">
+			AND apprdoc.appr_doc_no like CONCAT(#{searchCond.appr_doc_no},'%')
+		</if>
+		<if test="searchCond.work_mon != null and searchCond.work_mon != ''">
+			AND #{searchCond.work_mon} between date_format(apprdoc.appr_doc_dt_from,'%Y-%m') AND
+			date_format(apprdoc.appr_doc_dt_to,'%Y-%m')
+		</if>
+		<if test="searchCond.business_main_user_id != null and searchCond.business_main_user_id != ''">
+			AND apprdoc.business_main_user_id = #{searchCond.business_main_user_id}
+		</if>
+		ORDER BY
+		apprdoc.client_no,
+		apprdoc.client_no,
+		apprdoc.client_nm,
+		apprdoc.pj_cd,
+		apprdoc.pj_nm,
+		apprdoc.payment_due_k,
+		apprdoc.pay_month_k,
+		apprdoc.pay_plan_d,
+		apprdoc.appr_doc_dt_from,
+		apprdoc.appr_doc_dt_to,
+		apprdoc.appr_doc_no
+	</select>
+
+	<select id="searchForDetail" parameterType="hashmap" resultType="hashmap">
+		<include refid="estHdrSql"/>
+		WHERE esthdr.use_flg='Y'
+		<if test="searchCond.est_no != null and searchCond.est_no != ''">
+			AND esthdr.est_no like CONCAT(#{searchCond.est_no},'%')
+		</if>
+		<if test="searchCond.client_nm != null and searchCond.client_nm != ''">
+			AND esthdr.client_nm like CONCAT('%',#{searchCond.client_nm},'%')
+		</if>
+		<if test="searchCond.pj_nm != null and searchCond.pj_nm != ''">
+			AND esthdr.pj_nm like CONCAT('%',#{searchCond.pj_nm},'%')
+		</if>
+		<if test="searchCond.work_mon != null and searchCond.work_mon != ''">
+			AND #{searchCond.work_mon} between date_format(esthdr.work_start_ymd,'%Y-%m') AND
+			date_format(esthdr.work_end_ymd,'%Y-%m')
+		</if>
+		AND EXISTS(
+		SELECT 1
+		FROM apprdoc
+		INNER JOIN estdtl
+		ON estdtl.appr_doc_id = apprdoc.appr_doc_id
+		WHERE apprdoc.use_flg = 'Y'
+		AND estdtl.est_hid = esthdr.est_hid
+		<if test="searchCond.emp_nm != null and searchCond.emp_nm != ''">
+			AND apprdoc.emp_nm like CONCAT('%',#{searchCond.emp_nm},'%')
+		</if>
+		<if test="searchCond.appr_doc_no != null and searchCond.appr_doc_no != ''">
+			AND apprdoc.appr_doc_no like CONCAT(#{searchCond.appr_doc_no},'%')
+		</if>
+		<if test="searchCond.business_main_user_id != null and searchCond.business_main_user_id != ''">
+			AND apprdoc.business_main_user_id = #{searchCond.business_main_user_id}
+		</if>
+		)
+		ORDER BY
+		esthdr.est_no DESC
+	</select>
+
+	<select id="searchForOrderEntry" parameterType="hashmap" resultType="hashmap">
+		<include refid="estHdrSql"/>
+		WHERE esthdr.use_flg='Y'
+		AND esthdr.est_k='2'
+		AND esthdr.issue_dt IS NOT NULL
+		<if test="searchCond.est_no != null and searchCond.est_no != ''">
+			AND esthdr.est_no like CONCAT(#{searchCond.est_no},'%')
+		</if>
+		<if test="searchCond.client_nm != null and searchCond.client_nm != ''">
+			AND esthdr.client_nm like CONCAT('%',#{searchCond.client_nm},'%')
+		</if>
+		<if test="searchCond.pj_nm != null and searchCond.pj_nm != ''">
+			AND esthdr.pj_nm like CONCAT('%',#{searchCond.pj_nm},'%')
+		</if>
+		<if test="searchCond.work_mon != null and searchCond.work_mon != ''">
+			AND #{searchCond.work_mon} between date_format(esthdr.work_start_ymd,'%Y-%m') AND
+			date_format(esthdr.work_end_ymd,'%Y-%m')
+		</if>
+		AND EXISTS(
+		SELECT 1
+		FROM apprdoc
+		INNER JOIN estdtl
+		ON estdtl.appr_doc_id = apprdoc.appr_doc_id
+		WHERE apprdoc.use_flg = 'Y'
+		AND estdtl.est_hid = esthdr.est_hid
+		<if test="searchCond.emp_nm != null and searchCond.emp_nm != ''">
+			AND apprdoc.emp_nm like CONCAT('%',#{searchCond.emp_nm},'%')
+		</if>
+		<if test="searchCond.appr_doc_no != null and searchCond.appr_doc_no != ''">
+			AND apprdoc.appr_doc_no like CONCAT(#{searchCond.appr_doc_no},'%')
+		</if>
+		<if test="searchCond.business_main_user_id != null and searchCond.business_main_user_id != ''">
+			AND apprdoc.business_main_user_id = #{searchCond.business_main_user_id}
+		</if>
+		)
+		AND NOT EXISTS(
+		SELECT
+		1
+		FROM
+		`order`
+		WHERE
+		order.use_flg = 'Y'
+		AND order.est_hid = esthdr.est_hid
+		)
+		ORDER BY
+		esthdr.est_no DESC
+	</select>
+	
+	<select id="selectEstHdrInfoForInsert"  resultType="hashmap">
+		SELECT
+			apprdoc.client_no,
+			apprdoc.client_nm,
+			apprdoc.pj_cd,
+			apprdoc.pj_nm,
+			apprdoc.work_content,
+			apprdoc.work_place,
+			DATE_FORMAT( apprdoc.appr_doc_dt_from, '%Y-%m-%d' ) AS work_start_ymd,
+			DATE_FORMAT( apprdoc.appr_doc_dt_to, '%Y-%m-%d' ) AS work_end_ymd,
+			CONCAT( '毎月', duek.str_val1, '締め', paymonthk.str_val1, pland.str_val1, 'のお支払' ) AS payment_cond,
+			apprdoc.payment_plan_d,
+			apprdoc.payment_due_k,
+			duek.str_val1 AS payment_due_k_nm,
+			apprdoc.pay_month_k,
+			paymonthk.str_val1 AS pay_month_k_nm,
+			apprdoc.pay_plan_d,
+			pland.str_val1 AS pay_plan_d_nm,
+			SUM(apprdoc.sell_price) AS est_amt_without_tax,
+			0 AS est_amt_with_tax
+		FROM
+			apprdoc
+		INNER JOIN apprdocaccepted ON
+			apprdocaccepted.appr_doc_id = apprdoc.appr_doc_id
+		LEFT JOIN syssetting createk ON
+			apprdoc.appr_doc_create_k = createk.minor_class_cd
+			AND createk.sys_cd = 'WEBEDI'
+			AND createk.major_class_cd = 'CREATE_K'
+		LEFT JOIN syssetting duek ON
+			apprdoc.payment_due_k = duek.minor_class_cd
+			AND duek.sys_cd = 'WEBEDI'
+			AND duek.major_class_cd = 'DUE_K'
+		LEFT JOIN syssetting pland ON
+			apprdoc.pay_plan_d = pland.minor_class_cd
+			AND pland.sys_cd = 'WEBEDI'
+		AND pland.major_class_cd = 'DUE_K'
+		LEFT JOIN syssetting paymonthk ON
+		apprdoc.pay_month_k = paymonthk.minor_class_cd
+		AND paymonthk.sys_cd = 'WEBEDI'
+		AND paymonthk.major_class_cd = 'PAYMONTHK'
+		WHERE
+		apprdoc.use_flg = 'Y'
+		AND apprdoc.appr_doc_st = '4'
+		AND NOT EXISTS(
+		SELECT
+		1
+		FROM
+		esthdr
+		INNER JOIN estdtl
+		USING(est_hid)
+		WHERE
+		esthdr.use_flg = 'Y'
+		AND estdtl.appr_doc_id = apprdoc.appr_doc_id
+		)
+		AND apprdoc.appr_doc_id IN
+		<foreach item="item" index="index" collection="apprDocIdAry"
+				 open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		GROUP BY
+		apprdoc.client_no,
+		apprdoc.client_nm,
+		apprdoc.pj_cd,
+		apprdoc.pj_nm,
+		apprdoc.work_content,
+		apprdoc.work_place,
+		DATE_FORMAT( apprdoc.appr_doc_dt_from, '%Y-%m-%d' ),
+		DATE_FORMAT( apprdoc.appr_doc_dt_to, '%Y-%m-%d' ),
+		CONCAT( '毎月', duek.str_val1, '締め', paymonthk.str_val1, pland.str_val1, 'のお支払' ),
+		apprdoc.payment_plan_d,
+		apprdoc.payment_due_k,
+		duek.str_val1,
+		apprdoc.pay_month_k,
+		paymonthk.str_val1,
+		apprdoc.pay_plan_d,
+		pland.str_val1
+	</select>
+
+	<select id="selectEstDtlInfoForInsert" resultType="hashmap">
+		<include refid="apprDocSql"/>
+		AND apprdoc.appr_doc_id IN
+		<foreach item="item" index="index" collection="apprDocIdAry"
+				 open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="selectEstHdrInfoForDetail" parameterType="Integer" resultType="hashmap">
+		SELECT
+			esthdr.est_hid,
+			esthdr.est_no,
+			esthdr.shipping_order_spec_no,
+			DATE_FORMAT( esthdr.submit_dt, '%Y-%m-%d' ) AS submit_dt,
+			esthdr.client_nm,
+			esthdr.est_amt_without_tax,
+			esthdr.est_amt_with_tax,
+			esthdr.pj_cd,
+			esthdr.pj_nm,
+			esthdr.work_content,
+			esthdr.work_place,
+			DATE_FORMAT( esthdr.work_start_ymd, '%Y-%m-%d' ) AS work_start_ymd,
+			DATE_FORMAT( esthdr.work_end_ymd, '%Y-%m-%d' ) AS work_end_ymd,
+			esthdr.order_content,
+			esthdr.special_affairs,
+			esthdr.payment_cond,
+			esthdr.remark,
+			esthdr.est_k,
+			estK.str_val1 AS est_k_nm,
+			DATE_FORMAT( esthdr.issue_dt, '%Y-%m-%d' ) AS issue_dt,
+			DATE_FORMAT( esthdr.delivery_dt, '%Y-%m-%d' ) AS delivery_dt,
+			CASE
+			   WHEN order.order_id IS NOT NULL THEN 'Y'
+			   ELSE 'N'
+			END AS del_flg
+		FROM
+			esthdr
+		LEFT JOIN `order`
+		       ON order.est_hid = esthdr.est_hid
+		      AND order.use_flg = 'Y'
+		LEFT JOIN syssetting estK
+		       ON estK.minor_class_cd = esthdr.est_k
+		      AND estK.sys_cd = 'WEBEDI' 
+		      AND estK.major_class_cd = 'EST_K'
+		WHERE
+			esthdr.est_hid = #{est_hid}
+	</select>
+	
+	<select id="selectEstDtlInfoForDetail" parameterType="Integer"  resultType="hashmap">
+		<include refid="apprDocSql"/>
+		AND  EXISTS(
+				SELECT
+					1
+				FROM
+					esthdr
+				INNER JOIN estdtl
+						USING(est_hid)
+				WHERE
+					esthdr.use_flg = 'Y'
+					AND estdtl.appr_doc_id = apprdoc.appr_doc_id
+					AND esthdr.est_hid = #{est_hid}
+			)
+	    				
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.persistence.dao.RequestapplyhdrMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Requestapplyhdr">
+		<id column="req_apply_hid" property="reqApplyHid" />
+		<result column="req_id" property="reqId" />
+		<result column="use_flg" property="useFlg" />
+		<result column="apply_reason" property="applyReason" />
+		<result column="apply_user_id" property="applyUserId" />
+		<result column="apply_dt" property="applyDt" />
+		<result column="confirm_wait_display_order" property="confirmWaitDisplayOrder" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+
+</mapper>

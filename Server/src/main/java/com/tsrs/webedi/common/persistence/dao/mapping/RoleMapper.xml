@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.common.persistence.dao.RoleMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.common.persistence.model.Role">
+		<id column="id" property="id" />
+		<result column="num" property="num" />
+		<result column="pid" property="pid" />
+		<result column="name" property="name" />
+		<result column="deptid" property="deptid" />
+		<result column="tips" property="tips" />
+		<result column="version" property="version" />
+	</resultMap>
+	
+	<resultMap id="RouteConfigP" type="com.tsrs.webedi.common.persistence.model.RouteConfig">
+		<id property="menuId" column="menu_id" />
+		<result property="name" column="menu_nm" />
+		<result property="path" column="menu_path" />
+		<result property="icon" column="menu_icon" />
+		<result property="component" column="menu_component" />
+		<collection property="children" select="selectPgList" column="menu_id" ofType="RouteConfigC"/>	
+	</resultMap>
+	
+	<resultMap id="RouteConfigC" type="com.tsrs.webedi.common.persistence.model.RouteConfig">
+			<id property="subMenuId" column="sub_menu_id" />
+			<result property="pgId" column="pg_id" />
+			<result property="name" column="pg_nm" />
+			<result property="path" column="pg_path" />
+			<result property="icon" column="pg_icon" />
+			<result property="redirect" column="pg_redirect" />
+			<result property="props" column="pg_props" />
+			<result property="hidden" column="display_flg" />
+			<result property="component" column="pg_component"/>
+	</resultMap>
+	
+	<resultMap id="MenuInfo" type="com.tsrs.webedi.common.persistence.model.MenuTree">
+		<id property="id" column="menu_id" javaType="String"/>
+		<result property="label" column="menu_nm" javaType="String"/>
+		<result property="path" column="menu_path" javaType="String"/>		
+		<result property="isMenu" column="menu_flg" javaType="Boolean"/>		
+		<result property="displayFlg" column="menu_display_flg" javaType="String"/>		
+		<collection property="children" ofType="com.tsrs.webedi.common.persistence.model.MenuTree">
+		<id property="id" column="pg_id" javaType="String"/>
+		<result property="label" column="pg_nm" javaType="String"/>		
+		<result property="path" column="pg_path" javaType="String"/>
+		<result property="isMenu" column="pg_flg" javaType="Boolean"/>		
+		<result property="displayFlg" column="pg_display_flg" javaType="String"/>		
+		</collection>
+	</resultMap>
+	
+	<select id="selectAllRoles" resultType="com.tsrs.webedi.common.persistence.model.LabelValueBean">
+	  SELECT
+			id AS value,
+			name AS label
+		FROM
+			role
+	ORDER BY id;
+	</select>
+	
+	<select id="getAsyncRouterMapList"  resultMap="RouteConfigP">
+		    SELECT
+			       menu.menu_id,
+			       menu.menu_nm,
+			       CONCAT('/',menu.menu_path) AS menu_path,
+			       menu.menu_component,
+			       menu.menu_icon
+		      FROM role
+		INNER JOIN rolemenurel
+		        ON rolemenurel.role_id = role.id
+		INNER JOIN menu
+		        ON menu.menu_id = rolemenurel.menu_id
+		     WHERE role.id = #{role_id}
+		  ORDER BY rolemenurel.display_order ASC
+	</select>
+	
+	<sql id="roleInfo">
+	    SELECT 
+			   role.id AS role_id,
+			   role.name AS role_nm,
+			   CASE
+				WHEN EXISTS(
+						SELECT
+							1
+						FROM
+							user
+						WHERE
+							roleid = role.id
+					) THEN 'Y'
+					ELSE 'N'
+				END AS del_flg
+		  FROM role
+	</sql>
+	
+	<select id="getRoleList" resultType="hashmap">
+		<include refid="roleInfo"/>
+		 <where>
+		  <if  test="role_id != null and role_id != ''">
+		  	role.id LIKE CONCAT(#{role_id},'%')
+		  </if>
+		  <if  test="role_nm != null and role_nm != ''">
+		  	AND role.name LIKE CONCAT('%',#{role_nm},'%')
+		  </if>
+		 </where>
+		  ORDER BY role.id ASC
+	</select>
+	
+	<select id="getRoleInfo" resultType="hashmap">
+		<include refid="roleInfo"/>
+		 WHERE role.id = #{role_id}
+	</select>
+
+	<select id="selectPgList" parameterType="int" resultMap="RouteConfigC">
+		    SELECT
+			       menuprogram.sub_menu_id,
+			       program.pg_id,
+			       program.pg_nm,
+			       program.pg_path,
+			       program.pg_component,
+			       program.pg_icon,
+			       program.pg_redirect,
+			       program.pg_props,
+			       CASE
+					program.menu_display_flg
+					WHEN 'N' THEN TRUE
+					ELSE FALSE
+				   END AS display_flg
+		      FROM menuprogram
+		INNER JOIN program
+		        ON program.pg_id = menuprogram.pg_id
+		     WHERE menuprogram.menu_id = #{menu_id}
+		  ORDER BY menuprogram.display_order ASC
+	</select>
+	
+	<select id="getMenuTreeList" parameterType="int" resultMap="MenuInfo">
+	 SELECT
+			menu.menu_id,
+			menu.menu_nm,
+			menu.menu_path,
+			menu.menu_component,
+			menu.menu_icon,
+			menuprogram.sub_menu_id,
+			'' AS menu_display_flg,
+			'TRUE' AS menu_flg,
+			program.pg_id,
+			program.pg_nm,
+			program.pg_path,
+			program.pg_component,
+			program.pg_icon,
+			program.pg_redirect,
+			program.pg_props,
+			program.menu_display_flg AS pg_display_flg,
+			'FALSE' AS menu_flg
+		FROM
+			role
+		INNER JOIN rolemenurel ON
+			rolemenurel.role_id = role.id
+		INNER JOIN menu ON
+			menu.menu_id = rolemenurel.menu_id
+		INNER JOIN menuprogram ON
+			menuprogram.menu_id = menu.menu_id
+		INNER JOIN program ON
+			program.pg_id = menuprogram.pg_id
+		WHERE
+			role.id = #{role_id} 
+		ORDER BY
+			rolemenurel.display_order ASC,
+			menuprogram.display_order ASC
+	</select>
+	
+	<select id="selectMenuList" parameterType="int" resultType="hashmap">
+		    SELECT
+			       menu.menu_id,
+			       menu.menu_nm,
+			       rolemenurel.display_order,
+			       menu.menu_path,
+			       menu.menu_component,
+			       menu.menu_icon
+		      FROM role
+		INNER JOIN rolemenurel
+		        ON rolemenurel.role_id = role.id
+		INNER JOIN menu
+		        ON menu.menu_id = rolemenurel.menu_id
+		     WHERE role.id = #{role_id}
+		  ORDER BY rolemenurel.display_order ASC
+	</select>
+	
+	<select id="selectPgList2" parameterType="int" resultType="String">
+		    SELECT
+			       menuprogram.pg_id
+		      FROM menuprogram
+		INNER JOIN program
+		        ON program.pg_id = menuprogram.pg_id
+		     WHERE menuprogram.menu_id = #{menu_id}
+		  ORDER BY menuprogram.display_order ASC
+	</select>
+	
+</mapper>

@@ -1,0 +1,316 @@
+2017-09-11
+alter table apprDoc modify column pay_plan_d char(1);
+alter table apprDoc modify column bp_pay_plan_d char(1);
+
+2017-09-17
+alter table `user` add column `job_title_cd` char(3) COMMENT '職位C';
+
+2017-09-21
+alter table jobtitle change  column `job_tile_nm` `job_title_nm` varchar(50);
+
+2017-10-13
+alter table sysFileMgr modify column file_ext varchar(50);
+
+2017-10-30
+alter table `apprdoc` add column `site_entrance_dt` DATE not null default '2017-01-01'  comment '入場日';
+update apprdoc set site_entrance_dt = entrance_dt;
+
+2017-11-16
+alter table `apprdoc` add column `client_staff_tel_no` varchar(15) COMMENT 'クライアント担当者電話番号';
+alter table `apprdoc` add column `client_staff_fax_no` varchar(15) COMMENT 'クライアント担当者FAX番号';
+
+2017-11-22
+alter table `ratiomgr` modify `ratio` decimal(6,3) NOT NULL COMMENT '料率';
+
+2017-12-07
+alter table `apprdoc` add column `emp_info_chg_flg` CHAR(1) COMMENT '個人情報変更Flg:Y：変更あり、N：変更なし';
+alter table `apprdoc` add column `procedure_k` CHAR(1) COMMENT '手続き区分:1:新規入社処理 2:契約期間更新処理 3:退社処理';
+
+2018-01-24
+alter table `apprdoc` add column `appoint_allow_amt` DECIMAL(10,1) default 0 not null comment '役職手当金額';
+alter table `apprdoc` add column `house_allow_amt` DECIMAL(10,1) default 0 not null comment '住宅手当金額';
+alter table `apprdoc` add column `communication_allow_amt` DECIMAL(10,1) default 0 not null comment '通信手当金額';
+alter table `apprdoc` add column `site_allow_amt` DECIMAL(10,1) default 0 not null comment '現場手当金額';
+alter table `apprdoc` add column `overwork_allow_amt` DECIMAL(10,1) default 0 not null comment '残業手当金額';
+alter table `apprdoc` add column `other_allow1_amt` DECIMAL(10,1) default 0 not null comment 'そのた手当1金額';
+alter table `apprdoc` add column `other_allow2_amt` DECIMAL(10,1) default 0 not null comment 'そのた手当２金額';
+
+update apprdoc set appoint_allow_amt = round(appoint_allow_ratio*cost_price/100);
+update apprdoc set house_allow_amt = round(house_allow_ratio*cost_price/100);
+update apprdoc set communication_allow_amt = round(communication_allow_ratio*cost_price/100);
+update apprdoc set site_allow_amt = round(site_allow_ratio*cost_price/100);
+update apprdoc set overwork_allow_amt = round(overwork_allow_ratio*cost_price/100);
+update apprdoc set other_allow1_amt = round(other_allow1_ratio*cost_price/100);
+update apprdoc set other_allow2_amt = round(other_allow2_ratio*cost_price/100);
+
+
+2018-01-25
+alter table `apprdoc` modify `staff_mail_addr` VARCHAR(100) comment '要員メールアドレス';
+alter table `apprdoc` modify `purchase_remark` VARCHAR(2000) comment '連絡事項（購買へ）';
+alter table `apprdoc` modify `commercial_dist_remark` VARCHAR(2000) comment '商流記載';
+alter table `apprdoc` modify `emp_remark` VARCHAR(2000) comment '特記事項（要員）';
+
+2018-02-28　（権限部分）
+drop table if exists `tsrs_user`;
+drop table if exists `tsrs_menu`;
+drop table if exists `menusubmenu`;
+drop table if exists `submenu`;
+drop table if exists `submenuprogram`;
+drop table if exists `relation`;
+
+-- ロールメニー関連表
+drop table if exists rolemenurel cascade;
+
+create table rolemenurel (
+  id INT not null AUTO_INCREMENT comment 'キー'
+  , role_id int(11) not null comment 'ロールid'
+  , menu_id INT not null comment 'メニーid'
+  , display_order INT not null comment '表示順'
+  , sys_ins_user_id VARCHAR(10) not null comment '登録者'
+  , sys_ins_dt DATETIME not null comment '登録日時'
+  , sys_ins_pg_id VARCHAR(15) not null comment '登録機能ID'
+  , sys_upd_user_id VARCHAR(10) comment '更新者'
+  , sys_upd_dt DATETIME comment '更新日時'
+  , sys_upd_pg_id VARCHAR(15) comment '更新機能ID'
+  , constraint roleMenuRel_PKC primary key (id)
+) comment 'ロールメニー関連表' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+create index role_menu_pk
+  on rolemenurel(role_id,menu_id);
+  
+-- メニュー・機能対照表
+drop table if exists menuprogram cascade;
+
+create table menuprogram (
+  sub_menu_id INT AUTO_INCREMENT comment 'サブメニューid'
+  , menu_id INT comment 'メニューid'
+  , pg_id VARCHAR(15) not null comment '機能ID'
+  , low_menu_id INT comment '下位サブメニューid'
+  , display_order INT not null comment '表示順'
+  , sys_ins_user_id VARCHAR(10) not null comment '登録者'
+  , sys_ins_dt DATETIME not null comment '登録日時'
+  , sys_ins_pg_id VARCHAR(15) not null comment '登録機能ID'
+  , sys_upd_user_id VARCHAR(10) comment '更新者'
+  , sys_upd_dt DATETIME comment '更新日時'
+  , sys_upd_pg_id VARCHAR(15) comment '更新機能ID'
+  , constraint menuProgram_PKC primary key (sub_menu_id)
+) comment 'メニュー・機能対照表' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- メニュー情報
+drop table if exists menu cascade;
+
+create table menu (
+  menu_id INT not null AUTO_INCREMENT comment 'メニューid'
+  , menu_nm VARCHAR(50) not null comment 'メニュー名'
+  , menu_path VARCHAR(255) comment 'PATH'
+  , menu_component VARCHAR(50) comment 'COMPONENT'
+  , menu_icon VARCHAR(100) comment 'ICON'
+  , sys_ins_user_id VARCHAR(10) not null comment '登録者'
+  , sys_ins_dt DATETIME not null comment '登録日時'
+  , sys_ins_pg_id VARCHAR(15) not null comment '登録機能ID'
+  , sys_upd_user_id VARCHAR(10) comment '更新者'
+  , sys_upd_dt DATETIME comment '更新日時'
+  , sys_upd_pg_id VARCHAR(15) comment '更新機能ID'
+  , constraint menu_PKC primary key (menu_id)
+) comment 'メニュー情報' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- 機能情報
+drop table if exists program cascade;
+
+create table program (
+  pg_id VARCHAR(15) comment '機能ID'
+  , pg_nm VARCHAR(50) not null comment '機能名'
+  , pg_seq INT not null comment '機能連番'
+  , use_flg CHAR(1) default 'Y' not null comment '使用FLG:Y:使用
+N:削除'
+  , pg_remark VARCHAR(500) comment '備考'
+  , pg_path VARCHAR(255) comment 'PATH'
+  , pg_component VARCHAR(50) comment 'COMPONENT'
+  , pg_icon VARCHAR(100) comment 'ICON'
+  , pg_redirect VARCHAR(255) comment 'REDIRECT'
+  , pg_props VARCHAR(255) comment 'PROPS'
+  , menu_display_flg CHAR(1) default 'Y' comment 'メニュー表示FLG:Y:メニュー表示する
+N：メニューに表示しない'
+  , sys_ins_user_id VARCHAR(10) not null comment '登録者'
+  , sys_ins_dt DATETIME not null comment '登録日時'
+  , sys_ins_pg_id VARCHAR(15) not null comment '登録機能ID'
+  , sys_upd_user_id VARCHAR(10) comment '更新者'
+  , sys_upd_dt DATETIME comment '更新日時'
+  , sys_upd_pg_id VARCHAR(15) comment '更新機能ID'
+  , constraint program_PKC primary key (pg_id)
+) comment '機能情報' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
+2018-03-26 (見積＆受注)
+
+-- 見積HDR情報
+drop table if exists esthdr cascade;
+
+create table esthdr (
+  est_hid INT not null AUTO_INCREMENT comment '見積HID'
+  , est_no VARCHAR(10) not null comment '見積NO'
+  , use_flg CHAR(1) default 'Y' not null comment '使用FLG:Y:使用
+N:削除'
+  , est_k CHAR(1) not null comment '見積区分:1:概算
+2:確定'
+  , submit_dt DATE not null comment '提出日'
+  , issue_dt DATE comment '発行日'
+  , delivery_dt DATE comment '送付日'
+  , shipping_order_spec_no VARCHAR(10) comment '発注仕様書NO'
+  , client_nm VARCHAR(50) not null comment 'クライアント名'
+  , est_amt_without_tax DECIMAL(13,1) not null comment '見積金額(税抜)'
+  , work_start_ymd DATE not null comment '作業開始日'
+  , work_end_ymd DATE not null comment '作業終了日'
+  , pj_cd VARCHAR(10) not null comment '案件番号'
+  , pj_nm VARCHAR(200) not null comment '案件名称'
+  , work_content VARCHAR(200) not null comment '作業内容'
+  , work_place VARCHAR(100) not null comment '作業場所'
+  , order_content VARCHAR(500) comment '注文内容'
+  , special_affairs VARCHAR(500) comment '特記事項'
+  , payment_cond VARCHAR(500) comment 'お支払条件'
+  , remark VARCHAR(500) comment '備考'
+  , sys_ins_user_id VARCHAR(10) not null comment '登録者'
+  , sys_ins_dt DATETIME not null comment '登録日時'
+  , sys_ins_pg_id VARCHAR(15) not null comment '登録機能ID'
+  , sys_upd_user_id VARCHAR(10) comment '更新者'
+  , sys_upd_dt DATETIME comment '更新日時'
+  , sys_upd_pg_id VARCHAR(15) comment '更新機能ID'
+  , constraint estHdr_PKC primary key (est_hid)
+) comment '見積HDR情報' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+create unique index esthdr_i_alt1
+  on esthdr(est_no);
+
+-- 見積DTL情報
+drop table if exists estdtl cascade;
+
+create table estdtl (
+  est_did INT not null AUTO_INCREMENT comment '見積DID'
+  , est_hid INT not null comment '見積HID'
+  , appr_doc_id INT not null comment '稟議書ID'
+  , sys_ins_user_id VARCHAR(10) not null comment '登録者'
+  , sys_ins_dt DATETIME not null comment '登録日時'
+  , sys_ins_pg_id VARCHAR(15) not null comment '登録機能ID'
+  , sys_upd_user_id VARCHAR(10) comment '更新者'
+  , sys_upd_dt DATETIME comment '更新日時'
+  , sys_upd_pg_id VARCHAR(15) comment '更新機能ID'
+  , constraint estDtl_PKC primary key (est_did)
+) comment '見積DTL情報' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+create index estdtl_i_atl1
+  on estdtl(est_hid);
+
+
+-- 受注確定情報
+drop table if exists orderconfirm cascade;
+
+create table orderconfirm (
+  order_id INT not null comment '受注ID'
+  , order_confirm_user_id VARCHAR(10) not null comment '受注確認者ID'
+  , order_confirm_dt DATETIME not null comment '受注確認日時'
+  , order_confirm_remark VARCHAR(500) not null comment '受注確認備考'
+  , sys_ins_user_id VARCHAR(10) not null comment '登録者'
+  , sys_ins_dt DATETIME not null comment '登録日時'
+  , sys_ins_pg_id VARCHAR(15) not null comment '登録機能ID'
+  , sys_upd_user_id VARCHAR(10) comment '更新者'
+  , sys_upd_dt DATETIME comment '更新日時'
+  , sys_upd_pg_id VARCHAR(15) comment '更新機能ID'
+  , constraint orderConfirm_PKC primary key (order_id)
+) comment '受注確定情報' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- 受注HDR情報
+drop table if exists orderhdr cascade;
+drop table if exists orderdtl cascade;
+drop table if exists `ORDER` cascade;
+
+create table `order` (
+  order_id INT not null AUTO_INCREMENT comment '受注ID'
+  , order_no VARCHAR(10) not null comment '受注NO'
+  , use_flg CHAR(1) default 'Y' not null comment '使用FLG:Y:使用
+N:削除'
+  , create_dt DATE not null comment '作成日'
+  , client_nm VARCHAR(50) not null comment 'クライアント名'
+  , order_amt_without_tax DECIMAL(13,1) not null comment '受注金額(税抜)'
+  , work_start_ymd DATE not null comment '作業開始日'
+  , work_end_ymd DATE not null comment '作業終了日'
+  , pj_cd VARCHAR(10) not null comment '案件番号'
+  , pj_nm VARCHAR(200) comment '案件名称'
+  , work_content VARCHAR(200) comment '作業内容'
+  , work_place VARCHAR(100) comment '作業場所'
+  , order_content VARCHAR(500) comment '注文内容'
+  , special_affairs VARCHAR(500) comment '特記事項'
+  , payment_cond VARCHAR(500) comment 'お支払条件'
+  , remark VARCHAR(500) comment '備考'
+  , order_doc_file_id INT comment '注文書'
+  , est_hid INT comment '見積HID'
+  , sys_ins_user_id VARCHAR(10) not null comment '登録者'
+  , sys_ins_dt DATETIME not null comment '登録日時'
+  , sys_ins_pg_id VARCHAR(15) not null comment '登録機能ID'
+  , sys_upd_user_id VARCHAR(10) comment '更新者'
+  , sys_upd_dt DATETIME comment '更新日時'
+  , sys_upd_pg_id VARCHAR(15) comment '更新機能ID'
+  , constraint order_PKC primary key (order_id)
+) comment '受注HDR情報' ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+create unique index order_i_alt1
+  on `ORDER`(order_no);
+ 
+--見積、受注採番情報を追加
+INSERT INTO webedi.noseqmgr
+(sys_cd, sys_tbl_id, sys_field, sys_prefix, sys_ym, sys_seq_start_no, sys_seq_end_no, sys_current_no, sys_field_remark, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES('webedi', 'estHdr', 'est_no', 'ES', '1803', 1, 9999, 1, '見積NO', 'jin-qk', '2017-08-31 16:28:59.000', 'hand', 'test', '2017-09-06 19:42:38.000', 'Unknow');
+INSERT INTO webedi.noseqmgr
+(sys_cd, sys_tbl_id, sys_field, sys_prefix, sys_ym, sys_seq_start_no, sys_seq_end_no, sys_current_no, sys_field_remark, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES('webedi', 'order', 'order_no', 'SO', '1803', 1, 9999, 1, '受注NO', 'jin-qk', '2017-08-31 16:28:59.000', 'hand', 'test', '2017-09-06 19:42:38.000', 'Unknow');
+
+--見積区分追加
+INSERT INTO webedi.syssetting
+(sys_setting_id, sys_cd, major_class_cd, mid_class_cd, minor_class_cd, str_val1, str_val2, str_val3, str_val4, str_val5, num_val1, num_val2, num_val3, num_val4, num_val5, remark1, remark2, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES(111, 'WEBEDI', 'EST_K', NULL, '1', '概算', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '見積区分', NULL, 'webedi', '2018-04-17 20:59:26.000', 'hand', NULL, NULL, NULL);
+INSERT INTO webedi.syssetting
+(sys_setting_id, sys_cd, major_class_cd, mid_class_cd, minor_class_cd, str_val1, str_val2, str_val3, str_val4, str_val5, num_val1, num_val2, num_val3, num_val4, num_val5, remark1, remark2, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES(112, 'WEBEDI', 'EST_K', NULL, '2', '確定', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '見積区分', NULL, 'webedi', '2018-04-17 20:59:26.000', 'hand', NULL, NULL, NULL);
+
+--見積確認機能を削除する
+DELETE FROM program WHERE pg_id = 'EstConfirm';
+DELETE FROM menuprogram WHERE pg_id = 'EstConfirm';
+
+2018-05-16 見積書用の契約総工数(人月)を追加
+alter table `apprdoc` add column `sum_contract_wm` DECIMAL(7,2) not null comment '契約総工数(人月)';
+
+2018-05-25 税込金額を追加
+alter table `esthdr` add column `est_amt_with_tax` DECIMAL(13,1) not null comment '見積金額(税込)';
+alter table `order` add column `order_amt_with_tax` DECIMAL(13,1) not null comment '受注金額(税込)';
+
+2018-06-14 月次請求一覧機能を追加
+--稟議書項目追加
+alter table `apprdoc` add column `mon_req_st` CHAR(1) comment '月次請求ステータス:1:作業報告○ 2:作業報告× 3:作業報告▲ 4:請求完了';
+alter table `apprdoc` add column `mon_attach_file_remark` VARCHAR(2000) comment '月次請求添付資料備考';
+alter table `apprdoc` add column `mon_add_remark` VARCHAR(2000) comment '月次請求補足備考';
+
+--月次請求ステータスの区分追加
+INSERT INTO webedi.syssetting
+(sys_setting_id, sys_cd, major_class_cd, mid_class_cd, minor_class_cd, str_val1, str_val2, str_val3, str_val4, str_val5, num_val1, num_val2, num_val3, num_val4, num_val5, remark1, remark2, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES(113, 'WEBEDI', 'MON_REQ_ST', NULL, '1', '作業報告○', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '月次請求ステータス', NULL, 'webedi', '2018-06-13 20:34:22.000', 'hand', NULL, NULL, NULL);
+INSERT INTO webedi.syssetting
+(sys_setting_id, sys_cd, major_class_cd, mid_class_cd, minor_class_cd, str_val1, str_val2, str_val3, str_val4, str_val5, num_val1, num_val2, num_val3, num_val4, num_val5, remark1, remark2, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES(114, 'WEBEDI', 'MON_REQ_ST', NULL, '2', '作業報告×', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '月次請求ステータス', NULL, 'webedi', '2018-06-13 20:34:22.000', 'hand', NULL, NULL, NULL);
+INSERT INTO webedi.syssetting
+(sys_setting_id, sys_cd, major_class_cd, mid_class_cd, minor_class_cd, str_val1, str_val2, str_val3, str_val4, str_val5, num_val1, num_val2, num_val3, num_val4, num_val5, remark1, remark2, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES(115, 'WEBEDI', 'MON_REQ_ST', NULL, '3', '作業報告▲', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '月次請求ステータス', NULL, 'webedi', '2018-06-13 20:34:22.000', 'hand', NULL, NULL, NULL);
+INSERT INTO webedi.syssetting
+(sys_setting_id, sys_cd, major_class_cd, mid_class_cd, minor_class_cd, str_val1, str_val2, str_val3, str_val4, str_val5, num_val1, num_val2, num_val3, num_val4, num_val5, remark1, remark2, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES(116, 'WEBEDI', 'MON_REQ_ST', NULL, '4', '請求完了', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '月次請求ステータス', NULL, 'webedi', '2018-06-13 20:34:22.000', 'hand', NULL, NULL, NULL);
+
+--ﾌﾟﾛｸﾞﾗﾑ追加
+INSERT INTO webedi.program
+(pg_id, pg_nm, pg_seq, use_flg, pg_remark, pg_path, pg_component, pg_icon, pg_redirect, pg_props, menu_display_flg, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES('MonReqInq', '請求一覧', 270, 'Y', '月次請求一覧', 'MonReqInq', 'MonReqInq', 'zonghe', '', '', 'Y', 'jin-qk', '2018-06-13 19:52:59.960', 'hand', '', NULL, '');
+INSERT INTO webedi.program
+(pg_id, pg_nm, pg_seq, use_flg, pg_remark, pg_path, pg_component, pg_icon, pg_redirect, pg_props, menu_display_flg, sys_ins_user_id, sys_ins_dt, sys_ins_pg_id, sys_upd_user_id, sys_upd_dt, sys_upd_pg_id)
+VALUES('Dummy', 'Dummy', 10000, 'Y', 'Dummy', 'Dummy', 'Dummy', NULL, '', '', 'N', 'jin-qk', '2018-06-13 19:53:00.000', 'hand', '', NULL, '');
+
+--メニュー追加
+--ロールの更新画面で　受注の直下に下記のメニューを追加してから
+--請求一覧の機能をそのメニューに追加してください。
+--パス：SalesReq　名称：売上・請求書	

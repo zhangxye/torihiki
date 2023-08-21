@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.NoseqmgrMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Noseqmgr">
+		<id column="sys_cd" property="sysCd" />
+		<result column="sys_tbl_id" property="sysTblId" />
+		<result column="sys_field" property="sysField" />
+		<result column="sys_prefix" property="sysPrefix" />
+		<result column="sys_ym" property="sysYm" />
+		<result column="sys_seq_start_no" property="sysSeqStartNo" />
+		<result column="sys_seq_end_no" property="sysSeqEndNo" />
+		<result column="sys_current_no" property="sysCurrentNo" />
+		<result column="sys_field_remark" property="sysFieldRemark" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+	
+	
+	<select id="getFieldNo" resultType="String">
+		 SELECT CONCAT( sys_prefix, sys_ym, LPAD( sys_current_no, 4, '0' )) AS getFieldNo
+		   FROM noseqmgr
+		  WHERE sys_cd = #{sys_cd}
+			AND sys_tbl_id = #{sys_tbl_id}
+			AND sys_field = #{sys_field};
+	</select>
+
+</mapper>

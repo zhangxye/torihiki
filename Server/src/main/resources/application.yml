@@ -1,0 +1,192 @@
+##########################################################
+##################  所有profile共有的配置  #################
+##########################################################
+
+###################  webedi配置  ###################
+webedi:
+  swagger-open: true #是否开启swagger (true/false)
+  kaptcha-open: false #是否开启登录时验证码 (true/false)
+#  session-open: false #是否开启session验证 (true/false)
+  #file-upload-path: d:/tmp  #文件上传目录(不配置的话为java.io.tmpdir目录)
+  session-invalidate-time: 1800 #session失效时间 单位：秒
+  session-validation-interval: 900 #多久检测一次失效的session 单位：秒
+  muti-datasource-open: true #是否开启多数据源(true/false)
+  pagesize: 10 #每页记录数 
+###################  项目启动端口  ###################
+server:
+  port: 1111
+  maxHttpHeaderSize: 16384
+
+###################  beetl配置  ###################
+beetl:
+  delimiter-statement-start: \@   #开始结束标签(yaml不允许@开头)
+  delimiter-statement-end: null
+  resource-tagroot: common/tags   #自定义标签文件Root目录和后缀
+  resource-tagsuffix: tag
+
+
+###################  spring配置  ###################
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    password:
+  profiles:
+    active: dev
+  mvc:
+#      pathmatch:
+#      matching-strategy: ant_path_matcher
+    static-path-pattern: /static/**
+    view:
+      prefix: /WEB-INF/view
+    converters:
+      preferred-json-mapper: fastjson
+  http:
+##    converters:
+##      preferred-json-mapper: fastjson
+    multipart:
+      max-request-size: 100MB #最大请求大小
+      max-file-size: 100MB #最大文件大小
+  devtools:
+    restart:
+      enabled: true #是否开启开发者工具（true/false）
+      additional-paths: src/main/java
+      exclude: static/**,WEB-INF/view/**
+
+
+###################  mybatis-plus配置  ###################
+mybatis-plus:
+  mapper-locations: classpath*:com/tsrs/webedi/**/mapping/*.xml
+  typeAliasesPackage: com.tsrs.webedi.common.persistence.model
+  global-config:
+    db-config:
+      id-type: AUTO
+#      db-column-underline: false
+#      refresh-mapper: true
+#    meta-object-handler: com.tsrs.webedi.core.db.WebediMetaObjectHandler
+#    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+      logic-delete-value: N
+      logic-not-delete-value: Y
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
+
+---
+
+##########################################################
+###################  开发环境的profile  ###################
+##########################################################
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+      url: jdbc:mysql://localhost:3306/webedi?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      username: root
+      password: zhangxye
+#      filters: log4j,wall,mergeStat
+      filters: wall,mergeStat
+
+#多数据源
+biz:
+  profiles: dev
+  datasource:
+#    url: jdbc:mysql://localhost:3306/jobnavi?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost:3306/webedi?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: zhangxye
+    
+logging:
+  level.root: info
+  level.com.tsrs: debug
+  file.path: logs/
+  file.name: webedi_dev.log
+---   
+##########################################################
+###################  开发环境2的profile  ###################
+##########################################################
+spring:
+  config:
+    activate:
+      on-profile: dev2
+#  profiles: dev2
+  datasource:
+      url: jdbc:mysql://172.19.71.164:3306/webedi?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      username: root
+      password: 123
+#      filters: log4j,wall,mergeStat
+      filters: wall,mergeStat
+
+#多数据源
+biz:
+  profiles: dev2
+  datasource:
+    url: jdbc:mysql://172.19.71.164:3306/jobnavi?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123
+
+#logging:
+#  level.root: info
+#  level.com.tsrs: debug
+#  path: logs/
+#  file: webedi_dev.log
+---
+
+##########################################################
+###################  IT环境的profile  ###################
+##########################################################
+spring:
+  config:
+    activate:
+      on-profile: it
+#  profiles: it
+  datasource:
+      url: jdbc:mysql://172.104.94.191:3306/webedi?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: webedi
+      password: WebEdi#1234
+#      filters: log4j,wall,mergeStat
+      filters: wall,mergeStat
+biz:
+  profiles: it
+  datasource:
+    url: jdbc:mysql://172.104.94.191:3306/webedi?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: webedi
+    password: WebEdi#1234
+    
+#logging:
+#  level.root: warn
+#  level.com.tsrs: info
+#  path: logs/
+#  file: webedi_it.log
+---
+
+##########################################################
+###################  正式环境的profile  ###################
+##########################################################
+spring:
+  config:
+    activate:
+      on-profile: produce
+#  profiles: produce
+  datasource:
+      url: jdbc:mysql://192.168.11.81:3306/webedi?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      username: root
+      password: Webedi#1234
+#      filters: log4j,wall,mergeStat
+      filters: wall,mergeStat
+biz:
+  profiles: produce
+  datasource:
+    url: jdbc:mysql://192.168.11.62:3306/db_movin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: saicat
+    
+#logging:
+#  level.root: warn
+#  level.com.tsrs: debug
+#  path: logs/
+#  file: webedi.log
+

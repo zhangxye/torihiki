@@ -1,0 +1,21 @@
+JobNaviDB整理
+
+-1
+ROW_FORMAT=FIXED のOption削除
+　
+-2 下記のテーブルを削除
+tb_sql 
+geo_location
+tb_geo_location_contains_temp
+
+-------------------------------------
+db_movin>copy *.sql big.sql
+db_movin>mysql -u root -p jobnavi < big.sql
+
+--delete all table
+SELECT
+  CONCAT('drop table ', table_name, ';') 
+FROM
+  information_schema.`TABLES` 
+WHERE
+  table_schema = 'jobnavi'; 

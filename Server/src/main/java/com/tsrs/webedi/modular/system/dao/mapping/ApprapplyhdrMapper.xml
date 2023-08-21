@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.ApprapplyhdrMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.tsrs.webedi.modular.system.persistence.model.Apprapplyhdr">
+		<id column="appr_apply_hid" property="apprApplyHid" />
+		<result column="appr_doc_id" property="apprDocId" />
+		<result column="use_flg" property="useFlg" />
+		<result column="apply_reason" property="applyReason" />
+		<result column="apply_user_id" property="applyUserId" />
+		<result column="apply_dt" property="applyDt" />
+		<result column="confirm_wait_display_order" property="confirmWaitDisplayOrder" />
+		<result column="sys_ins_user_id" property="sysInsUserId" />
+		<result column="sys_ins_dt" property="sysInsDt" />
+		<result column="sys_ins_pg_id" property="sysInsPgId" />
+		<result column="sys_upd_user_id" property="sysUpdUserId" />
+		<result column="sys_upd_dt" property="sysUpdDt" />
+		<result column="sys_upd_pg_id" property="sysUpdPgId" />
+	</resultMap>
+	<select id="selectApprApproveList"  resultType="map">
+		select
+			a.appr_doc_id
+		  , h.appr_apply_hid
+		  , a.appr_doc_no
+		  , d.confirm_st
+		  , cunfirmst.str_val1 as appr_status
+		  , b.str_val1 as appr_doc_create_k_nm
+		  , date_format(d.con_rej_dt, '%Y-%m-%d') as appr_doc_approve_dt
+		  , date_format(a.appr_doc_dt_from, '%Y-%m-%d') as appr_doc_dt_from
+		  , date_format(a.appr_doc_dt_to, '%Y-%m-%d') as appr_doc_dt_to
+		  , a.emp_no
+		  , a.emp_nm
+		  , a.client_no
+		  , a.client_nm
+		  , a.pj_cd
+		  , a.pj_nm
+		from
+		  apprdoc a 
+		  join apprapplyhdr h 
+		    on a.appr_doc_id = h.appr_doc_id 
+		    and h.use_flg = 'Y' 
+		  join apprapplydtl d 
+		    on h.appr_apply_hid = d.appr_apply_hid 
+		    and h.confirm_wait_display_order = d.display_order 
+		  left join syssetting b 
+		    on a.appr_doc_create_k = b.minor_class_cd 
+		    and b.sys_cd = 'WEBEDI' 
+		    and b.major_class_cd = 'CREATE_K' 
+		  left join syssetting cunfirmst 
+		    on d.confirm_st = cunfirmst.minor_class_cd 
+		    and cunfirmst.sys_cd = 'WEBEDI' 
+		    and cunfirmst.major_class_cd = 'CONFIRM_ST'  
+	    <where>
+	     	a.use_flg ='Y'
+	     	and (d.accept_user_id = #{account} or h.apply_user_id = #{account})
+
+			<if test="apprDocNo != null and apprDocNo != ''">
+				and a.appr_doc_no like CONCAT(#{apprDocNo},'%')
+			</if>
+			<if test="approveStatus != null and approveStatus != ''">
+				and d.confirm_st = #{approveStatus}
+			</if>
+			<if test="approveDtFr != null and approveDtFr != ''">
+				and date_format(d.con_rej_dt, '%Y/%m/%d') <![CDATA[>=]]> DATE_FORMAT(convert_tz(#{approveDtFr}, '+00:00', '+09:00'), '%Y/%m/%d')
+			</if>
+			<if test="approveDtTo != null and approveDtTo != ''">
+				and date_format(d.con_rej_dt, '%Y/%m/%d') <![CDATA[<=]]> DATE_FORMAT(convert_tz(#{approveDtTo}, '+00:00', '+09:00'), '%Y/%m/%d')
+			</if>
+			<if test="empNo != null and empNo != ''">
+				and a.emp_no like CONCAT(#{empNo},'%')
+			</if>
+			<if test="empNm != null and empNm != ''">
+				and a.emp_nm like CONCAT('%',#{empNm},'%')
+			</if>
+		</where>
+		order by
+		  a.appr_doc_no desc
+   </select>
+   
+   <select id="selectApprove"  resultType="map">
+		select
+		  a.appr_doc_id
+		  , a.appr_doc_no
+		  , cunfirmst.str_val1 as appr_status
+		  , b.str_val1 as appr_doc_create_k_nm
+		  , date_format(d.con_rej_dt, '%Y-%m-%d') as appr_doc_approve_dt
+		  , date_format(a.appr_doc_dt_from, '%Y-%m-%d') as appr_doc_dt_from
+		  , date_format(a.appr_doc_dt_to, '%Y-%m-%d') as appr_doc_dt_to
+		  , a.emp_no
+		  , a.emp_nm
+		  , a.client_no
+		  , a.client_nm
+		  , a.pj_cd
+		  , a.pj_nm
+		from
+		  apprdoc a 
+		  join apprapplyhdr h 
+		    on a.appr_doc_id = h.appr_doc_id 
+		    and h.use_flg = 'Y' 
+		  join apprapplydtl d 
+		    on h.appr_apply_hid = d.appr_apply_hid 
+		    and h.confirm_wait_display_order = d.display_order 
+		  left join syssetting b 
+		    on a.appr_doc_create_k = b.minor_class_cd 
+		    and b.sys_cd = 'WEBEDI' 
+		    and b.major_class_cd = 'CREATE_K' 
+		  left join syssetting cunfirmst 
+		    on d.confirm_st = cunfirmst.minor_class_cd 
+		    and cunfirmst.sys_cd = 'WEBEDI' 
+		    and cunfirmst.major_class_cd = 'CONFIRM_ST'  
+	    <where>
+	     	a.use_flg ='Y'
+	     	and (d.accept_user_id = #{account} or h.apply_user_id = #{account})
+			<if test="empNo != null and empNo != ''">
+				and a.emp_no like CONCAT(#{empNo},'%')
+			</if>
+			<if test="empNm != null and empNm != ''">
+				and a.emp_nm like CONCAT('%',#{empNm},'%')
+			</if>
+			<if test="apprDocNo != null and apprDocNo != ''">
+				and a.appr_doc_no like CONCAT(#{apprDocNo},'%')
+			</if>
+			<if test="approveStatus != null and approveStatus != ''">
+				and d.confirm_st = #{approveStatus}
+			</if>
+			<if test="approveDtFr != null and approveDtFr != ''">
+				and date_format(d.con_rej_dt, '%Y/%m/%d') <![CDATA[>=]]> DATE_FORMAT(convert_tz(#{approveDtFr}, '+00:00', '+09:00'), '%Y/%m/%d')
+			</if>
+			<if test="approveDtTo != null and approveDtTo != ''">
+				and date_format(d.con_rej_dt, '%Y/%m/%d') <![CDATA[<=]]> DATE_FORMAT(convert_tz(#{approveDtTo}, '+00:00', '+09:00'), '%Y/%m/%d')
+			</if>
+		</where>
+		order by
+		  a.appr_doc_no desc
+   </select>
+
+</mapper>

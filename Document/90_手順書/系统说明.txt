@@ -1,0 +1,15 @@
+前端
+vue
+
+后端
+1. SpringBoot 1.5.3.RELEASE
+2. MyBatis-Plus 2.0.8
+3. MyBatis 3.4.4
+4. Spring 4.3.8.RELEASE
+5. Beetl 2.7.15
+6. hibernate-validator 5.3.5.Final
+7. Ehcache 3.3.1
+8. Kaptcha 2.3.2
+9. Fastjson 1.2.31
+10. Shiro 1.4.0
+11. Druid 1.0.31

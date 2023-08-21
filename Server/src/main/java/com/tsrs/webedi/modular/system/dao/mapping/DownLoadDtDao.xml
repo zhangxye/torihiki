@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.DownLoadDtDao">
+
+	<!-- 通用查询映射结果 -->
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.tsrs.webedi.modular.system.persistence.model.DownLoadDt">
+		<id column="emp_no" property="empNo" />
+		<result column="emp_nm" property="empNm" />
+		<result column="bp_comp_id" property="bpCompId" />
+		<result column="bp_comp_emp_nm" property="bpCompEmpNm" />
+		<result column="emp_pat_k" property="empPatk" />
+		<result column="procedure_k" property="procedure_k" />
+		<result column="pj_cd" property="pjCd" />
+		<result column="accounting_pat_k" property="accounting_pat_k" />
+		<result column="wh_mid" property="whMid" />
+		<result column="wh_max" property="whMax" />
+		<result column="wh_min" property="whMin" />
+		<result column="sell_price" property="sellPrice" />
+		<result column="cost_price" property="costPrice" />
+		<result column="excess_price" property="excessPrice" />
+		<result column="deducation_price" property="deducationPrice" />
+		<result column="other_cost" property="otherCost" />
+		<result column="staff_mobile_no" property="staffMobileNo" />
+		<result column="appr_doc_dt_from" property="apprDocDtFrom" />
+		<result column="appr_doc_dt_to" property="apprDocDtTo" />
+		<result column="staff_mail_addr" property="staffMailAddr" />
+		<result column="bp_payment_plan_d" property="bpPaymentPland" />
+		<result column="bp_payment_due_k" property="bpPaymentDuek" />
+		<result column="bp_pay_month_k" property="bpPayMonthk" />
+		<result column="entrance_dt" property="entranceDt " />
+		<result column="site_entrance_dt" property="siteEntranceDt " />
+	    <result column="emp_info_chg_flg" property="emp_info_chg_flg " />
+		<result column="insurance_cost" property="insuranceCost" />
+		<result column="emp_my_number" property="empMyNumber" />
+		<result column="bp_my_number" property="bpMyNumber" />
+		<result column="work_start_time" property="workStartTime" />
+		<result column="work_end_time" property="workEndTime" />
+		<result column="pj_nm" property="pjNm" />
+		<result column="work_content" property="workContent" />
+		<result column="work_place" property="workPlace" />
+		<result column="payment_due_k" property="paymentDuek" />
+		<result column="pay_plan_d" property="payPland" />
+		<result column="pay_month_k" property="payMonthk" />
+		<result column="business_main_user_id" property="businessMainUserId" />
+		<result column="business_sub_user_id" property="businessSubUserId" />
+		<result column="order_recv_hope_dt" property="orderRecvHopeDt" />
+		<result column="pj_start_dt" property="pjStartDt" />
+		<result column="pj_end_dt" property="pjEndDt" />
+		<result column="work_time_unit_k" property="workTimeUnitk" />
+		<result column="client_staff_nm" property="clientStaffNm" />
+		<result column="client_staff_dept_nm" property="clientStaffDeptNm" />
+		<result column="client_staff_position" property="clientStaffPosition" />
+		<result column="client_staff_nm_fuli" property="clientStaffNmFuli" />
+		<result column="client_staff_mobile_no" property="clientStaffMobileNo" />
+		<result column="client_mail_addr" property="clientMailAddr" />
+		<result column="client_mail_addr_cc" property="clientMailAddrCc" />
+		<result column="sales_addup_month" property="salesAddupMonth" />
+		<result column="client_no" property="clientNo" />
+		<result column="client_nm" property="clientNm" />
+		<result column="client_staff_fax_no" property="client_staff_fax_no" />
+		<result column="client_tel_no" property="clientTelNo" />
+		<result column="client_fax_no" property="clientFaxNo" />
+		<result column="client_post_no" property="clientPostNo" />
+		<result column="client_addr" property="clientAddr" />
+		<result column="staff_addr" property="staffAddr" />
+		<result column="staff_post_no" property="staffPostNo" />
+		<result column="staff_tel_no" property="staffTelNo" />
+		<result column="client_my_number" property="clientMyNumber" />
+		<result column="kou_su1" property="kouSu1" />
+		<result column="payment_plan_d" property="paymentPland" />
+		<result column="emp_sex" property="empSex" />
+		<result column="emp_birthday" property="empBirthday" />
+		<result column="emp_nm_fuli" property="empNmFuli" />
+		<result column="break_time_min" property="breakTimeMin" />
+		<result column="sell_price_other_cost" property="sellPriceOtherCost" />
+		<result column="house_allow_ratio" property="houseAllowRatio" />
+		<result column="house_allow_amt" property="house_allow_amt" />
+		<result column="communication_allow_ratio" property="communicationAllowRatio" />
+		<result column="communication_allow_amt" property="communication_allow_amt" />
+		<result column="overwork_allow_ratio" property="overworkAllowRatio" />
+		<result column="overwork_allow_amt" property="overwork_allow_amt" />
+		<result column="bp_pay_plan_d" property="bpPayPland" />
+		<result column="bp_work_start_time" property="bpWorkStartTime" />
+		<result column="bp_work_end_time" property="bpWorkEndTime" />
+		<result column="appoint_allow_ratio" property="appointAllowRatio" />
+		<result column="appoint_allow_amt" property="appoint_allow_amt" />
+		<result column="site_allow_ratio" property="siteAllowRatio" />
+		<result column="site_allow_amt" property="site_allow_amt" />
+		<result column="bp_accounting_pat_k" property="bpaccountingpatk" />
+		<result column="bp_mid_max" property="bpMidMax" />
+		<result column="bp_wh_max" property="bpWhMax" />
+		<result column="bp_wh_min" property="bpWhMin" />
+		<result column="bp_excess_price" property="bpExcessPrice" />
+		<result column="bp_deducation_price" property="bpDeducationPrice" />
+		<result column="bp_work_unit_k" property="bpWorkUnitk" />
+		<result column="insurance_k" property="insurancek" />
+		<result column="withdrawal_dt" property="withdrawalDt" />
+		<result column="after_withdrawal_post_no" property="afterWithdrawalPostNo" />
+		<result column="after_withdrawal_addr" property="afterWithdrawalAddr" />
+		<result column="travel_cost" property="travelCost" />
+		<result column="travel_cost_first_mon" property="travelCostFirstMon" />
+		<result column="appr_doc_create_k" property="apprDocCreateK" />
+		<result column="appr_doc_help" property="appr_doc_help" />
+		<result column="appr_doc_create_dt" property="apprDocCreateDt" />
+		<result column="appr_doc_no" property="apprDocNo" />
+		<result column="procedure_dt" property="procedureDt" />
+		<result column="pj_class_nm" property="pjClassNm" />
+		<result column="other_allow1_ratio" property="otherAllow1Ratio" />
+		<result column="other_allow2_ratio" property="otherAllow2Ratio" />
+		<result column="other_allow1_amt" property="other_allow1_amt" />
+		<result column="other_allow2_amt" property="other_allow2_amt" />
+		<result column="bp_fax_no" property="bpFaxNo" />
+		<result column="bp_staff_nm_fuli" property="bpStaffNmFuli" />
+		<result column="bp_staff_dept_nm" property="bpStaffDeptNm" />
+		<result column="bp_staff_position" property="bpStaffPosition" />
+		<result column="bp_staff_mail_addr" property="bpStaffMailAddr" />
+		<result column="billing_month" property="billingMonth" />
+		<result column="day_travel_cost" property="dayTravelCost" />
+	</resultMap>
+	<select id="selectApprDocDataList" resultType="map">
+		SELECT
+		a.emp_no
+		,a.emp_nm
+		,a.bp_comp_id
+		,CONCAT(a.bp_comp_emp_nm ,'（',
+		a.emp_nm ,'）') as bp_comp_emp_nm
+		,case a.emp_pat_k when 1
+		then '正社員'
+		when 2 then '契約社員' when 3 then '出向社員' when 4 then '派遣社員'
+		when 5 then
+		'委託契約' end as emp_pat_k
+		,a.procedure_k
+		,a.pj_cd
+		,a.accounting_pat_k
+		,format(a.wh_mid,0) as wh_mid
+		,format(a.wh_max,0) as wh_max
+		,format(a.wh_min,0) as wh_min
+		,format(a.sell_price,0) as sell_price
+		,format(a.cost_price,0) as cost_price
+		,round(a.cost_price+a.travel_cost+a.insurance_cost+a.other_cost,0) as gross_cost_price
+		,format(a.excess_price,0) as
+		excess_price
+		,format(a.deducation_price,0) as deducation_price
+		,format(a.other_cost,0) as other_cost
+		,a.staff_mobile_no
+		,date_format(a.appr_doc_dt_from,'%Y/%m/%d') as appr_doc_dt_from
+		,date_format(a.appr_doc_dt_to,'%Y/%m/%d') as appr_doc_dt_to
+		,a.staff_mail_addr
+		,a.bp_payment_plan_d
+		,case a.bp_payment_due_k when
+		'A' then '10'
+		when 'B' then '11'
+		when 'C' then '12'
+		when 'D' then '13'
+		when 'E' then '14'
+		when 'F' then '15'
+		when 'G' then '16'
+		when 'H' then
+		'17'
+		when 'I' then '18'
+		when 'J' then '19'
+		when 'K' then '20'
+		when 'L'
+		then '21'
+		when 'M' then '22'
+		when 'N' then '23'
+		when 'O' then '24'
+		when
+		'P' then '25'
+		when 'Q' then '26'
+		when 'R' then '27'
+		when 'S' then '28'
+		when 'T' then '29'
+		when 'U' then '月末'
+		else a.bp_payment_due_k end as
+		bp_payment_due_k
+		,case a.bp_pay_month_k when 1 then '当月' when 2
+		then'翌月' when 3 then '翌々月' end as bp_pay_month_k
+		,date_format(a.entrance_dt,'%Y/%m/%d') as entrance_dt
+		,date_format(a.site_entrance_dt,'%Y/%m') as site_entrance_dt
+		,a.emp_info_chg_flg
+		,format(a.insurance_cost,0) as insurance_cost
+		,a.emp_my_number
+		,a.bp_my_number
+		,date_format(a.work_start_time,'%k:%i') as
+		work_start_time
+		,date_format(a.work_end_time,'%k:%i') as work_end_time
+		,a.pj_nm
+		,a.work_content
+		,a.work_place
+		,case a.payment_due_k when 'A'
+		then '10'
+		when 'B' then '11'
+		when 'C' then '12'
+		when 'D' then '13'
+		when
+		'E' then '14'
+		when 'F' then '15'
+		when 'G' then '16'
+		when 'H' then '17'
+		when 'I' then '18'
+		when 'J' then '19'
+		when 'K' then '20'
+		when 'L' then
+		'21'
+		when 'M' then '22'
+		when 'N' then '23'
+		when 'O' then '24'
+		when 'P'
+		then '25'
+		when 'Q' then '26'
+		when 'R' then '27'
+		when 'S' then '28'
+		when
+		'T' then '29'
+		when 'U' then '月末'
+		else a.payment_due_k end as
+		payment_due_k
+		,case a.pay_plan_d when 'A' then '10'
+		when 'B'
+		then '11'
+		when 'C' then '12'
+		when 'D' then '13'
+		when 'E' then '14'
+		when
+		'F' then
+		'15'
+		when 'G' then '16'
+		when 'H' then '17'
+		when 'I' then '18'
+		when 'J'
+		then '19'
+		when 'K' then '20'
+		when 'L' then '21'
+		when 'M' then
+		'22'
+		when 'N'
+		then '23'
+		when 'O' then '24'
+		when 'P' then '25'
+		when 'Q'
+		then '26'
+		when 'R'
+		then '27'
+		when 'S' then '28'
+		when 'T' then '29'
+		when
+		'U' then '月末'
+		else
+		a.pay_plan_d end as pay_plan_d
+		,a.pay_month_k
+		,u1.name as
+		business_main_user_id
+		,u2.name as business_sub_user_id
+		,date_format(a.order_recv_hope_dt,'%Y/%m/%d') as order_recv_hope_dt
+		,date_format(a.pj_start_dt,'%Y-%m-%d') as pj_start_dt
+		,date_format(a.pj_end_dt,'%Y-%m-%d') as pj_end_dt
+		,case
+		a.work_time_unit_k when 1 then '1' when 2 then '5' when 3 then
+		'10'
+		when 4 then '15' when 5 then '30' when 6 then '60' end as
+		work_time_unit_k
+		,a.client_staff_nm
+		,a.client_staff_dept_nm
+		,a.client_staff_position
+		,a.client_staff_nm_fuli
+		,a.client_staff_mobile_no
+		,a.client_mail_addr
+		,a.client_mail_addr_cc
+		,a.client_req_staff_nm
+		,a.client_req_staff_dept_nm
+		,a.client_req_staff_position
+		,a.client_req_staff_nm_fuli
+		,a.client_req_tel_no
+		,a.client_req_fax_no
+		,a.client_req_staff_mobile_no
+		,a.client_req_mail_addr
+		,a.client_req_mail_addr_cc
+		,date_format(a.sales_addup_month,'%m') as
+		sales_addup_month
+		,a.client_no
+		,a.client_nm
+		,a.client_tel_no
+		,a.client_fax_no
+		,client_staff_fax_no
+		,a.client_post_no
+		,a.client_addr
+		,a.staff_addr
+		,a.staff_post_no
+		,a.staff_tel_no
+		,a.client_my_number
+		,TRUNCATE(a.work_days/a.business_days,2)
+		AS kou_su1
+		,a.payment_plan_d
+		,case when a.emp_sex =1 then '男'else '女'
+		end as
+		emp_sex
+		,date_format(a.emp_birthday,'%Y/%m/%d') as emp_birthday
+		,a.emp_nm_fuli
+		,a.break_time_min as break_time_min
+		<!-- /*,format(a.cost_price-a.cost_price*a.appoint_allow_ratio/100-a.cost_price*a.house_allow_ratio/100-a.cost_price*a.communication_allow_ratio/100-a.cost_price*a.site_allow_ratio/100-a.cost_price*a.overwork_allow_ratio/100-a.cost_price*a.other_allow1_ratio/100-a.cost_price*a.other_allow2_ratio/100,0)
+		as sell_price_other_cost*/ -->
+		<!-- /*,format(a.house_allow_ratio,0) as
+		house_allow_ratio*/ -->
+		,a.house_allow_amt
+		<!-- /*,format(a.cost_price*a.communication_allow_ratio/100,0) as
+		communication_allow_ratio*/-->
+		,a.communication_allow_amt
+		<!-- /*,format(a.cost_price*a.overwork_allow_ratio/100,0) as
+		overwork_allow_ratio*/-->
+		,a.overwork_allow_amt
+		,case a.bp_pay_plan_d when 'A' then '10'
+		when 'B'
+		then '11'
+		when 'C' then '12'
+		when 'D' then '13'
+		when 'E' then '14'
+		when
+		'F' then '15'
+		when 'G' then '16'
+		when 'H' then '17'
+		when 'I' then '18'
+		when 'J' then '19'
+		when 'K' then '20'
+		when 'L' then '21'
+		when 'M' then
+		'22'
+		when 'N' then '23'
+		when 'O' then '24'
+		when 'P' then '25'
+		when 'Q'
+		then '26'
+		when 'R' then '27'
+		when 'S' then '28'
+		when 'T' then '29'
+		when
+		'U' then '末'
+		else a.bp_pay_plan_d end as bp_pay_plan_d
+		,date_format(a.bp_work_start_time,'%H:%i') as bp_work_start_time
+		,date_format(a.bp_work_end_time,'%H:%i') as bp_work_end_time
+		<!-- /*,format(a.cost_price*a.appoint_allow_ratio/100,0) as
+		appoint_allow_ratio*/-->
+		,a.appoint_allow_amt
+		<!-- /*,format(a.cost_price*a.site_allow_ratio/100,0) as
+		site_allow_ratio*/-->
+		,a.site_allow_amt
+		,bp_accounting_pat_k
+		,format(a.bp_wh_mid,0) as bp_wh_mid
+		,format(a.bp_wh_max,0) as bp_wh_max
+		,format(a.bp_wh_min,0) as bp_wh_min
+		,format(a.bp_excess_price,0) as
+		bp_excess_price
+		,format(a.bp_deducation_price,0) as bp_deducation_price
+		,case a.bp_work_unit_k when 1 then '1' when 2 then '5' when 3 then
+		'10' when 4 then '15' when 5 then '30' when 6 then '60' end as
+		bp_work_unit_k
+		,case
+		a.insurance_k
+		when 1 then '雇用保険のみ'
+		when 2 then
+		'社保険完備' when 3 then
+		'保険無し' end as
+		insurance_k
+		,date_format(a.withdrawal_dt,'%Y/%m/%d') as
+		withdrawal_dt
+		,a.after_withdrawal_post_no
+		,a.after_withdrawal_addr
+		,format(a.travel_cost,0) as travel_cost
+		,format(a.travel_cost_first_mon,0) as travel_cost_first_mon
+		,case
+		a.appr_doc_create_k
+		when 1
+		then
+		'通常更新' when 2 then '新規' when 3 then
+		'条件変更' when 4 then
+		'正社員化'when 5
+		then '退職' when 6 then '再販' end as
+		appr_doc_create_k
+		,case a.appr_doc_create_k
+		when 2 then '新規'
+		when 5 then '終了'
+		else '更新' end as
+		appr_doc_help
+		,a.appr_doc_create_dt
+		,a.appr_doc_no
+		,date_format(a.procedure_dt,'%Y/%m/%d') as procedure_dt
+		,a.pj_class_nm
+		<!-- /*,format(a.cost_price*a.other_allow1_ratio/100,0) as other_allow1_ratio
+		,format(a.cost_price*a.other_allow2_ratio/100,0) as other_allow2_ratio*/-->
+		,a.other_allow1_amt
+		,a.other_allow2_amt
+		,a.bp_fax_no
+		,CONCAT(case a.bp_staff_nm when '' then null else
+		a.bp_staff_nm end ,'（',
+		case a.bp_staff_nm_fuli when '' then null else
+		a.bp_staff_nm_fuli end,'）') as bp_staff_nm_fuli
+		,a.bp_staff_dept_nm
+		,a.bp_staff_position
+		,a.bp_staff_mail_addr
+		,date_format(a.billing_month,'%Y/%m/%d') as
+		billing_month
+		,format(ah.day_travel_cost,0) as day_travel_cost
+		,work_rep_dl_k
+		,work_rep_f
+		,bill_dl_k
+		,bill_f
+		,mon_attach_file_k
+		from
+		apprdoc a
+		left join
+		user u1
+		on
+		a.business_main_user_id=u1.account
+		left join user u2
+		on
+		a.business_sub_user_id=u2.account
+		left join apprcommuteroutehdr ah
+		on
+		a.appr_doc_id=ah.appr_doc_id
+		<where>
+			use_flg ='Y'
+			AND a.appr_doc_st != 'A'
+			<if test="workMonth != null and workMonth != ''">
+				<!--and date_format(a.billing_month,'%Y-%m')<![CDATA[=]]>
+				#{workMonth} -->
+				AND date_format(a.appr_doc_dt_from,'%Y-%m') <![CDATA[<=]]> #{workMonth} and date_format(a.appr_doc_dt_to,'%Y-%m')  <![CDATA[>=]]> #{workMonth}
+			</if>
+		</where>
+	</select>
+</mapper>

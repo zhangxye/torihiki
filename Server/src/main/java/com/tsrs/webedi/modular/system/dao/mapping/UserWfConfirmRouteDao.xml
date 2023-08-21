@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsrs.webedi.modular.system.dao.UserWfConfirmRouteDao">
+ 	<resultMap id="BaseResultMap" type="com.tsrs.webedi.common.persistence.model.Userwfconfirmroute" >
+	    <id column="user_wf_confirm_route_id" property="userWfConfirmRouteId" jdbcType="INTEGER" />
+	    <result column="user_id" property="user_id" jdbcType="VARCHAR" />
+	    <result column="accept_user_id" property="accept_user_id" jdbcType="VARCHAR" />
+	    <result column="display_order" property="display_order" jdbcType="INTEGER" />
+	    <result column="sys_ins_user_id" property="sys_ins_user_id" jdbcType="VARCHAR" />
+	    <result column="sys_ins_dt" property="sys_ins_dt" jdbcType="DATE" />
+	    <result column="sys_ins_pg_id" property="sys_ins_pg_id" jdbcType="VARCHAR" />
+	    <result column="sys_upd_user_id" property="sys_upd_user_id" jdbcType="VARCHAR" />
+	    <result column="sys_upd_dt" property="sys_upd_dt" jdbcType="DATE" />
+	    <result column="sys_upd_pg_id" property="sys_upd_pg_id" jdbcType="VARCHAR" />
+	    <result column="accept_user_name" property="accept_user_name" jdbcType="VARCHAR" />
+	    <result column="job_title_name" property="job_title_name" jdbcType="VARCHAR" />
+	  </resultMap>
+	<sql id="Base_Column_List">
+		   user_wf_confirm_route_id,user_id,accept_user_id,display_order,sys_ins_user_id
+		  ,sys_ins_dt,sys_ins_pg_id,sys_upd_user_id,sys_upd_dt,sys_upd_pg_id
+	</sql>
+	<insert id="addUserWfBatch" useGeneratedKeys="true" parameterType="java.util.List">
+	    insert into userwfconfirmroute
+	     (user_id,accept_user_id,display_order,sys_ins_user_id
+	     ,sys_ins_dt,sys_ins_pg_id,sys_upd_user_id,sys_upd_dt,sys_upd_pg_id)   
+	    values  
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	        (#{item.user_id},#{item.accept_user_id},#{item.display_order},#{item.sys_ins_user_id}
+	        ,sysdate(),#{item.sys_ins_pg_id},#{item.sys_upd_user_id},sysdate(),#{item.sys_upd_pg_id}
+	        )  
+	    </foreach>  
+	</insert> 
+	
+	<select id="getUserWf" resultMap="BaseResultMap">
+		select
+		 a.user_wf_confirm_route_id,a.user_id,a.accept_user_id,a.display_order,a.sys_ins_user_id
+		  ,a.sys_ins_dt,a.sys_ins_pg_id,a.sys_upd_user_id,a.sys_upd_dt,a.sys_upd_pg_id
+		  ,b.name as accept_user_name,c.job_title_nm as job_title_name
+		from userwfconfirmroute a left join user b on a.accept_user_id = b.account left join jobtitle c on b.job_title_cd = c.job_title_cd  
+		where a.user_id = #{account} order by a.display_order
+	</select>
+	 
+</mapper>
