@@ -35,8 +35,13 @@ import RoleDetail from "@/webedi/role/RoleDetail.vue";
 import WorkerInq from "@/webedi/worker/WorkerInq.vue";
 import ClientStaffEnt from '@/webedi/client/ClientStaffEnt.vue';
 import ClientStaffInq from '@/webedi/client/ClientStaffInq.vue';
+// import ClientStaffDetail from '@/webedi/client/ClientStaffDetail.vue';
 import ClientStaffUpd from '@/webedi/client/ClientStaffUpd.vue';
 import ClientStaffConfirm from '@/webedi/client/ClientStaffConfirm.vue';
+import ClientEnt from '@/webedi/client/ClientEnt.vue';
+import ClientInq from '@/webedi/client/ClientInq.vue';
+import ClientUpd from '@/webedi/client/ClientUpd.vue';
+import ClientConfirm from '@/webedi/client/ClientConfirm.vue';
 
 Vue.use(Router);
 
@@ -74,6 +79,12 @@ const componentsMap = {
     "RoleUpd": RoleUpd,             //ロール更新
     
     "WorkerInq": WorkerInq,          //要員検索
+
+    "ClientEnt": ClientEnt,          //取引先登録
+    "ClientInq": ClientInq,          //取引先検索
+    // "ClientDetail": ClientDetail,       //取引先詳細
+    "ClientUpd": ClientUpd,          //取引先更新
+    "ClientConfirm": ClientConfirm,      //取引先確認
 
     "ClientStaffEnt": ClientStaffEnt,          //取引先担当登録
     "ClientStaffInq": ClientStaffInq,          //取引先担当検索

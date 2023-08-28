@@ -1,38 +1,33 @@
 <template>
-  <div id="ClientStaffConfirm">
+  <div id="ClientConfirm">
     <el-dialog v-if="showFlag" :visible.sync="showFlag">
-      <ClientStaffUpd v-model="showFlag"></ClientStaffUpd>
+      <ClientUpd v-model="showFlag"></ClientUpd>
     </el-dialog>
     <el-dialog v-if="showFlag1" :visible.sync="showFlag1">
-      <ClientStaffEnt v-model="showFlag1"></ClientStaffEnt>
+      <ClientEnt v-model="showFlag1"></ClientEnt>
     </el-dialog>
     <el-dialog v-if="showFlag2" :visible.sync="showFlag2">
-      <ClientStaffInq v-model="showFlag2"></ClientStaffInq>
+      <ClientInq v-model="showFlag2"></ClientInq>
     </el-dialog>
-    <p> 取引先担当者一覧</p>
+    <p> 取引先 一覧</p>
 
     <div v-if="isCollapsed">
-    <div class="ClientStaffConfirm_top">
-      <el-form class="ClientStaffConfirm_top_form" :inline="true" label-width="120px" :model="filters">
+    <div class="ClientConfirm_top">
+      <el-form class="ClientConfirm_top_form" :inline="true" label-width="120px" :model="filters">
         <el-link type="primary">＜条件オプション＞</el-link>
 
         <form id="myForm">
-          <el-form-item label="取引先名称：" prop="trhksk_nam">
-            <el-input size="small" style="width:200px" v-model="filters.trhksk_nam">
+          <el-form-item label="取引先名称：" prop="trhks_nam">
+            <el-input size="small" style="width:200px" v-model="filters.trhks_nam">
             </el-input>
           </el-form-item>
 
-          <el-form-item label="取引先担当名称：" prop="tts_nam">
-            <el-input size="small" style="width:200px" v-model="filters.tts_nam">
-            </el-input>
-          </el-form-item>
-          
           <el-form-item label="備考：" prop="bikou">
             <el-input size="small" style="width:200px" v-model="filters.bikou">
             </el-input>
           </el-form-item>
 
-          <el-form-item label="取引区分：" prop="torihiki">
+          <el-form-item label="取引区分：" prop="kubun">
             <el-select
               clearable
               size="small"
@@ -40,7 +35,7 @@
               v-model="filters.torihiki"
               placeholder="すべて" >
                 <el-option
-                  v-for="item in torihiki"
+                  v-for="item in status"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
@@ -48,7 +43,7 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item label="営業担当：" prop="emp_no">
+          <el-form-item label="営業担当：" prop="tantou">
             <el-select
               clearable
               size="small"
@@ -64,8 +59,7 @@
             </el-select>
           </el-form-item>
 
-
-          <el-form-item label="提案区分：" prop="emp_nm">
+          <el-form-item label="提案区分：" prop="teian">
             <el-select
               clearable
               size="small"
@@ -80,8 +74,7 @@
                 </el-option>
             </el-select>
           </el-form-item>    
-        </form>
-
+        
           <el-form-item>
             <el-button type="success" @click="searchData" icon="search">検索</el-button>
           </el-form-item>
@@ -89,19 +82,17 @@
           <el-form-item>
             <el-button type="warning" @click="clearitems" icon="circle-close">クリア</el-button>
           </el-form-item>       
+        </form>
       </el-form>
     </div>
-    </div>
+  </div>
 
-    <el-form class="ClientStaffConfirm_top_form" :inline="true" label-width="120px" :model="filters">
+    <el-form class="ClientConfirm_top_form" :inline="true" label-width="120px" :model="filters">
       <el-form-item>
         <el-button type="info" @click="tourokuDate()" icon="plus">新規登録</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type="success" @click="meruDate()" icon="edit" :disabled="true">一括メール</el-button>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="danger" @click="searchData" icon="close" :disabled="true">一括削除</el-button>
+        <el-button type="danger" @click="searchData" icon="close">一括削除</el-button>
       </el-form-item>
       <el-button-group style="float:right;">
         <el-button icon="search" @click="toggleCollapse"></el-button>
@@ -111,17 +102,16 @@
 
     <span>{{ temp }}</span>
     <form id="Forms">
-    <el-table :data="pageinfo.pageData" height="400" border id="ApprDocInq_middle">
-
+    <el-table :data="pageinfo.pageData" height="400" border >
       <el-table-column>
         <el-checkbox v-model="checked" @change="change()"></el-checkbox>
       </el-table-column>
-      <el-table-column prop="flag" label="フラグ" width="100" />
-      <el-table-column prop="tts_nm" label="取引先担当者名称" width="130" />
-      <el-table-column prop="trhksk_nam" label="取引先名称" width="130" />
+      <el-table-column prop="trhks_nam" label="取引先名称" width="130" />
       <el-table-column prop="web" label="web" width="100"/>
-      <el-table-column prop="keidai_no" label="携帯番号" width="120" />
       <el-table-column prop="denwa_no" label="代表電話番号" width="120" />
+      <el-table-column prop="jyusyou" label="住所" width="100" />
+      <el-table-column prop="teian" label="提案区分" width="120" />
+      <el-table-column prop="jisyaeigyou" label="自社営業-担当" width="120" />
       <el-table-column label="操作" width="210">
         <template slot-scope="scope">
           <el-button type="info" @click="kousinDate(scope.$index, scope.row)" size="mini" icon="edit">更新</el-button>
@@ -132,27 +122,25 @@
     </el-table>
     </form>
     <span>{{ temp }}</span>
-
   </div>
 </template>
 
 <script>
-import ClientStaffUpd from "@/webedi/client/ClientStaffUpd.vue";
-import ClientStaffEnt from "@/webedi/client/ClientStaffEnt.vue";
-import ClientStaffInq from "@/webedi/client/ClientStaffInq.vue";
+import ClientUpd from "@/webedi/client/ClientUpd.vue";
+import ClientEnt from "@/webedi/client/ClientEnt.vue";
+import ClientInq from "@/webedi/client/ClientInq.vue";
 export default {
   data() {
-    var validateComment = ( callback) => {
-      callback();
-    };
+    var validateComment= (callback) => {
+			callback();
+		};
     return {
       showFlag: false,
       showFlag1: false,
       showFlag2: false,
       isCollapsed: true,
       filters: {
-        trhksk_nam: '',
-        tts_nam: '',
+        trhks_nam: '',
         bikou: '',
         torihiki: '',
         tantou: '',
@@ -185,9 +173,9 @@ export default {
   },
 
   components: {
-    ClientStaffUpd,
-    ClientStaffEnt,
-    ClientStaffInq
+    ClientUpd,
+    ClientEnt,
+    ClientInq
   },
 
   methods: {
@@ -201,29 +189,29 @@ export default {
               params:{
               	page:_this.pageinfo.pageNo,
               	pageSize:_this.pageinfo.pageSize,
-                clientNm:_this.filters.client_nm,
                 empNm:_this.filters.emp_nm,
                 apprDocNo:_this.filters.appr_doc_no,
                 bikou:_this.filters.appr_doc_approve_dt_from,
                 torihikikubun:_this.filters.status,
-                tantou:_this.filters.emp_no,
-              },
-            }
-            )
+                tantou:_this.filters.emp_no
+                     },
+             }
+                         )
             .then(function (response) {
               var errorcode=response.data.errorcode;
                  if(errorcode=="200"){
                     _this.pageinfo=response.data.data;
                 }else if(errorcode=="500"){
                    _this.$message.error(response.data.errormsg);
-                }
-              });
+                    _this.$message.error(response.data.errormsg);                        }
+                                       });
               },
+
     searchData() {
       this.getList();
     },
     syoukaiDate() {
-          this.showFlag2 = true
+          this.showFlag2 = true       
         },
     tourokuDate() {
           this.showFlag1 = true
@@ -232,33 +220,33 @@ export default {
       var form = document.getElementById('myForm');
       if (form) {
         form.reset();
-      }},
+      }
+    },
     clearitem() {
-        var form = document.getElementById('Forms');
-        if (form) {
-          form.reset();
-        }
-      },
+      var form = document.getElementById('Forms');
+      if (form) {
+        form.reset();
+      }
+    },
     kousinDate() {
           this.showFlag = true
         },
   },
   mounted() {
-  //  this.searchData();
+    //this.searchData();
   }
 }
 </script>
 
 <style>
-#ClientStaffConfirm {
+#ClientConfirm {
   width: 90%;
   margin-top: 25px;
   margin-left: 30px;
 }
 
-.ClientStaffConfirm_top_form {
+.ClientConfirm_top_form {
   margin-top: 12px;
-
   margin-left: 10px;
 }
 
